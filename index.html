@@ -64,14 +64,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .hero-slide img{width:100%;height:100%;object-fit:cover;}
 .hero-grain{position:absolute;inset:0;opacity:.13;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(44,36,32,.2) 0%,rgba(44,36,32,.55) 100%);}
-/* hero content — 靠左但留呼吸空間，最大寬度限制 */
+/* hero content — wrap 容器置中，文字靠左 */
 .hero-inner{
   position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  align-items:flex-start;justify-content:center;
-  text-align:left;
+  display:flex;align-items:center;
   padding:0 var(--px);
-  max-width:760px;
+}
+.hero-content-wrap{
+  max-width:var(--max);
+  width:100%;
+  margin:0 auto;
+}
+.hero-text-block{
+  max-width:600px;
 }
 .hero-eyebrow{font-size:11px;letter-spacing:5px;font-weight:400;color:rgba(255,255,255,.5);margin-bottom:20px;overflow:hidden;}
 .hero-eyebrow span{display:block;transform:translateY(100%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) .3s forwards;}
@@ -179,12 +184,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .tag:hover,.tag.on{background:var(--charcoal);border-color:var(--charcoal);color:var(--cream);}
 
 /* ── HYPNOSIS BLOCKS ── */
-/* 三個區塊整體有內縮留邊框 */
-.hyp-section{background:var(--rose);padding:0 var(--px) 60px;}
+.hyp-section{background:var(--rose);padding:0 0 60px;}
 .hyp-blocks-wrap{
+  max-width:var(--max);margin:0 auto;
+  padding:0 var(--px);
+}
+.hyp-blocks-inner{
   border:1px solid rgba(192,154,136,.4);
-  border-radius:4px;
-  overflow:hidden;
+  border-radius:4px;overflow:hidden;
 }
 .hyp-block{position:relative;min-height:340px;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hyp-block.on{opacity:1;transform:none;}
@@ -221,34 +228,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 
 /* ── ABOUT ── */
 .about-sec{background:var(--rose);padding:80px 0;}
-/* 左欄稍寬，右欄（圖片）略窄，對齊圖二比例 */
-.about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;}
+/* 左欄文字，右欄圖片（圖片更大） */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
 .about-logos{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
 .about-logo-img{width:40px;height:auto;opacity:.85;}
 .about-x{font-size:20px;color:var(--charcoal);font-weight:300;opacity:.4;margin:0 6px;}
 .about-ngh-img{width:64px;height:auto;opacity:.85;}
 .about-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3.5vw,48px);line-height:1.25;color:var(--charcoal);margin-bottom:20px;}
 .about-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--charcoal);opacity:.7;margin-bottom:36px;}
-/* 右側圖片 — boss.webp 本身已有拱形背景，直接顯示 */
+/* 右側圖片欄 */
 .about-img-col{position:relative;}
 .about-img-wrap{position:relative;display:block;width:100%;}
 .about-img{width:100%;height:auto;display:block;}
-.about-img img{width:100%;height:auto;object-fit:cover;display:block;border-radius:4px;}
-/* 色塊：左下角疊上，R角右上＋右下，顏色改淡 */
+.about-img img{width:100%;height:auto;object-fit:cover;display:block;}
+/* 色塊左下角疊上，顏色較淺 */
 .about-caption{
   position:absolute;bottom:0;left:0;
-  background:#9A6B63;
-  color:#fff;
-  padding:20px 24px;
-  border-radius:0 14px 0 0;
-  width:85%;
-  font-size:12px;line-height:1.9;font-weight:400;
+  background:#9A6B63;color:#fff;
+  padding:20px 24px;border-radius:0 14px 0 0;
+  width:85%;font-size:12px;line-height:1.9;font-weight:400;
 }
-.about-caption-title{
-  font-size:11px;letter-spacing:2px;
-  opacity:.85;margin-bottom:8px;
-  font-weight:400;
-}
+.about-caption-title{font-size:11px;letter-spacing:2px;opacity:.85;margin-bottom:8px;font-weight:400;}
 .about-caption-tags{font-size:12px;margin-bottom:6px;opacity:.9;}
 .about-caption-desc{font-size:12px;opacity:.85;}
 
@@ -280,12 +280,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .door-card-label{font-size:14px;font-weight:700;color:#fff;}
 
 /* ── BOOKING (shared) ── */
-.booking-sec{background:var(--rose-med);}
-.booking-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);padding-top:20px;padding-bottom:20px;}
+.booking-sec{background:var(--rose-med);padding:40px 0;}
+.booking-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
 .booking-grid{
   display:grid;grid-template-columns:1fr 1fr;
-  gap:0;overflow:hidden;
-  border-radius:8px;
+  gap:0;overflow:hidden;border-radius:8px;
 }
 .booking-img-col{position:relative;overflow:hidden;min-height:400px;}
 .booking-img-col img{width:100%;height:100%;object-fit:cover;object-position:center;}
@@ -421,14 +420,18 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   <div class="hero-grain"></div>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <p class="hero-eyebrow"><span>心映好事 · XINYING</span></p>
-    <h1 class="hero-h1">
-      <span class="ln"><span>你的過去＝現在的你？</span></span>
-      <span class="ln"><span style="font-size:.52em;font-weight:300;opacity:.8;letter-spacing:.02em">「你的過去，是否悄悄影響現在的你？」</span></span>
-    </h1>
-    <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
-    <div class="hero-actions">
-      <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
+    <div class="hero-content-wrap">
+      <div class="hero-text-block">
+        <p class="hero-eyebrow"><span>心映好事 · XINYING</span></p>
+        <h1 class="hero-h1">
+          <span class="ln"><span>你的過去＝現在的你？</span></span>
+          <span class="ln"><span style="font-size:.52em;font-weight:300;opacity:.8;letter-spacing:.02em">「你的過去，是否悄悄影響現在的你？」</span></span>
+        </h1>
+        <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
+        <div class="hero-actions">
+          <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
+        </div>
+      </div>
     </div>
   </div>
   <button class="harr prev" id="hPrev">‹</button>
@@ -441,8 +444,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
 
 <!-- HYPNOSIS BLOCKS -->
 <section class="hyp-section">
-  <div class="sym-div rv">催眠能幫助你什麼？</div>
+  <div class="sym-div rv wrap">催眠能幫助你什麼？</div>
   <div class="hyp-blocks-wrap">
+    <div class="hyp-blocks-inner">
     <!-- 01 -->
     <div class="hyp-block hb1">
       <div class="hyp-par"><img src="./images/benefit-01.webp" alt=""></div>
@@ -476,9 +480,10 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
         <p class="hyp-body">不只是療癒過去，催眠也是一個強大的創造工具。它幫助你設定清晰的目標，重寫人生劇本，主動設計一個更自由、更快樂、更有力量的未來。</p>
       </div>
     </div>
-  </div>
+    </div><!-- end hyp-blocks-inner -->
+  </div><!-- end hyp-blocks-wrap -->
   <!-- CTA -->
-  <div class="hyp-cta rv">
+  <div class="hyp-cta rv wrap">
     <p>如果你正在找一個可以慢慢整理內在的方式，下面有一個入口。</p>
     <a href="#about" class="circle-btn circle-btn-dark">
       <span class="circle-btn-icon">
@@ -499,7 +504,6 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
           <img src="./images/logo_166.svg" alt="心映好事" class="about-logo-img">
           <span class="about-x">×</span>
           <img src="./images/logo_NGH_w200.svg" alt="NGH" class="about-ngh-img">
-        </div>
         </div>
         <h2 class="about-title">認識心映好事</h2>
         <p class="about-body">我是一個催眠師 也是一位在外商公司擔任設計部副理十多年的插畫家，以前的我，相信凡事都是要靠努力跟力氣才能達到我想要的目標，對自己不夠有信心，讓自己安於現狀不敢勇敢追求自己的夢想，雖然我夢想名單落落長，我總是提不起勁去行動，每天日複一日的上班下班，越來越覺得真實的自己在枯萎，由於這樣的心態讓自己非常限縮的關係，之前的我很容易對周遭的事情發怒或是不耐煩，隨著年紀見長，越來越跨不出舒適圈，找不出解決的方法也找不出答案。</p>
