@@ -231,6 +231,46 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes scanLine{0%{left:-100%;}100%{left:100%;}}
 
+/* ══ DOOR SECTION ══ */
+.door-sec{position:relative;padding:100px 0;overflow:hidden;}
+.door-bg-wrap{position:absolute;inset:0;}
+.door-bg-img{width:100%;height:100%;object-fit:cover;}
+.door-bg-overlay{position:absolute;inset:0;background:rgba(84,107,90,.55);}
+.door-inner{position:relative;z-index:2;}
+.door-header{text-align:center;margin-bottom:56px;}
+.door-tag-label{
+  display:inline-block;
+  border:1px solid rgba(255,255,255,.6);color:#fff;
+  font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2px;
+  padding:6px 18px;border-radius:20px;margin-bottom:20px;
+}
+.door-title{
+  font-family:var(--zh);font-weight:700;
+  font-size:clamp(28px,4.5vw,56px);
+  color:#fff;line-height:1.2;
+}
+.door-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:800px;margin:0 auto;}
+.door-card{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;cursor:pointer;
+  transition:transform .3s;text-decoration:none;
+}
+.door-card:hover{transform:translateY(-8px);}
+.door-card-inner{
+  position:relative;width:100%;
+  margin-bottom:20px;
+}
+.door-arch-bg{width:100%;height:auto;display:block;}
+.door-icon{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-55%);
+  width:42%;height:auto;
+  object-fit:contain;
+}
+.door-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.7);margin-bottom:4px;}
+.door-label{font-size:14px;font-weight:700;color:#fff;letter-spacing:.5px;}
+
 /* ══ MOBILE ══ */
 @media(max-width:767px){
   :root{--px:var(--px-m);--nav-h:56px;}
@@ -249,8 +289,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
   .booking-img-col{min-height:280px;}
   .booking-img-ph{min-height:280px;}
   .booking-content{padding:48px var(--px-m);}
-  footer{padding:36px var(--px-m);}
-  .footer-social{gap:0;}
+  .door-grid{grid-template-columns:repeat(3,1fr);gap:12px;}
+  .door-title{font-size:clamp(22px,6vw,32px);}
+  .door-sec{padding:72px 0;}
   .hyp-cta{padding:44px var(--px-m);}
 }
 </style>
@@ -317,37 +358,17 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
 <section class="hero" id="hero">
   <div class="hero-parallax" id="heroPar">
 
-    <!-- Slide 1：影片（上線時換成真實 mp4）
-         現在用 Unsplash 暗調森林圖佔位
-         換影片方式：移除 <img>，加入：
-         <video autoplay muted loop playsinline poster="./images/hero-poster.jpg">
-           <source src="./videos/7385122-uhd_38fps.mp4" type="video/mp4">
-         </video>
-    -->
     <div class="hero-slide on">
-      <img
-        src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80&fit=crop"
-        alt="暗調森林"
-        loading="eager"
-      >
+      <img src="./images/hero_bg_01.webp" alt="" loading="eager">
     </div>
-
-    <!-- Slide 2：山景霧氣，藍灰冷靜調 -->
     <div class="hero-slide">
-      <img
-        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80&fit=crop"
-        alt="山景霧氣"
-        loading="lazy"
-      >
+      <img src="./images/hero_bg_02.webp" alt="" loading="lazy">
     </div>
-
-    <!-- Slide 3：金色草地光線，溫柔米色調 -->
     <div class="hero-slide">
-      <img
-        src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1800&q=80&fit=crop"
-        alt="草地光線"
-        loading="lazy"
-      >
+      <img src="./images/hero_bg_03.webp" alt="" loading="lazy">
+    </div>
+    <div class="hero-slide">
+      <img src="./images/hero_bg_04.webp" alt="" loading="lazy">
     </div>
 
   </div>
@@ -367,7 +388,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
   <button class="harr prev" id="hPrev">‹</button>
   <button class="harr next" id="hNext">›</button>
   <div class="hero-dots" id="hDots">
-    <div class="hdot on"></div><div class="hdot"></div><div class="hdot"></div>
+    <div class="hdot on"></div><div class="hdot"></div><div class="hdot"></div><div class="hdot"></div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-txt">SCROLL</span></div>
 </section>
@@ -377,7 +398,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
   <div class="sym-div rv">催眠能幫助你什麼？</div>
   <!-- 01 -->
   <div class="hyp-block hb1">
-    <div class="hyp-par"><div class="hb1-bg"></div></div>
+    <div class="hyp-par">
+      <img src="./images/benefit-01.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    </div>
     <div class="hyp-ov"></div>
     <div class="hyp-inner">
       <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
@@ -389,7 +412,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
   </div>
   <!-- 02 -->
   <div class="hyp-block hb2">
-    <div class="hyp-par"><div class="hb2-bg"></div></div>
+    <div class="hyp-par">
+      <img src="./images/benefit-02.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    </div>
     <div class="hyp-ov"></div>
     <div class="hyp-inner">
       <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
@@ -401,7 +426,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
   </div>
   <!-- 03 -->
   <div class="hyp-block hb3">
-    <div class="hyp-par"><div class="hb3-bg"></div></div>
+    <div class="hyp-par">
+      <img src="./images/benefit-03.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    </div>
     <div class="hyp-ov"></div>
     <div class="hyp-inner">
       <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
@@ -451,8 +478,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
       </div>
       <div class="about-img-wrap rv d2">
         <div class="about-img">
-          <!-- Replace with: <img src="./images/singing.jpg" alt="心怡" style="width:100%;height:100%;object-fit:cover;"> -->
-          <div class="about-img-ph"></div>
+          <img src="./images/boss.webp" alt="心怡" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="about-badge">
           <p class="about-badge-lbl">NCH 認證催眠師</p>
@@ -461,6 +487,49 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 誰適合探索潛意識？拱門區塊 ══ -->
+<section class="door-sec">
+  <div class="door-bg-wrap">
+    <img src="./images/alldoor_bg.webp" alt="" class="door-bg-img">
+    <div class="door-bg-overlay"></div>
+  </div>
+  <div class="door-inner wrap rv">
+    <div class="door-header">
+      <span class="door-tag-label">潛意識世界</span>
+      <h2 class="door-title">誰適合探索潛意識？</h2>
+    </div>
+    <div class="door-grid">
+      <!-- 門 1：鑰匙 -->
+      <a href="#booking" class="door-card rv">
+        <div class="door-card-inner">
+          <img src="./images/door_bg.webp" alt="" class="door-arch-bg">
+          <img src="./images/door_key.webp" alt="鑰匙" class="door-icon">
+        </div>
+        <p class="door-sub">被困住</p>
+        <p class="door-label">而渴望改變的人</p>
+      </a>
+      <!-- 門 2：星星 -->
+      <a href="#booking" class="door-card rv d1">
+        <div class="door-card-inner">
+          <img src="./images/door_bg.webp" alt="" class="door-arch-bg">
+          <img src="./images/door_star.webp" alt="星星" class="door-icon">
+        </div>
+        <p class="door-sub">想療癒</p>
+        <p class="door-label">過去創傷的人</p>
+      </a>
+      <!-- 門 3：月亮 -->
+      <a href="#booking" class="door-card rv d2">
+        <div class="door-card-inner">
+          <img src="./images/door_bg.webp" alt="" class="door-arch-bg">
+          <img src="./images/door_moon.webp" alt="月亮" class="door-icon">
+        </div>
+        <p class="door-sub">想找回</p>
+        <p class="door-label">人生主控權的人</p>
+      </a>
     </div>
   </div>
 </section>
@@ -484,8 +553,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);pa
 <section class="booking-sec" id="booking">
   <div class="booking-grid">
     <div class="booking-img-col rv">
-      <!-- Replace with: <img class="booking-img" src="./images/reservation_img.webp" alt="催眠預約"> -->
-      <div class="booking-img-ph"></div>
+      <img src="./images/footer_booking.webp" alt="催眠預約" class="booking-img" style="width:100%;height:100%;object-fit:cover;min-height:500px;">
     </div>
     <div class="booking-content rv d2">
       <p class="booking-eyebrow">療癒角落</p>
