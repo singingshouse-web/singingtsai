@@ -64,12 +64,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .hero-slide img{width:100%;height:100%;object-fit:cover;}
 .hero-grain{position:absolute;inset:0;opacity:.13;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(44,36,32,.2) 0%,rgba(44,36,32,.55) 100%);}
-/* hero content — 垂直置中 */
-.hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 var(--px);}
+/* hero content — 靠左對齊 */
+.hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding:0 var(--px);}
 .hero-eyebrow{font-size:11px;letter-spacing:5px;font-weight:400;color:rgba(255,255,255,.5);margin-bottom:20px;overflow:hidden;}
 .hero-eyebrow span{display:block;transform:translateY(100%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) .3s forwards;}
-/* H1 — 跟設計稿一樣大 */
-.hero-h1{font-family:var(--zh);font-weight:700;font-size:clamp(40px,6vw,80px);color:#fff;line-height:1.15;margin-bottom:24px;}
+/* H1 — 同 sym-div 大小 */
+.hero-h1{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,52px);color:#fff;line-height:1.2;margin-bottom:24px;}
 .hero-h1 .ln{display:block;overflow:hidden;}
 .hero-h1 .ln span{display:block;transform:translateY(108%);opacity:0;}
 .ln:nth-child(1) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .44s forwards;}
@@ -94,52 +94,61 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
 
 /* ── BUTTONS ── */
-/* 圓形箭頭按鈕 — btn_arrow.svg inline，用 CSS 調色 */
+/* 圓形箭頭按鈕 — 黑底白箭頭 */
 .circle-btn{
-  display:inline-flex;align-items:center;gap:14px;
-  font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:2px;
+  display:inline-flex;align-items:center;gap:16px;
+  font-family:var(--zh);font-size:14px;font-weight:400;letter-spacing:2px;
   color:var(--charcoal);background:none;border:none;cursor:pointer;
   transition:opacity .2s;text-decoration:none;
 }
 .circle-btn:hover{opacity:.65;}
 .circle-btn-icon{
-  width:52px;height:52px;border-radius:50%;
+  width:56px;height:56px;border-radius:50%;
   background:var(--charcoal);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;transition:transform .3s;
 }
 .circle-btn:hover .circle-btn-icon{transform:translate(2px,-2px);}
-.circle-btn-icon svg{width:26px;height:26px;}
+.circle-btn-icon svg{width:28px;height:28px;}
 .circle-btn-icon svg path{fill:#fff;}
 
-/* 淺色版（玫瑰底） */
+/* 玫瑰底版 */
 .circle-btn-rose .circle-btn-icon{background:var(--rose-dark);}
 
 /* booking 左下角按鈕 */
 .booking-img-btn{
   position:absolute;bottom:28px;left:28px;
-  display:flex;align-items:center;gap:12px;
-  color:#fff;font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:1px;
+  display:flex;align-items:center;gap:14px;
+  color:#fff;font-family:var(--zh);font-size:14px;font-weight:400;letter-spacing:1px;
   background:none;border:none;cursor:pointer;transition:opacity .2s;
 }
 .booking-img-btn:hover{opacity:.75;}
 .booking-img-btn-icon{
-  width:48px;height:48px;border-radius:50%;
+  width:56px;height:56px;border-radius:50%;
   background:var(--rose-dark);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;transition:transform .3s;
 }
 .booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
-.booking-img-btn-icon svg{width:24px;height:24px;}
+.booking-img-btn-icon svg{width:28px;height:28px;}
 .booking-img-btn-icon svg path{fill:#fff;}
 
-/* hero btn */
-.btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;padding:13px 26px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
+/* hero 膠囊按鈕 — 白底深色 */
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--zh);font-size:14px;font-weight:400;letter-spacing:2px;
+  padding:14px 28px;border-radius:40px;border:none;
+  cursor:pointer;transition:transform .25s;
+}
 .btn:hover{transform:translateY(-2px);}
 .btn-dark{background:var(--charcoal);color:var(--cream);}
 .btn-light{background:var(--cream);color:var(--charcoal);}
-.btn-arr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-arr svg{width:16px;height:16px;}
+/* 膠囊內的小圓箭頭 */
+.btn-arr{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.btn-arr svg{width:20px;height:20px;}
 .btn-dark .btn-arr{background:var(--warm);}
 .btn-dark .btn-arr svg path{fill:#fff;}
 .btn-light .btn-arr{background:var(--charcoal);}
@@ -206,10 +215,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 /* ── ABOUT ── */
 .about-sec{background:var(--rose);padding:100px 0;}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.about-logos{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
-.about-logo-svg{width:36px;height:auto;}
-.about-x{font-size:18px;color:var(--charcoal);font-weight:300;opacity:.6;margin:0 4px;}
-.about-ngh-svg{width:54px;height:auto;}
+.about-logos{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.about-logo-img{width:36px;height:auto;opacity:.85;}
+.about-x{font-size:20px;color:var(--charcoal);font-weight:300;opacity:.5;margin:0 4px;}
+.about-ngh-img{width:60px;height:auto;opacity:.85;}
 .about-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3.5vw,48px);line-height:1.25;color:var(--charcoal);margin-bottom:22px;}
 .about-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--charcoal);opacity:.75;margin-bottom:36px;}
 /* boss.webp 拱形圖片本身已含背景色，直接顯示 */
@@ -290,12 +299,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .booking-sub{font-size:14px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-bottom:28px;font-weight:300;}
 .booking-body{font-size:13px;font-weight:400;color:rgba(255,255,255,.82);line-height:2.1;margin-bottom:28px;}
 
-/* ── FOOTER (shared) ── */
+/* ── FOOTER ── */
 footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);padding:44px var(--px);}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
-.footer-brand{display:flex;align-items:center;justify-content:center;gap:10px;}
-.footer-brand-logo{width:18px;height:auto;}
-.footer-brand-txt{height:15px;width:auto;}
+.footer-brand{display:flex;align-items:center;justify-content:center;}
+.footer-logotype{height:28px;width:auto;opacity:.85;}
 .footer-social{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;}
 .footer-social a{font-size:11px;font-weight:400;color:var(--charcoal);letter-spacing:.5px;transition:opacity .2s;padding:0 10px;}
 .footer-social a:hover{opacity:.5;}
@@ -474,30 +482,10 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
       <div class="rv">
         <!-- logo_166 × logo_NGH -->
         <div class="about-logos">
-          <svg class="about-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.455 166.001">
-            <path d="M73.942,94.357C56.916,72.706,39.893,69.166,22.868,81.571q25.538-18.609,0-51.085c17.025,21.651,34.048,25.2,51.074,12.791q-25.538,18.609,0,51.08" transform="translate(15.433 20.574)" fill="#2C2420"/>
-            <path d="M71.236,20.339a12.759,12.759,0,1,0-25.518,0v0C45.7,39.645,63.086,51.9,71.236,58.732V20.339Z" transform="translate(30.854 5.116)" fill="#2C2420"/>
-            <path d="M71.208,68.617c-21.963,15.5-25.549,27.939-25.421,38.363v.271H45.8a12.7,12.7,0,0,0,25.406-.27Z" transform="translate(30.898 46.308)" fill="#2C2420"/>
-            <path d="M5.978,41.944A12.714,12.714,0,0,0,4.1,62.081l0,.017L25.537,81.575V30.5Z" transform="translate(0 20.582)" fill="#2C2420"/>
-            <path d="M7.609,13.255a10.885,10.885,0,0,0,3.1,7.691,32.272,32.272,0,0,1,9.066,17.935,72.9,72.9,0,0,1,.635,12.2C25.006,47.8,34.333,37.37,33.02,12.709,32.571,4.278,24.788-2.254,15.911.737a12.557,12.557,0,0,0-8.3,12.518" transform="translate(5.13 0)" fill="#2C2420"/>
-            <path d="M81.932,57.406l0-.015L60.963,38.122V50.93s-.005.978-.012,2.452V68.044c.007.064,0,.129.012.193V89.2l18.36-10.857a12.685,12.685,0,0,0,2.609-20.934" transform="translate(41.134 25.728)" fill="#2C2420"/>
-            <path d="M40.656,98.829C40.618,81.283,29.344,73.3,15.247,60.994V99.2h.035c0,.047-.007.09-.007.137a12.707,12.707,0,0,0,25.415,0c0-.167-.022-.342-.034-.513" transform="translate(10.29 41.163)" fill="#2C2420"/>
-          </svg>
+          <img src="./images/logo_166.svg" alt="心映好事" class="about-logo-img">
           <span class="about-x">×</span>
-          <!-- logo_NGH_w200.svg — 正確顯示版 -->
-          <svg class="about-ngh-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="60" height="60">
-            <!-- 外圓 -->
-            <circle cx="100" cy="100" r="96" fill="none" stroke="#2C2420" stroke-width="2"/>
-            <!-- 內圓 -->
-            <circle cx="100" cy="100" r="68" fill="none" stroke="#2C2420" stroke-width="1.5"/>
-            <!-- 盾形內框 -->
-            <path d="M68,72 h64 v40 c0,16 -32,28 -32,28 c0,0 -32,-12 -32,-28 Z" fill="none" stroke="#2C2420" stroke-width="1.5"/>
-            <!-- NGH 文字 -->
-            <text x="100" y="106" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#2C2420" letter-spacing="2">NGH</text>
-            <!-- NATIONAL GUILD OF HYPNOTISTS 環形文字（簡化） -->
-            <text x="100" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#2C2420" letter-spacing="1">NATIONAL GUILD OF HYPNOTISTS</text>
-            <text x="100" y="178" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#2C2420" letter-spacing="2">EST. 1950</text>
-          </svg>
+          <img src="./images/logo_NGH_w200.svg" alt="NGH" class="about-ngh-img">
+        </div>
         </div>
         <h2 class="about-title">認識心映好事</h2>
         <p class="about-body">我是一個催眠師 也是一位在外商公司擔任設計部副理十多年的插畫家，以前的我，相信凡事都是要靠努力跟力氣才能達到我想要的目標，對自己不夠有信心，讓自己安於現狀不敢勇敢追求自己的夢想，雖然我夢想名單落落長，我總是提不起勁去行動，每天日複一日的上班下班，越來越覺得真實的自己在枯萎，由於這樣的心態讓自己非常限縮的關係，之前的我很容易對周遭的事情發怒或是不耐煩，隨著年紀見長，越來越跨不出舒適圈，找不出解決的方法也找不出答案。</p>
@@ -620,28 +608,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <svg class="footer-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.068 60">
-        <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
-          <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
-          <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
-          <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
-          <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
-          <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
-          <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
-          <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
-        </g></g>
-      </svg>
-      <svg class="footer-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36">
-        <g transform="translate(-3191.114 327.963)">
-          <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
-          <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
-          <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
-          <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
-          <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
-          <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
-          <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
-        </g>
-      </svg>
+      <img src="./images/footer_logotype.svg" alt="心映好事" class="footer-logotype">
     </div>
     <div class="footer-social">
       <a href="mailto:luckystern16@gmail.com">Mail</a><span>｜</span>
