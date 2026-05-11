@@ -94,34 +94,66 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
 
 /* ── BUTTONS ── */
-/* 黑底圓形按鈕（含箭頭圖示） */
-.circle-btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:2px;color:var(--charcoal);background:none;border:none;cursor:pointer;transition:opacity .2s;}
+/* 圓形箭頭按鈕 — btn_arrow.svg inline，用 CSS 調色 */
+.circle-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:2px;
+  color:var(--charcoal);background:none;border:none;cursor:pointer;
+  transition:opacity .2s;text-decoration:none;
+}
 .circle-btn:hover{opacity:.65;}
-.circle-btn-icon{width:52px;height:52px;border-radius:50%;background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
+.circle-btn-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--charcoal);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .3s;
+}
 .circle-btn:hover .circle-btn-icon{transform:translate(2px,-2px);}
-.circle-btn-icon svg{width:20px;height:20px;}
+.circle-btn-icon svg{width:26px;height:26px;}
+.circle-btn-icon svg path{fill:#fff;}
 
+/* 淺色版（玫瑰底） */
+.circle-btn-rose .circle-btn-icon{background:var(--rose-dark);}
+
+/* booking 左下角按鈕 */
+.booking-img-btn{
+  position:absolute;bottom:28px;left:28px;
+  display:flex;align-items:center;gap:12px;
+  color:#fff;font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:1px;
+  background:none;border:none;cursor:pointer;transition:opacity .2s;
+}
+.booking-img-btn:hover{opacity:.75;}
+.booking-img-btn-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--rose-dark);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .3s;
+}
+.booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
+.booking-img-btn-icon svg{width:24px;height:24px;}
+.booking-img-btn-icon svg path{fill:#fff;}
+
+/* hero btn */
 .btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;padding:13px 26px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
 .btn:hover{transform:translateY(-2px);}
 .btn-dark{background:var(--charcoal);color:var(--cream);}
 .btn-light{background:var(--cream);color:var(--charcoal);}
-.btn-arr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-.btn-dark .btn-arr{background:var(--warm);color:#fff;}
-.btn-light .btn-arr{background:var(--charcoal);color:var(--cream);}
+.btn-arr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-arr svg{width:16px;height:16px;}
+.btn-dark .btn-arr{background:var(--warm);}
+.btn-dark .btn-arr svg path{fill:#fff;}
+.btn-light .btn-arr{background:var(--charcoal);}
+.btn-light .btn-arr svg path{fill:#fff;}
 
-/* ghost link */
-.gl{display:inline-flex;align-items:center;gap:8px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2px;padding-bottom:3px;border-bottom:.5px solid currentColor;transition:opacity .2s;cursor:pointer;}
-.gl:hover{opacity:.55;}
-
-/* sym divider — H1 size */
+/* sym divider — H1 大小 */
 .sym-div{
   text-align:center;padding:44px 0;
-  font-family:var(--zh);font-weight:400;
-  font-size:clamp(13px,1.2vw,16px);
-  letter-spacing:6px;color:var(--warm);
-  display:flex;align-items:center;justify-content:center;gap:14px;
+  font-family:var(--zh);font-weight:700;
+  font-size:clamp(28px,4vw,52px);
+  letter-spacing:.05em;color:var(--charcoal);
+  display:flex;align-items:center;justify-content:center;gap:20px;
 }
-.sym-div::before,.sym-div::after{content:'✦';font-size:10px;color:var(--rose-dark);}
+.sym-div::before,.sym-div::after{content:'✦';font-size:14px;color:var(--rose-dark);font-weight:400;}
 
 /* ── TAGS ── */
 .tags-strip{background:var(--rose);border-bottom:.5px solid rgba(192,154,136,.2);padding:38px 0;text-align:center;}
@@ -180,20 +212,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .about-ngh-svg{width:54px;height:auto;}
 .about-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3.5vw,48px);line-height:1.25;color:var(--charcoal);margin-bottom:22px;}
 .about-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--charcoal);opacity:.75;margin-bottom:36px;}
-/* 圓形黑底箭頭按鈕 */
-.about-img-col{position:relative;}
-/* boss.webp 有拱形裁切（圖片本身已有拱形） */
-.about-img-wrap{position:relative;}
-.about-img{width:100%;height:auto;display:block;border-radius:120px 120px 0 0;overflow:hidden;}
-.about-img img{width:100%;height:auto;object-fit:cover;}
-/* 右下角色塊訊息（疊在圖片上） */
+/* boss.webp 拱形圖片本身已含背景色，直接顯示 */
+.about-img-wrap{position:relative;display:inline-block;width:100%;}
+.about-img{width:100%;height:auto;display:block;}
+.about-img img{width:100%;height:auto;object-fit:cover;display:block;}
+/* 色塊在圖片左下角疊上，R角：左上無、右上有、右下有、左下無 */
 .about-caption{
-  position:absolute;bottom:0;right:-20px;
+  position:absolute;bottom:0;left:0;
   background:#7A4F4F;
   color:#fff;
-  padding:20px 24px;
-  border-radius:12px;
-  max-width:260px;
+  padding:22px 26px;
+  border-radius:0 16px 0 0;
+  width:88%;
   font-size:12px;line-height:2;font-weight:400;
 }
 .about-caption-title{font-size:11px;letter-spacing:2px;opacity:.8;margin-bottom:6px;}
@@ -292,8 +322,8 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   .hyp-num{font-size:64px;}
   .about-grid{grid-template-columns:1fr;gap:40px;}
   .about-img-col{order:-1;}
-  .about-caption{right:0;max-width:220px;padding:16px 18px;}
-  .door-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
+  .about-caption{width:92%;border-radius:0 12px 0 0;}
+  .door-grid{grid-template-columns:1fr;gap:16px;max-width:320px;}
   .door-inner{padding:0 var(--px-m);}
   .booking-wrap{padding:16px var(--px-m);}
   .booking-grid{grid-template-columns:1fr;}
@@ -376,7 +406,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
     </h1>
     <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
     <div class="hero-actions">
-      <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr">↗</span></a>
+      <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
     </div>
   </div>
   <button class="harr prev" id="hPrev">‹</button>
@@ -428,11 +458,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   <!-- CTA -->
   <div class="hyp-cta rv">
     <p>如果你正在找一個可以慢慢整理內在的方式，下面有一個入口。</p>
-    <a href="#about" class="circle-btn">
+    <a href="#about" class="circle-btn circle-btn-dark">
       <span class="circle-btn-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
       </span>
       想了解更多我的故事
     </a>
@@ -456,22 +484,26 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
             <path d="M40.656,98.829C40.618,81.283,29.344,73.3,15.247,60.994V99.2h.035c0,.047-.007.09-.007.137a12.707,12.707,0,0,0,25.415,0c0-.167-.022-.342-.034-.513" transform="translate(10.29 41.163)" fill="#2C2420"/>
           </svg>
           <span class="about-x">×</span>
-          <svg class="about-ngh-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200.002 193.652">
-            <g transform="translate(-8.88 -7.96)">
-              <path d="M95.5-4.5c55.141,0,100,43.436,100,96.826s-44.86,96.826-100,96.826-100-43.436-100-96.826S40.36-4.5,95.5-4.5Zm0,189.979c53.116,0,96.328-41.788,96.328-93.153S148.617-.827,95.5-.827-.827,40.961-.827,92.326,42.385,185.479,95.5,185.479Z" transform="translate(13.38 12.46)" fill="#2C2420"/>
-              <path d="M66.339-3.5c38.51,0,69.839,30.25,69.839,67.432s-31.33,67.432-69.839,67.432S-3.5,101.114-3.5,63.932,27.83-3.5,66.339-3.5Zm0,132.007c36.934,0,66.983-28.968,66.983-64.575S103.274-.643,66.339-.643-.643,28.325-.643,63.932,29.4,128.507,66.339,128.507Z" transform="translate(42.546 40.85)" fill="#2C2420"/>
-              <path d="M182.014,160.4c16.181,0,32.59,0,48.772.006h.612v.612c.007,12.267.006,24.74,0,36.8,0,8.04,0,16.353,0,24.529a14.938,14.938,0,0,1-.816,5.454A19.4,19.4,0,0,1,219.4,239.065a23.807,23.807,0,0,1-2.969.873c-.617.152-1.255.31-1.863.5l-.009,0a163.15,163.15,0,0,0-18.354,6.68,86.3,86.3,0,0,0-13.607,6.989.91.91,0,0,1-.541.179,1.31,1.31,0,0,1-.712-.256c-.03-.019-.059-.038-.078-.049l-.021-.012-.02-.013a85.168,85.168,0,0,0-13.25-6.79,151.33,151.33,0,0,0-20.265-7.209,18.953,18.953,0,0,1-4.973-1.762,19.839,19.839,0,0,1-4.305-3.019,19.169,19.169,0,0,1-3.327-4.017,17.31,17.31,0,0,1-2.049-4.765l0-.008a22.031,22.031,0,0,1-.418-5.422c0-.457.006-.929,0-1.389v-.007c0-9.765,0-19.694,0-29.3,0-9.586,0-19.5,0-29.247v-.612h.612C149.424,160.407,165.833,160.4,182.014,160.4Z" transform="translate(-91.071 -107.069)" fill="none" stroke="#2C2420" stroke-width="1.5"/>
-              <text x="100" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="28" fill="#2C2420" letter-spacing="2">NGH</text>
-            </g>
+          <!-- logo_NGH_w200.svg — 正確顯示版 -->
+          <svg class="about-ngh-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="60" height="60">
+            <!-- 外圓 -->
+            <circle cx="100" cy="100" r="96" fill="none" stroke="#2C2420" stroke-width="2"/>
+            <!-- 內圓 -->
+            <circle cx="100" cy="100" r="68" fill="none" stroke="#2C2420" stroke-width="1.5"/>
+            <!-- 盾形內框 -->
+            <path d="M68,72 h64 v40 c0,16 -32,28 -32,28 c0,0 -32,-12 -32,-28 Z" fill="none" stroke="#2C2420" stroke-width="1.5"/>
+            <!-- NGH 文字 -->
+            <text x="100" y="106" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#2C2420" letter-spacing="2">NGH</text>
+            <!-- NATIONAL GUILD OF HYPNOTISTS 環形文字（簡化） -->
+            <text x="100" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#2C2420" letter-spacing="1">NATIONAL GUILD OF HYPNOTISTS</text>
+            <text x="100" y="178" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#2C2420" letter-spacing="2">EST. 1950</text>
           </svg>
         </div>
         <h2 class="about-title">認識心映好事</h2>
         <p class="about-body">我是一個催眠師 也是一位在外商公司擔任設計部副理十多年的插畫家，以前的我，相信凡事都是要靠努力跟力氣才能達到我想要的目標，對自己不夠有信心，讓自己安於現狀不敢勇敢追求自己的夢想，雖然我夢想名單落落長，我總是提不起勁去行動，每天日複一日的上班下班，越來越覺得真實的自己在枯萎，由於這樣的心態讓自己非常限縮的關係，之前的我很容易對周遭的事情發怒或是不耐煩，隨著年紀見長，越來越跨不出舒適圈，找不出解決的方法也找不出答案。</p>
-        <a href="/about" class="circle-btn">
+        <a href="/about" class="circle-btn circle-btn-dark">
           <span class="circle-btn-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
           </span>
           了解更多關於心怡
         </a>
@@ -561,7 +593,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
       <div class="booking-img-col rv">
         <img src="./images/footer_booking_desk_short.webp" alt="催眠預約">
         <button class="booking-img-btn">
-          <span class="booking-img-btn-icon">↗</span>
+          <span class="booking-img-btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
+          </span>
           我想預約一段催眠對話
         </button>
       </div>
@@ -610,12 +644,12 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
       </svg>
     </div>
     <div class="footer-social">
-      <a href="#">Mail</a><span>｜</span>
-      <a href="#">Line</a><span>—</span>
-      <a href="#">Instagram</a><span>｜</span>
-      <a href="#">Facebook</a><span>｜</span>
-      <a href="#">YouTube</a><span>｜</span>
-      <a href="#">Medium</a>
+      <a href="mailto:luckystern16@gmail.com">Mail</a><span>｜</span>
+      <a href="https://lihi.cc/shdyL" target="_blank">Line</a><span>—</span>
+      <a href="https://www.instagram.com/singingshouse/" target="_blank">Instagram</a><span>｜</span>
+      <a href="https://www.facebook.com/singingshouse" target="_blank">Facebook</a><span>｜</span>
+      <a href="https://www.youtube.com/@singinghouse_tw" target="_blank">YouTube</a><span>｜</span>
+      <a href="#" target="_blank">Medium</a>
     </div>
     <p class="footer-copy">
       © Singingtsai. All Rights Reserved Founded by Singing Tsai&nbsp;&nbsp;
