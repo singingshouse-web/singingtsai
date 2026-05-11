@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心映好事 — 陪你穿越，發現新的自己</title>
+<link rel="stylesheet" href="https://use.typekit.net/eou7jyi.css">
+<style>
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Th.ttf') format('truetype');font-weight:300;font-display:swap;}
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Rg.ttf') format('truetype');font-weight:400;font-display:swap;}
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Bd.ttf') format('truetype');font-weight:700;font-display:swap;}
+
+/* ══ RESET ══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'LINESeedTW','Noto Sans TC',sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+
+/* ══ TOKENS ══ */
+:root{
+  --rose:#EDD5CC;--rose-med:#D9B8AA;--rose-dark:#C09A88;
+  --cream:#F5F0EB;--charcoal:#2C2420;--warm:#8A7060;--warm-lt:#C9B5A5;--moss:#546B5A;
+  --nav-h:60px;--max:1200px;--px:72px;--px-m:22px;
+  --en:'tt-ricordi-allegria','Georgia',serif;
+  --zh:'LINESeedTW','Noto Sans TC',sans-serif;
+}
+
+/* ══ CURSOR ══ */
+@media(hover:hover){
+  body{cursor:none;}
+  #cur{position:fixed;width:8px;height:8px;background:var(--charcoal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+  #cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(44,36,32,.28);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s,height .35s;}
+  body.lk #cur{width:0;height:0;}
+  body.lk #cur-ring{width:54px;height:54px;border-color:rgba(44,36,32,.12);}
+}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--px);
+  background:rgba(237,213,204,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:.5px solid rgba(192,154,136,.22);
+}
+.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-brand-logo{width:24px;height:auto;flex-shrink:0;}
+.nav-brand-txt{height:18px;width:auto;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;}
+.nav-links a{font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(--charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
+.nav-links a:hover{opacity:1;}
+
+/* hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s cubic-bezier(.77,0,.18,1);}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+
+/* mobile menu */
+.mob-menu{position:fixed;inset:0;z-index:490;background:var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity .42s cubic-bezier(.77,0,.18,1);}
+.mob-menu.open{opacity:1;pointer-events:all;}
+.mob-menu a{font-family:var(--zh);font-size:20px;font-weight:400;letter-spacing:6px;color:var(--charcoal);opacity:0;transform:translateY(18px);transition:opacity .4s,transform .4s;}
+.mob-menu.open a:nth-child(1){opacity:1;transform:none;transition-delay:.08s;}
+.mob-menu.open a:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.mob-menu.open a:nth-child(3){opacity:1;transform:none;transition-delay:.22s;}
+.mob-menu.open a:nth-child(4){opacity:1;transform:none;transition-delay:.29s;}
+.mob-menu.open a:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
+.mob-menu a:hover{opacity:.45!important;}
+
+/* ══ HERO ══ */
+.hero{position:relative;height:calc(100vh - var(--nav-h));min-height:580px;overflow:hidden;margin-top:var(--nav-h);}
+.hero-parallax{position:absolute;inset:-20% 0;will-change:transform;}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease;}
+.hero-slide.on{opacity:1;}
+/* Slide media — img or video fills the slide */
+.hero-slide img,.hero-slide video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  filter:brightness(.72) saturate(.7);
+}
+.hero-grain{position:absolute;inset:0;opacity:.13;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(44,36,32,.7) 0%,rgba(44,36,32,.3) 50%,rgba(44,36,32,.04) 100%);}
+
+/* hero text */
+.hero-inner{position:absolute;left:0;right:0;bottom:90px;max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.hero-eyebrow{font-size:11px;letter-spacing:5px;font-weight:400;color:rgba(255,255,255,.45);margin-bottom:16px;overflow:hidden;}
+.hero-eyebrow span{display:block;transform:translateY(100%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) .3s forwards;}
+.hero-h1{font-family:var(--zh);font-weight:700;font-size:clamp(36px,5.5vw,66px);color:#fff;line-height:1.22;margin-bottom:20px;}
+.hero-h1 .ln{display:block;overflow:hidden;}
+.hero-h1 .ln span{display:block;transform:translateY(108%);opacity:0;}
+.ln:nth-child(1) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .44s forwards;}
+.ln:nth-child(2) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .6s forwards;}
+.hero-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.62);line-height:2.1;max-width:360px;margin-bottom:36px;opacity:0;animation:fadeIn .9s ease .85s forwards;}
+.hero-actions{opacity:0;animation:fadeIn .9s ease 1.05s forwards;}
+
+/* hero controls */
+.hero-dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:7px;opacity:0;animation:fadeIn .8s ease 1.2s forwards;}
+.hdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);}
+.hdot.on{background:#fff;width:20px;border-radius:3px;}
+.harr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);cursor:pointer;user-select:none;transition:background .3s,border-color .3s;}
+.harr:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55);}
+.harr.prev{left:24px;}.harr.next{right:24px;}
+.hero-scroll{position:absolute;bottom:34px;right:var(--px);display:flex;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s ease 1.4s forwards;}
+.scroll-line{width:36px;height:.5px;background:rgba(255,255,255,.22);position:relative;overflow:hidden;}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(255,255,255,.65);animation:scanLine 2.4s ease 2s infinite;}
+.scroll-txt{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.35);font-weight:400;}
+
+/* ══ SHARED ══ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;padding:13px 26px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
+.btn:hover{transform:translateY(-2px);}
+.btn-dark{background:var(--charcoal);color:var(--cream);}
+.btn-light{background:var(--cream);color:var(--charcoal);}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);}
+.btn-outline:hover{border-color:rgba(255,255,255,.7);}
+.btn-arr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.btn-dark .btn-arr{background:var(--warm);color:#fff;}
+.btn-light .btn-arr{background:var(--charcoal);color:var(--cream);}
+.btn-outline .btn-arr{background:rgba(255,255,255,.15);}
+
+/* ghost link */
+.gl{display:inline-flex;align-items:center;gap:8px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2px;padding-bottom:3px;border-bottom:.5px solid currentColor;transition:opacity .2s;cursor:pointer;}
+.gl:hover{opacity:.55;}
+
+/* sym divider */
+.sym-div{text-align:center;padding:44px 0;font-family:var(--zh);font-size:12px;letter-spacing:6px;font-weight:400;color:var(--warm);display:flex;align-items:center;justify-content:center;gap:14px;}
+.sym-div::before,.sym-div::after{content:'✦';font-size:9px;color:var(--rose-dark);}
+
+/* ══ TAGS ══ */
+.tags-strip{background:var(--rose);border-bottom:.5px solid rgba(192,154,136,.2);padding:38px 0;text-align:center;}
+.tags-lbl{font-size:11px;letter-spacing:3px;font-weight:400;color:var(--warm);margin-bottom:18px;}
+.tags-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
+.tag{display:inline-block;border:1px solid var(--warm);color:var(--warm);font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:1px;padding:7px 20px;border-radius:24px;cursor:pointer;transition:all .25s;}
+.tag:hover,.tag.on{background:var(--charcoal);border-color:var(--charcoal);color:var(--cream);}
+
+/* ══ HYPNOSIS BLOCKS ══ */
+.hyp-block{position:relative;min-height:300px;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hyp-block.on{opacity:1;transform:none;}
+.hyp-par{position:absolute;inset:-18% 0;will-change:transform;}
+.hb1-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 70% 35%,rgba(140,100,60,.45) 0%,transparent 60%),linear-gradient(160deg,#3a2518 0%,#5c3820 55%,#4a2c18 100%);}
+.hb2-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 55% 40%,rgba(120,150,165,.4) 0%,transparent 60%),linear-gradient(160deg,#3a4550 0%,#506070 55%,#38485a 100%);}
+.hb3-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 45%,rgba(220,200,160,.5) 0%,transparent 65%),linear-gradient(160deg,#c8b898 0%,#d8c8a8 55%,#b8a888 100%);}
+.hyp-ov{position:absolute;inset:0;}
+.hb1 .hyp-ov,.hb2 .hyp-ov{background:rgba(44,36,32,.44);}
+.hb3 .hyp-ov{background:rgba(245,240,235,.22);}
+.hyp-inner{position:relative;z-index:2;padding:68px var(--px);max-width:var(--max);margin:0 auto;}
+.hyp-eyebrow{font-size:10px;letter-spacing:3.5px;font-weight:400;margin-bottom:12px;}
+.hyp-num{font-family:var(--en);font-size:80px;font-weight:300;line-height:1;margin-bottom:10px;letter-spacing:-1px;}
+.hyp-title{font-family:var(--zh);font-weight:700;font-size:clamp(24px,3vw,36px);line-height:1.38;margin-bottom:16px;}
+.hyp-body{font-size:13px;font-weight:400;line-height:2.1;max-width:480px;margin-bottom:28px;}
+.hb1,.hb2{color:#fff;}
+.hb1 .hyp-eyebrow,.hb2 .hyp-eyebrow{color:rgba(255,255,255,.48);}
+.hb1 .hyp-num,.hb2 .hyp-num{color:rgba(255,255,255,.16);}
+.hb1 .hyp-body,.hb2 .hyp-body{color:rgba(255,255,255,.7);}
+.hb1 .gl,.hb2 .gl{color:rgba(255,255,255,.8);}
+.hb3{color:var(--charcoal);}
+.hb3 .hyp-eyebrow{color:var(--warm);}
+.hb3 .hyp-num{color:rgba(44,36,32,.1);}
+.hb3 .hyp-body{color:var(--warm);}
+.hyp-cta{background:var(--rose);padding:52px var(--px);text-align:center;border-top:.5px solid rgba(192,154,136,.2);}
+.hyp-cta p{font-size:13px;font-weight:400;color:var(--warm);margin-bottom:22px;}
+
+/* ══ ABOUT ══ */
+.about-sec{background:var(--cream);padding:100px 0;border-top:.5px solid rgba(192,154,136,.18);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-logos{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.about-logo-svg{width:32px;height:auto;opacity:.7;}
+.about-ngh-svg{width:60px;height:auto;opacity:.7;}
+.about-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3.5vw,44px);line-height:1.3;color:var(--charcoal);margin-bottom:22px;}
+.about-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--warm);margin-bottom:32px;}
+.about-img-wrap{position:relative;}
+.about-img{border-radius:100px 100px 100px 0;overflow:hidden;aspect-ratio:3/4;background:linear-gradient(155deg,#d9c4b8 0%,#b8a090 100%);will-change:transform;}
+/* Real photo: replace .about-img-ph with <img src="./images/singing.jpg"> inside .about-img */
+.about-img-ph{width:100%;height:100%;background:linear-gradient(160deg,#d4bfb0 0%,#b89888 100%);}
+.about-badge{position:absolute;bottom:-16px;right:-14px;background:var(--cream);border:.5px solid var(--warm-lt);border-radius:12px;padding:16px 18px;max-width:188px;}
+.about-badge-lbl{font-size:10px;letter-spacing:2px;color:var(--warm);margin-bottom:8px;font-weight:400;}
+.about-badge-list{list-style:none;font-size:12px;color:var(--charcoal);line-height:2.1;}
+.about-badge-list li::before{content:'✓ ';color:var(--moss);}
+
+/* ══ BOOKING (shared component) ══ */
+.booking-sec{background:var(--rose-med);padding:100px 0;}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;min-height:500px;}
+.booking-img-col{position:relative;overflow:hidden;}
+.booking-img{width:100%;height:100%;min-height:500px;object-fit:cover;display:block;}
+/* placeholder until real photo */
+.booking-img-ph{width:100%;height:100%;min-height:500px;background:linear-gradient(160deg,#8aa898 0%,#607868 100%);}
+.booking-content{
+  background:var(--rose-dark);
+  padding:72px 60px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.booking-eyebrow{font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.65);margin-bottom:14px;font-weight:400;}
+.booking-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3vw,42px);color:#fff;line-height:1.3;margin-bottom:8px;}
+.booking-sub{font-size:14px;color:rgba(255,255,255,.75);letter-spacing:2px;margin-bottom:28px;font-weight:300;}
+.booking-list{list-style:none;margin-bottom:36px;}
+.booking-list li{font-size:13px;font-weight:400;color:rgba(255,255,255,.85);padding:10px 0;border-bottom:.5px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:10px;line-height:1.5;}
+.booking-list li::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6);flex-shrink:0;}
+.booking-btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;padding:13px 26px;border-radius:40px;border:1px solid rgba(255,255,255,.5);color:#fff;background:transparent;cursor:pointer;transition:background .25s,transform .25s;}
+.booking-btn:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+.booking-btn-arr{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:13px;}
+
+/* ══ FINAL CTA ══ */
+.final-sec{background:var(--charcoal);padding:100px var(--px);text-align:center;position:relative;overflow:hidden;}
+.final-bg{position:absolute;inset:0;opacity:.07;background:radial-gradient(ellipse 50% 60% at 20% 50%,var(--rose-med) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 50%,var(--moss) 0%,transparent 60%);}
+.final-inner{position:relative;z-index:1;}
+.final-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,50px);color:#fff;line-height:1.4;margin-bottom:36px;}
+
+/* ══ FOOTER (shared) ══ */
+footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.15);padding:44px var(--px);}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;}
+.footer-brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px;}
+.footer-brand-logo{width:18px;height:auto;}
+.footer-brand-txt{height:14px;width:auto;}
+.footer-social{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;}
+.footer-social a{font-size:11px;font-weight:400;color:var(--charcoal);letter-spacing:.5px;transition:opacity .2s;padding:0 12px;}
+.footer-social a:hover{opacity:.55;}
+.footer-social span{color:var(--charcoal);opacity:.35;font-size:11px;line-height:1;}
+.footer-copy{font-size:10px;color:var(--charcoal);opacity:.5;letter-spacing:.5px;line-height:2;text-align:center;}
+.footer-copy a{color:var(--charcoal);opacity:.7;transition:opacity .2s;}
+.footer-copy a:hover{opacity:1;}
+
+/* ══ KEYFRAMES ══ */
+@keyframes slideUp{from{transform:translateY(100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scanLine{0%{left:-100%;}100%{left:100%;}}
+
+/* ══ MOBILE ══ */
+@media(max-width:767px){
+  :root{--px:var(--px-m);--nav-h:56px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{height:calc(100svh - var(--nav-h));}
+  .harr,.hero-scroll{display:none;}
+  .hero-inner{bottom:70px;}
+  .hyp-inner{padding:48px var(--px-m);}
+  .hyp-num{font-size:56px;}
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .about-img-wrap{order:-1;}
+  .about-img{border-radius:60px 60px 60px 0;aspect-ratio:4/3;}
+  .about-badge{bottom:-12px;right:0;}
+  .booking-grid{grid-template-columns:1fr;}
+  .booking-img-col{min-height:280px;}
+  .booking-img-ph{min-height:280px;}
+  .booking-content{padding:48px var(--px-m);}
+  footer{padding:36px var(--px-m);}
+  .footer-social{gap:0;}
+  .hyp-cta{padding:44px var(--px-m);}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="cur-ring"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#about" onclick="closeMob()">關於心怡</a>
+  <a href="#podcast" onclick="closeMob()">宇宙放映室</a>
+  <a href="#blog" onclick="closeMob()">心映日誌</a>
+  <a href="#shop" onclick="closeMob()">心映好物</a>
+  <a href="#booking" onclick="closeMob()">療癒角落</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="/" class="nav-brand">
+    <!-- logo_menu.svg inline -->
+    <svg class="nav-brand-logo" xmlns="http://www.w3.org/2000/svg" width="46.068" height="60" viewBox="0 0 46.068 60">
+      <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
+        <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
+        <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
+        <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
+        <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
+        <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
+        <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
+        <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
+      </g></g>
+    </svg>
+    <!-- logotype_menu_txt.svg inline — 心映好事 wordmark -->
+    <svg class="nav-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36" height="20">
+      <g transform="translate(-3191.114 327.963)">
+        <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
+        <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
+        <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
+        <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
+        <path d="M250.578,75.533c-2.057-2.847-6.2-3.4-8.136-3.626l4.256,6.437h0c.009.014.016.029.026.044a2.4,2.4,0,1,0,3.852-2.853" transform="translate(3016.092 -371.436)" fill="#2C2420"/>
+        <path d="M166.819,43.161a2.79,2.79,0,0,0-.132-.264c-1.767-3.659-6.37-5.132-8.536-5.777l3.547,8.194h0c.007.018.013.037.021.055a2.778,2.778,0,1,0,5.1-2.207" transform="translate(3061.008 -352.899)" fill="#2C2420"/>
+        <path d="M98.116,46.266a2.786,2.786,0,0,1,.025-.295c.292-4.053,4.026-7.12,5.8-8.519l-.272,8.925h0c0,.02,0,.039,0,.059a2.778,2.778,0,1,1-5.553-.17" transform="translate(3093 -353.076)" fill="#2C2420"/>
+        <path d="M135.417,17.665a2.765,2.765,0,0,0-.287-.071c-3.93-1.034-8.04,1.507-9.938,2.735l8.533,2.628v0l.056.021a2.778,2.778,0,1,0,1.635-5.309" transform="translate(3078.571 -342.365)" fill="#2C2420"/>
+        <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
+        <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
+        <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
+      </g>
+    </svg>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#about">關於心怡</a></li>
+    <li><a href="#podcast">宇宙放映室</a></li>
+    <li><a href="#blog">心映日誌</a></li>
+    <li><a href="#shop">心映好物</a></li>
+    <li><a href="#booking">療癒角落</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-parallax" id="heroPar">
+
+    <!-- Slide 1：影片（上線時換成真實 mp4）
+         現在用 Unsplash 暗調森林圖佔位
+         換影片方式：移除 <img>，加入：
+         <video autoplay muted loop playsinline poster="./images/hero-poster.jpg">
+           <source src="./videos/7385122-uhd_38fps.mp4" type="video/mp4">
+         </video>
+    -->
+    <div class="hero-slide on">
+      <img
+        src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80&fit=crop"
+        alt="暗調森林"
+        loading="eager"
+      >
+    </div>
+
+    <!-- Slide 2：山景霧氣，藍灰冷靜調 -->
+    <div class="hero-slide">
+      <img
+        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80&fit=crop"
+        alt="山景霧氣"
+        loading="lazy"
+      >
+    </div>
+
+    <!-- Slide 3：金色草地光線，溫柔米色調 -->
+    <div class="hero-slide">
+      <img
+        src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1800&q=80&fit=crop"
+        alt="草地光線"
+        loading="lazy"
+      >
+    </div>
+
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span>心映好事 · XINYING</span></p>
+    <h1 class="hero-h1">
+      <span class="ln"><span>你的過去＝現在的你？</span></span>
+      <span class="ln"><span style="font-size:.58em;font-weight:300;opacity:.82">「你的過去，是否悄悄影響現在的你？」</span></span>
+    </h1>
+    <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
+    <div class="hero-actions">
+      <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr">↗</span></a>
+    </div>
+  </div>
+  <button class="harr prev" id="hPrev">‹</button>
+  <button class="harr next" id="hNext">›</button>
+  <div class="hero-dots" id="hDots">
+    <div class="hdot on"></div><div class="hdot"></div><div class="hdot"></div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-txt">SCROLL</span></div>
+</section>
+
+<!-- ══ HYPNOSIS BLOCKS ══ -->
+<section>
+  <div class="sym-div rv">催眠能幫助你什麼？</div>
+  <!-- 01 -->
+  <div class="hyp-block hb1">
+    <div class="hyp-par"><div class="hb1-bg"></div></div>
+    <div class="hyp-ov"></div>
+    <div class="hyp-inner">
+      <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+      <div class="hyp-num">01</div>
+      <h2 class="hyp-title">直擊潛意識底層<br>的問題根源</h2>
+      <p class="hyp-body">很多時候，你知道自己有問題，卻找不到問題從哪裡來。催眠能讓你在放鬆的狀態中，溫和地接觸到那些埋藏在深處的記憶與信念，讓改變真正從根源發生。</p>
+      <a href="#booking" class="gl" style="color:rgba(255,255,255,.8);">學習催眠對你的意義 ↗</a>
+    </div>
+  </div>
+  <!-- 02 -->
+  <div class="hyp-block hb2">
+    <div class="hyp-par"><div class="hb2-bg"></div></div>
+    <div class="hyp-ov"></div>
+    <div class="hyp-inner">
+      <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+      <div class="hyp-num">02</div>
+      <h2 class="hyp-title">喚醒內在力量，<br>療癒過去的創傷</h2>
+      <p class="hyp-body">不管是難以說出口的委屈，還是早已遺忘的童年傷口——催眠提供了一個安全的空間，讓你有力量重新面對，並且真正放下。</p>
+      <a href="#booking" class="gl" style="color:rgba(255,255,255,.8);">探索療癒的可能 ↗</a>
+    </div>
+  </div>
+  <!-- 03 -->
+  <div class="hyp-block hb3">
+    <div class="hyp-par"><div class="hb3-bg"></div></div>
+    <div class="hyp-ov"></div>
+    <div class="hyp-inner">
+      <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+      <div class="hyp-num">03</div>
+      <h2 class="hyp-title">重建內心的平衡<br>創造全新的可能性</h2>
+      <p class="hyp-body">不只是解決問題，而是重新校準你與自己的關係，找到生命真正的方向。每一次催眠，都是一次與自己更深刻的相遇。</p>
+      <a href="#booking" class="gl">了解更多的故事 ↗</a>
+    </div>
+  </div>
+  <div class="hyp-cta rv">
+    <p>如果妳正在找一個可以用催眠整理內在的方式，下面有一個入口。</p>
+    <a href="#booking" class="btn btn-dark">了解更多我的故事<span class="btn-arr">↗</span></a>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about-sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv">
+        <!-- logo.svg + NGH.svg -->
+        <div class="about-logos">
+          <!-- logo_166.svg scaled down -->
+          <svg class="about-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.455 166.001" width="28" height="36">
+            <path d="M73.942,94.357C56.916,72.706,39.893,69.166,22.868,81.571q25.538-18.609,0-51.085c17.025,21.651,34.048,25.2,51.074,12.791q-25.538,18.609,0,51.08" transform="translate(15.433 20.574)" fill="#8A7060"/>
+            <path d="M71.236,20.339a12.759,12.759,0,1,0-25.518,0v0C45.7,39.645,63.086,51.9,71.236,58.732V20.339Z" transform="translate(30.854 5.116)" fill="#8A7060"/>
+            <path d="M71.208,68.617c-21.963,15.5-25.549,27.939-25.421,38.363v.271H45.8a12.7,12.7,0,0,0,25.406-.27Z" transform="translate(30.898 46.308)" fill="#8A7060"/>
+            <path d="M5.978,41.944A12.714,12.714,0,0,0,4.1,62.081l0,.017L25.537,81.575V30.5Z" transform="translate(0 20.582)" fill="#8A7060"/>
+            <path d="M7.609,13.255a10.885,10.885,0,0,0,3.1,7.691,32.272,32.272,0,0,1,9.066,17.935,72.9,72.9,0,0,1,.635,12.2C25.006,47.8,34.333,37.37,33.02,12.709,32.571,4.278,24.788-2.254,15.911.737a12.557,12.557,0,0,0-8.3,12.518" transform="translate(5.13 0)" fill="#8A7060"/>
+            <path d="M81.932,57.406l0-.015L60.963,38.122V50.93s-.005.978-.012,2.452V68.044c.007.064,0,.129.012.193V89.2l18.36-10.857a12.685,12.685,0,0,0,2.609-20.934" transform="translate(41.134 25.728)" fill="#8A7060"/>
+            <path d="M40.656,98.829C40.618,81.283,29.344,73.3,15.247,60.994V99.2h.035c0,.047-.007.09-.007.137a12.707,12.707,0,0,0,25.415,0c0-.167-.022-.342-.034-.513" transform="translate(10.29 41.163)" fill="#8A7060"/>
+          </svg>
+          <!-- logo_NGH_w200.svg scaled down -->
+          <svg class="about-ngh-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200.002 193.652" width="56" height="54">
+            <g transform="translate(-8.88 -7.96)">
+              <path d="M182.014,160.4c16.181,0,32.59,0,48.772.006h.612v.612c.007,12.267.006,24.74,0,36.8,0,8.04,0,16.353,0,24.529a14.938,14.938,0,0,1-.816,5.454A19.4,19.4,0,0,1,219.4,239.065a23.807,23.807,0,0,1-2.969.873c-.617.152-1.255.31-1.863.5l-.009,0a163.15,163.15,0,0,0-18.354,6.68,86.3,86.3,0,0,0-13.607,6.989.91.91,0,0,1-.541.179,1.31,1.31,0,0,1-.712-.256c-.03-.019-.059-.038-.078-.049l-.021-.012-.02-.013a85.168,85.168,0,0,0-13.25-6.79,151.33,151.33,0,0,0-20.265-7.209,18.953,18.953,0,0,1-4.973-1.762,19.839,19.839,0,0,1-4.305-3.019,19.169,19.169,0,0,1-3.327-4.017,17.31,17.31,0,0,1-2.049-4.765l0-.008a22.031,22.031,0,0,1-.418-5.422c0-.457.006-.929,0-1.389v-.007c0-9.765,0-19.694,0-29.3,0-9.586,0-19.5,0-29.247v-.612h.612C149.424,160.407,165.833,160.4,182.014,160.4Z" transform="translate(-91.071 -107.069)" fill="none" stroke="#8A7060" stroke-width="1.5"/>
+              <path d="M95.5-4.5c55.141,0,100,43.436,100,96.826s-44.86,96.826-100,96.826-100-43.436-100-96.826S40.36-4.5,95.5-4.5Zm0,189.979c53.116,0,96.328-41.788,96.328-93.153S148.617-.827,95.5-.827-.827,40.961-.827,92.326,42.385,185.479,95.5,185.479Z" transform="translate(13.38 12.46)" fill="#8A7060"/>
+              <path d="M66.339-3.5c38.51,0,69.839,30.25,69.839,67.432s-31.33,67.432-69.839,67.432S-3.5,101.114-3.5,63.932,27.83-3.5,66.339-3.5Zm0,132.007c36.934,0,66.983-28.968,66.983-64.575S103.274-.643,66.339-.643-.643,28.325-.643,63.932,29.4,128.507,66.339,128.507Z" transform="translate(42.546 40.85)" fill="#8A7060"/>
+              <!-- NGH text simplified -->
+              <text x="100" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#8A7060" letter-spacing="1">NGH</text>
+            </g>
+          </svg>
+        </div>
+        <h2 class="about-title">認識心映好事</h2>
+        <p class="about-body">我是一位催眠療癒師，也是一名有十多年設計經驗的創業者。<br><br>曾幾何時，我也像許多人一樣，被那些說不清道不明的情緒困住，找不到出路。直到我遇見了催眠，它不只改變了我的人生，也讓我看見每一個人內心深處都擁有改變的力量。<br><br>現在，我想把這份力量帶給妳。</p>
+        <a href="/about" class="gl">了解更多見心怡 ↗</a>
+      </div>
+      <div class="about-img-wrap rv d2">
+        <div class="about-img">
+          <!-- Replace with: <img src="./images/singing.jpg" alt="心怡" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="about-img-ph"></div>
+        </div>
+        <div class="about-badge">
+          <p class="about-badge-lbl">NCH 認證催眠師</p>
+          <ul class="about-badge-list">
+            <li>催眠療癒</li><li>潛意識溝通</li><li>情緒釋放</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TAGS (before booking) ══ -->
+<section class="tags-strip">
+  <div class="wrap">
+    <p class="tags-lbl rv">快來看看心映好事的觀點，或許能與你產生共鳴，解答你對生命的看法</p>
+    <div class="tags-row rv d1">
+      <span class="tag on">催眠</span>
+      <span class="tag">心靈深處</span>
+      <span class="tag">情緒</span>
+      <span class="tag">顯化</span>
+      <span class="tag">微笑告白</span>
+      <span class="tag">自我成長</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOKING (shared component) ══ -->
+<section class="booking-sec" id="booking">
+  <div class="booking-grid">
+    <div class="booking-img-col rv">
+      <!-- Replace with: <img class="booking-img" src="./images/reservation_img.webp" alt="催眠預約"> -->
+      <div class="booking-img-ph"></div>
+    </div>
+    <div class="booking-content rv d2">
+      <p class="booking-eyebrow">療癒角落</p>
+      <h2 class="booking-title">催眠預約</h2>
+      <p class="booking-sub">一段只屬於你的內在對話</p>
+      <ul class="booking-list">
+        <li>首次免費諮詢 20 分鐘</li>
+        <li>一對一深度催眠療程</li>
+        <li>線上 / 台北面對面皆可</li>
+        <li>每一次，都是與自己更深刻的相遇</li>
+      </ul>
+      <a href="#contact" class="booking-btn">
+        預約我的服務
+        <span class="booking-btn-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER (shared component) ══ -->
+<footer>
+  <div class="footer-inner">
+    <!-- Brand: logo + wordmark 置中 -->
+    <div class="footer-brand">
+      <svg class="footer-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.068 60" width="18">
+        <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
+          <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
+          <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
+          <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
+          <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
+          <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
+          <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
+          <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
+        </g></g>
+      </svg>
+      <svg class="footer-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36" height="16">
+        <g transform="translate(-3191.114 327.963)">
+          <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
+          <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
+          <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
+          <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
+          <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
+          <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
+          <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Social links 一排置中 with separators -->
+    <div class="footer-social">
+      <a href="#">Mail</a>
+      <span>｜</span>
+      <a href="#">Line</a>
+      <span>—</span>
+      <a href="#">Instagram</a>
+      <span>｜</span>
+      <a href="#">Facebook</a>
+      <span>｜</span>
+      <a href="#">YouTube</a>
+      <span>｜</span>
+      <a href="#">Medium</a>
+    </div>
+
+    <!-- Copyright -->
+    <p class="footer-copy">
+      © Singingtsai. All Rights Reserved Founded by Singing Tsai&nbsp;&nbsp;
+      <a href="#">隱私權政策與使用條款</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+if(cur&&ring){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('lk'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('lk'));
+  });
+}
+
+// Hero Slider（支援影片 + 圖片）
+const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hdot');
+let si=0,st;
+function goTo(n){
+  // pause video on current slide if any
+  const curV=slides[si].querySelector('video');
+  if(curV){curV.pause();}
+  slides[si].classList.remove('on');dots[si].classList.remove('on');
+  si=(n+slides.length)%slides.length;
+  slides[si].classList.add('on');dots[si].classList.add('on');
+  // play video on new slide if any
+  const newV=slides[si].querySelector('video');
+  if(newV){newV.play();}
+}
+function startT(){st=setInterval(()=>goTo(si+1),5500);}
+document.getElementById('hNext').addEventListener('click',()=>{clearInterval(st);goTo(si+1);startT();});
+document.getElementById('hPrev').addEventListener('click',()=>{clearInterval(st);goTo(si-1);startT();});
+dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(st);goTo(i);startT();}));
+startT();
+
+// Parallax
+const heroPar=document.getElementById('heroPar');
+const hypPars=document.querySelectorAll('.hyp-par');
+function onScroll(){
+  const hr=document.getElementById('hero').getBoundingClientRect();
+  if(hr.bottom>0&&hr.top<window.innerHeight)heroPar.style.transform=`translateY(${(hr.top/window.innerHeight)*18}%)`;
+  hypPars.forEach(p=>{
+    const br=p.closest('.hyp-block').getBoundingClientRect();
+    if(br.bottom>0&&br.top<window.innerHeight){
+      const pct=(br.top+br.height/2-window.innerHeight/2)/window.innerHeight;
+      p.style.transform=`translateY(${pct*12}%)`;
+    }
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+// Scroll Reveal
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.rv,.hyp-block').forEach(el=>obs.observe(el));
+
+// Tags
+document.querySelectorAll('.tag').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));t.classList.add('on');}));
+
+// Mobile menu
+const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+let mobOpen=false;
+hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+</script>
+</body>
+</html>
