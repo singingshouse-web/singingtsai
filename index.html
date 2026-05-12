@@ -114,18 +114,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
 .booking-img-btn-icon svg{width:28px;height:28px;}
 .booking-img-btn-icon svg path{fill:#fff;}
-/* hero 膠囊按鈕 — 白底深色，文字粗體 */
-.btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;padding:14px 28px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
-.btn:hover{transform:translateY(-2px);}
-.btn-dark{background:var(--charcoal);color:var(--cream);}
-.btn-light{background:var(--cream);color:var(--charcoal);}
-/* 膠囊內圓形箭頭放大 */
-.btn-arr{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-arr svg{width:26px;height:26px;}
-.btn-dark .btn-arr{background:var(--warm);}
+/* hero 按鈕 — 改用 circle-btn 格式（黑底大圓+箭頭），深色背景用淺色圓 */
+.btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;padding:0;border-radius:0;background:none;border:none;cursor:pointer;transition:opacity .25s;color:#fff;}
+.btn:hover{opacity:.75;}
+.btn-light{color:var(--cream);}
+.btn-dark{color:var(--charcoal);}
+/* 圓形箭頭 */
+.btn-arr{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
+.btn:hover .btn-arr{transform:translate(2px,-2px);}
+.btn-arr svg{width:32px;height:32px;}
+/* 深色背景 → 淺色圓（cream） */
+.btn-light .btn-arr{background:var(--cream);}
+.btn-light .btn-arr svg path{fill:var(--charcoal);}
+/* 淺色背景 → 深色圓（charcoal） */
+.btn-dark .btn-arr{background:var(--charcoal);}
 .btn-dark .btn-arr svg path{fill:#fff;}
-.btn-light .btn-arr{background:var(--charcoal);}
-.btn-light .btn-arr svg path{fill:#fff;}
 
 /* circle-btn 文字粗體 */
 .circle-btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;color:var(--charcoal);background:none;border:none;cursor:none;transition:opacity .2s;text-decoration:none;}
@@ -212,8 +215,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .door-icon-img{position:absolute;top:18%;left:50%;transform:translateX(-50%);width:40%;height:auto;}
 .door-card-txt{position:absolute;bottom:8%;left:0;right:0;text-align:center;}
 /* 文字放大 */
-.door-card-sub{font-size:15px;font-weight:400;color:rgba(255,255,255,.9);margin-bottom:5px;}
-.door-card-label{font-size:18px;font-weight:700;color:#fff;letter-spacing:.5px;}
+.door-card-sub{font-size:17px;font-weight:400;color:rgba(255,255,255,.9);margin-bottom:6px;}
+.door-card-label{font-size:21px;font-weight:700;color:#fff;letter-spacing:.5px;}
 
 /* ── BOOKING (shared) ── */
 .booking-sec{background:var(--rose-med);padding:40px 0;}
@@ -295,13 +298,18 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   .about-sec .wrap .about-grid > .rv{padding:32px var(--px-m) 40px;}
   .about-logos{margin-top:0;}
 
-  /* Door 手機版 — 三欄小卡，置中 */
+  /* Door 手機版 — 三欄，標題放大 */
   .door-grid{grid-template-columns:repeat(3,1fr);gap:8px;max-width:100%;}
   .door-inner{padding:0 var(--px-m);}
-  .door-card-sub{font-size:11px;}
-  .door-card-label{font-size:13px;}
-  .door-title{font-size:clamp(20px,5vw,28px);}
+  .door-title{font-size:clamp(24px,6vw,32px);}
+  .door-card-sub{font-size:12px;}
+  .door-card-label{font-size:14px;}
   .door-sec{padding:52px 0;}
+  /* 手機版大標統一 — booking title, about title, hyp title, sym-div */
+  .booking-title{font-size:clamp(28px,7vw,38px);}
+  .about-title{font-size:clamp(24px,6vw,32px);}
+  .hyp-title{font-size:clamp(20px,5.5vw,28px);}
+  .sym-div{font-size:clamp(20px,5.5vw,28px);}
 
   /* Booking 手機版 */
   .booking-wrap{padding:20px var(--px-m);}
@@ -426,10 +434,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
         <div class="hero-actions">
           <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
         </div>
-      </div>
-    </div>
-  </div>
-
+      </div><!-- end hero-text-block -->
+    </div><!-- end hero-content-wrap -->
+  </div><!-- end hero-inner -->
   <button class="harr prev" id="hPrev">‹</button>
   <button class="harr next" id="hNext">›</button>
   <div class="hero-dots" id="hDots">
