@@ -73,14 +73,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .hero-text-block{max-width:580px;}
 /* 移除 eyebrow（心映好事 · XINYING） */
 .hero-eyebrow{display:none;}
-/* H1 */
+/* hero txt sets — JS 控制顯示 */
+.hero-txt-set{display:none;}
+.hero-txt-set.on{display:block;}
 .hero-h1{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,52px);color:#fff;line-height:1.2;margin-bottom:20px;}
 .hero-h1 .ln{display:block;overflow:hidden;}
 .hero-h1 .ln span{display:block;transform:translateY(108%);opacity:0;}
-.ln:nth-child(1) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .44s forwards;}
-.ln:nth-child(2) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .6s forwards;}
-.hero-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.72);line-height:2;max-width:480px;margin-bottom:32px;opacity:0;animation:fadeIn .9s ease .85s forwards;}
-.hero-actions{opacity:0;animation:fadeIn .9s ease 1.05s forwards;}
+.ln:nth-child(1) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .1s forwards;}
+.ln:nth-child(2) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s forwards;}
+.hero-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.72);line-height:2;max-width:480px;margin-bottom:32px;opacity:0;animation:fadeIn .9s ease .4s forwards;}
+.hero-actions{opacity:0;animation:fadeIn .9s ease .55s forwards;}
 .hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:7px;opacity:0;animation:fadeIn .8s ease 1.2s forwards;}
 .hdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);}
 .hdot.on{background:#fff;width:20px;border-radius:3px;}
@@ -112,16 +114,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
 .booking-img-btn-icon svg{width:28px;height:28px;}
 .booking-img-btn-icon svg path{fill:#fff;}
-.btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--zh);font-size:14px;font-weight:400;letter-spacing:2px;padding:14px 28px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
+/* hero 膠囊按鈕 — 白底深色，文字粗體 */
+.btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;padding:14px 28px;border-radius:40px;border:none;cursor:pointer;transition:transform .25s;}
 .btn:hover{transform:translateY(-2px);}
 .btn-dark{background:var(--charcoal);color:var(--cream);}
 .btn-light{background:var(--cream);color:var(--charcoal);}
-.btn-arr{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-arr svg{width:20px;height:20px;}
+/* 膠囊內圓形箭頭放大 */
+.btn-arr{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-arr svg{width:26px;height:26px;}
 .btn-dark .btn-arr{background:var(--warm);}
 .btn-dark .btn-arr svg path{fill:#fff;}
 .btn-light .btn-arr{background:var(--charcoal);}
 .btn-light .btn-arr svg path{fill:#fff;}
+
+/* circle-btn 文字粗體 */
+.circle-btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;color:var(--charcoal);background:none;border:none;cursor:none;transition:opacity .2s;text-decoration:none;}
+.circle-btn:hover{opacity:.65;}
+.circle-btn-icon{width:60px;height:60px;border-radius:50%;background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
+.circle-btn:hover .circle-btn-icon{transform:translate(2px,-2px);}
+.circle-btn-icon svg{width:30px;height:30px;}
+.circle-btn-icon svg path{fill:#fff;}
+.circle-btn-rose .circle-btn-icon{background:var(--rose-dark);}
 
 /* sym divider */
 .sym-div{text-align:center;padding:44px 0;font-family:var(--zh);font-weight:700;font-size:clamp(22px,3vw,40px);letter-spacing:.05em;color:var(--charcoal);display:flex;align-items:center;justify-content:center;gap:20px;}
@@ -258,13 +271,15 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   :root{--px:var(--px-m);--nav-h:56px;}
   .nav-links{display:none;}
   .hamburger{display:flex;}
-  /* Hero 手機版 — 只保留標題，隱藏內文和 sub */
-  .hero{height:60vw;min-height:360px;max-height:520px;}
+  /* Hero 手機版 */
+  .hero{height:65vw;min-height:340px;max-height:500px;}
   .harr,.hero-scroll{display:none;}
   .hero-sub{display:none;}
-  .hero-h1 .ln:nth-child(2){display:none;}/* 隱藏副標 */
+  /* 手機版副標顯示（第二行） */
+  .hero-subtitle{display:block!important;}
+  .hero-h1{font-size:clamp(22px,5.5vw,34px);}
 
-  /* Hyp 手機版 — 滿版，移除左右 padding */
+  /* Hyp 手機版 */
   .hyp-section{padding:0 0 40px;}
   .hyp-blocks-wrap{padding:0;}
   .hyp-blocks-inner{border-radius:0;border-left:none;border-right:none;}
@@ -275,17 +290,18 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   /* About 手機版 */
   .about-grid{grid-template-columns:1fr;gap:0;}
   .about-img-col{order:-1;}
-  /* 手機版圖片縮小，不要佔滿 */
-  .about-img img{max-height:380px;object-fit:cover;object-position:top;}
+  .about-img img{max-height:340px;object-fit:cover;object-position:top;}
   .about-caption{width:90%;border-radius:0 12px 0 0;}
-  .about-logos{margin-top:32px;}
-  .about-sec .wrap .about-grid > .rv{padding:0 var(--px-m) 40px;}
+  .about-sec .wrap .about-grid > .rv{padding:32px var(--px-m) 40px;}
+  .about-logos{margin-top:0;}
 
-  /* Door 手機版 — 單欄垂直，文字放大 */
-  .door-grid{grid-template-columns:1fr;gap:12px;max-width:300px;}
+  /* Door 手機版 — 三欄小卡，置中 */
+  .door-grid{grid-template-columns:repeat(3,1fr);gap:8px;max-width:100%;}
   .door-inner{padding:0 var(--px-m);}
-  .door-card-sub{font-size:14px;}
-  .door-card-label{font-size:17px;}
+  .door-card-sub{font-size:11px;}
+  .door-card-label{font-size:13px;}
+  .door-title{font-size:clamp(20px,5vw,28px);}
+  .door-sec{padding:52px 0;}
 
   /* Booking 手機版 */
   .booking-wrap{padding:20px var(--px-m);}
@@ -293,7 +309,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   .booking-img-col{min-height:240px;}
   .booking-content{padding:36px var(--px-m);}
 
-  /* Footer 手機版 — 一排 */
+  /* Footer 手機版 */
   footer{padding:32px var(--px-m);}
   .footer-social{gap:0;font-size:10px;}
   .footer-social a{padding:0 7px;}
@@ -365,21 +381,55 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   </div>
   <div class="hero-grain"></div>
   <div class="hero-overlay"></div>
+
+  <!-- 各輪播文字（JS 控制顯示） -->
   <div class="hero-inner">
     <div class="hero-content-wrap">
       <div class="hero-text-block">
-        <p class="hero-eyebrow"><span>心映好事 · XINYING</span></p>
-        <h1 class="hero-h1">
-          <span class="ln"><span>你的過去＝現在的你？</span></span>
-          <span class="ln"><span style="font-size:.52em;font-weight:300;opacity:.8;letter-spacing:.02em">「你的過去，是否悄悄影響現在的你？」</span></span>
-        </h1>
-        <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
+
+        <!-- Slide 1 文字 -->
+        <div class="hero-txt-set on" data-slide="0">
+          <h1 class="hero-h1">
+            <span class="ln"><span>你的過去＝現在的你？</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「你的過去，是否悄悄影響現在的你？」</span></span>
+          </h1>
+          <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
+        </div>
+
+        <!-- Slide 2 文字 -->
+        <div class="hero-txt-set" data-slide="1">
+          <h1 class="hero-h1">
+            <span class="ln"><span>從潛意識開始改變</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「真正的改變，從內在開始。」</span></span>
+          </h1>
+          <p class="hero-sub">催眠不是魔法，而是一把鑰匙。幫助你打開那扇一直存在、卻從未被發現的門。</p>
+        </div>
+
+        <!-- Slide 3 文字 -->
+        <div class="hero-txt-set" data-slide="2">
+          <h1 class="hero-h1">
+            <span class="ln"><span>療癒，是回到自己</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「不是找到答案，而是找到自己。」</span></span>
+          </h1>
+          <p class="hero-sub">每一次的迷失，都是一次機會。讓我們一起，重新認識那個值得被愛的自己。</p>
+        </div>
+
+        <!-- Slide 4 文字 -->
+        <div class="hero-txt-set" data-slide="3">
+          <h1 class="hero-h1">
+            <span class="ln"><span>陪伴你穿越黑暗</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「你不需要一個人面對。」</span></span>
+          </h1>
+          <p class="hero-sub">心映好事，是一個溫柔的空間。在這裡，你可以慢下來，聽見自己的聲音。</p>
+        </div>
+
         <div class="hero-actions">
           <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
         </div>
       </div>
     </div>
   </div>
+
   <button class="harr prev" id="hPrev">‹</button>
   <button class="harr next" id="hNext">›</button>
   <div class="hero-dots" id="hDots">
@@ -603,10 +653,30 @@ if(cur&&ring){
   });
 }
 
-// Hero Slider
-const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hdot');
+// Hero Slider — 同步切換文字
+const slides=document.querySelectorAll('.hero-slide');
+const dots=document.querySelectorAll('.hdot');
+const txtSets=document.querySelectorAll('.hero-txt-set');
 let si=0,st;
-function goTo(n){slides[si].classList.remove('on');dots[si].classList.remove('on');si=(n+slides.length)%slides.length;slides[si].classList.add('on');dots[si].classList.add('on');}
+function goTo(n){
+  slides[si].classList.remove('on');
+  dots[si].classList.remove('on');
+  txtSets[si].classList.remove('on');
+  si=(n+slides.length)%slides.length;
+  slides[si].classList.add('on');
+  dots[si].classList.add('on');
+  // 重設文字動畫
+  const newTxt=txtSets[si];
+  newTxt.classList.remove('on');
+  void newTxt.offsetWidth; // reflow
+  newTxt.classList.add('on');
+  // 重置動畫
+  newTxt.querySelectorAll('.ln span').forEach(s=>{
+    s.style.animation='none';
+    void s.offsetWidth;
+    s.style.animation='';
+  });
+}
 function startT(){st=setInterval(()=>goTo(si+1),5500);}
 document.getElementById('hNext').addEventListener('click',()=>{clearInterval(st);goTo(si+1);startT();});
 document.getElementById('hPrev').addEventListener('click',()=>{clearInterval(st);goTo(si-1);startT();});
