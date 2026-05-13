@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隱私權政策與使用條款 — 心映好事</title>
+<link rel="stylesheet" href="https://use.typekit.net/eou7jyi.css">
+<style>
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Th.ttf') format('truetype');font-weight:300;font-display:swap;}
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Rg.ttf') format('truetype');font-weight:400;font-display:swap;}
+@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Bd.ttf') format('truetype');font-weight:700;font-display:swap;}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'LINESeedTW','Noto Sans TC',sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --rose:#EDD5CC;--rose-med:#D9B8AA;--rose-dark:#9A6B63;
+  --cream:#F5F0EB;--charcoal:#2C2420;--warm:#8A7060;--warm-lt:#C9B5A5;
+  --nav-h:60px;--max:1200px;--px:72px;--px-m:22px;
+  --zh:'LINESeedTW','Noto Sans TC',sans-serif;
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(237,213,204,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:.5px solid rgba(192,154,136,.22);}
+.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-brand-logo{width:22px;height:auto;}
+.nav-brand-txt{height:17px;width:auto;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;}
+.nav-links a{font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(--charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
+.nav-links a:hover{opacity:1;}
+.nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.mob-menu a.disabled{opacity:.2!important;cursor:not-allowed;pointer-events:none;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s cubic-bezier(.77,0,.18,1);}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.mob-menu{position:fixed;inset:0;z-index:490;background:var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity .42s;}
+.mob-menu.open{opacity:1;pointer-events:all;}
+.mob-menu a{font-family:var(--zh);font-size:20px;font-weight:400;letter-spacing:6px;color:var(--charcoal);opacity:0;transform:translateY(18px);transition:opacity .4s,transform .4s;}
+.mob-menu.open a:nth-child(1){opacity:1;transform:none;transition-delay:.08s;}
+.mob-menu.open a:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.mob-menu.open a:nth-child(3){opacity:1;transform:none;transition-delay:.22s;}
+.mob-menu.open a:nth-child(4){opacity:1;transform:none;transition-delay:.29s;}
+.mob-menu.open a:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
+.mob-menu a:hover{opacity:.45!important;}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  margin-top:var(--nav-h);
+  background:var(--cream);
+  padding:72px var(--px) 56px;
+  border-bottom:.5px solid rgba(192,154,136,.2);
+}
+.page-eyebrow{font-size:11px;letter-spacing:4px;color:var(--warm);font-weight:400;margin-bottom:16px;}
+.page-title{font-family:var(--zh);font-weight:700;font-size:clamp(24px,3.5vw,40px);color:var(--charcoal);line-height:1.3;}
+.page-date{font-size:12px;color:var(--warm);margin-top:14px;letter-spacing:1px;opacity:.7;}
+
+/* ── CONTENT ── */
+.privacy-wrap{
+  max-width:800px;margin:0 auto;
+  padding:64px var(--px);
+}
+.section-block{margin-bottom:48px;}
+.section-block h2{
+  font-family:var(--zh);font-weight:700;
+  font-size:16px;color:var(--charcoal);
+  margin-bottom:18px;padding-bottom:12px;
+  border-bottom:.5px solid rgba(192,154,136,.35);
+  letter-spacing:.5px;
+}
+.section-block h3{
+  font-family:var(--zh);font-weight:700;
+  font-size:14px;color:var(--charcoal);
+  margin:20px 0 10px;
+}
+.section-block p{
+  font-size:13px;font-weight:400;
+  color:var(--charcoal);opacity:.75;
+  line-height:2.3;margin-bottom:14px;
+}
+.section-block ul{
+  list-style:none;margin-bottom:14px;padding-left:0;
+}
+.section-block ul li{
+  font-size:13px;font-weight:400;
+  color:var(--charcoal);opacity:.75;
+  line-height:2.3;padding-left:18px;
+  position:relative;margin-bottom:4px;
+}
+.section-block ul li::before{
+  content:'·';position:absolute;left:0;
+  color:var(--rose-dark);font-size:18px;line-height:1.6;
+}
+.section-block a{
+  color:var(--rose-dark);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.intro-block{
+  background:var(--cream);
+  border-radius:8px;
+  padding:32px 36px;
+  margin-bottom:48px;
+  border:.5px solid rgba(192,154,136,.25);
+}
+.intro-block p{
+  font-size:13px;color:var(--charcoal);opacity:.7;line-height:2.3;margin-bottom:12px;
+}
+.intro-block p:last-child{margin-bottom:0;}
+
+/* ── FOOTER ── */
+footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);padding:44px var(--px);}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
+.footer-brand{display:flex;align-items:center;justify-content:center;gap:10px;}
+.footer-brand-logo{width:18px;height:auto;}
+.footer-brand-txt{height:15px;width:auto;}
+.footer-social{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;}
+.footer-social a{font-size:11px;font-weight:400;color:var(--charcoal);letter-spacing:.5px;transition:opacity .2s;padding:0 10px;}
+.footer-social a:hover{opacity:.5;}
+.footer-social span{color:var(--charcoal);opacity:.3;font-size:11px;}
+.footer-copy{font-size:10px;color:var(--charcoal);opacity:.45;letter-spacing:.5px;line-height:2;}
+.footer-copy a{color:var(--charcoal);opacity:.65;text-decoration:underline;text-underline-offset:2px;}
+
+/* ── MOBILE ── */
+@media(max-width:767px){
+  :root{--px:var(--px-m);--nav-h:56px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .page-header{padding:52px var(--px-m) 40px;}
+  .privacy-wrap{padding:48px var(--px-m);}
+  .intro-block{padding:24px 20px;}
+  footer{padding:36px var(--px-m);}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="./about.html" onclick="closeMob()">關於心怡</a>
+  <a class="disabled">宇宙放映室</a>
+  <a class="disabled">心映日誌</a>
+  <a class="disabled">心映好物</a>
+  <a class="disabled">療癒角落</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="./index.html" class="nav-brand">
+    <svg class="nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.068 60">
+      <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
+        <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
+        <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
+        <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
+        <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
+        <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
+        <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
+        <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
+      </g></g>
+    </svg>
+    <svg class="nav-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36">
+      <g transform="translate(-3191.114 327.963)">
+        <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
+        <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
+        <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
+        <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
+        <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
+        <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
+        <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
+      </g>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./about.html">關於心怡</a></li>
+    <li><a class="disabled">宇宙放映室</a></li>
+    <li><a class="disabled">心映日誌</a></li>
+    <li><a class="disabled">心映好物</a></li>
+    <li><a class="disabled">療癒角落</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-eyebrow">心映好事</p>
+  <h1 class="page-title">隱私權政策與使用條款</h1>
+  <p class="page-date">最後更新：2024年</p>
+</div>
+
+<!-- CONTENT -->
+<div class="privacy-wrap">
+
+  <!-- 前言 -->
+  <div class="intro-block">
+    <p>本網站（以下簡稱本站）係依據本站條款提供本站各項服務。當您註冊完成或開始使用本站時，即表示您已閱讀、了解並同意接受本站條款之所有內容。如果您不同意本站條款的內容，或者您所屬的國家或地域排除本站條款內容之全部或部分時，您應立即停止使用本站。</p>
+    <p>此外，當您使用本站之特定功能時，可能會依據該特定功能之性質，而須遵守本站所另行公告之服務條款或相關規定。本站有權於任何時間修改或變更本站條款之內容，並公告於本站網站上，請您隨時注意該等修改或變更。</p>
+    <p>若您為未滿二十歲之未成年人，則應請您的父母或監護人閱讀、了解並同意本站條款之所有內容及其後之修改變更，方得使用本站。</p>
+  </div>
+
+  <!-- 隱私權保護政策 -->
+  <div class="section-block">
+    <h2>隱私權保護政策</h2>
+    <p>本站為心映好事為「蔡心怡」本人經營管理（下稱本人），為確保您於使用本站及旗下網站時所提供之個人資料、隱私以及消費者權益受到適當之保護，本人依個人資料保護法規定進行蒐集前之告知如下：</p>
+  </div>
+
+  <!-- 一、蒐集目的 -->
+  <div class="section-block">
+    <h2>一、個人資料之蒐集目的及方式</h2>
+    <p>本人將透過加入會員、填寫購物訂單、報名參加相關活動及申請退費等方式，對您進行個人資料之蒐集。對於依上述情形所蒐集您的個人資料，本人茲依法務部頒佈之「個人資料保護法特定目的修正」，說明可能供作之用途如下：</p>
+    <ul>
+      <li>行銷活動（包含但不限本人商業性資料寄送，如 EDM 寄送）（法定特定項目 040）</li>
+      <li>會員或其他成員名冊之內部管理，如網站認證作業、透過合作網路平台之簡易註冊等（法定特定項目 052）</li>
+      <li>契約、類契約或其他法律關係事務（法定特定項目 069）</li>
+      <li>消費者、客戶管理與服務，如活動參與、退費申請及消費者申告事務等（法定特定項目 090）</li>
+      <li>網路購物及電子商務服務（法定特定項目 148）</li>
+      <li>廣告或商業行為管理（法定特定項目 152）</li>
+      <li>影視、音樂與媒體管理（法定特定項目 153）</li>
+      <li>調查、統計與研究分析（法定特定項目 157）</li>
+      <li>其他經營合於營業登記項目或組織章程所訂之業務及其他諮詢與顧問服務（法定特定項目 181、182）</li>
+    </ul>
+    <p>除非獲得您授權同意或配合其他法定事由所需，本站不會將您個人資訊用作上述以外之其他用途。</p>
+  </div>
+
+  <!-- 二、蒐集類別 -->
+  <div class="section-block">
+    <h2>二、個人資料之蒐集類別</h2>
+    <p>在您於本站註冊帳號、購買產品或使用服務、瀏覽本站及旗下網站、或相關合作夥伴的網頁，以及參加宣傳活動或贈獎遊戲時，本人將會蒐集您的個人資料。</p>
+    <p>依法務部所頒佈之個人資料保護法個人資料類別，本人蒐集之類別可能包含：</p>
+    <ul>
+      <li>C001 辨識個人者：如姓名、職稱、住址、電話、電子郵件地址等</li>
+      <li>C002 辨識財務者：如金融機構帳戶之號碼與姓名等</li>
+      <li>C003 政府資料中之辨識者：如身分證統一編號、護照號碼等</li>
+      <li>C011 個人描述：如年齡、性別、出生年月日、出生地、國籍等</li>
+      <li>C021 家庭情形：如婚姻狀況、有無子女等</li>
+      <li>C035 休閒活動及興趣：如嗜好、運動及其他興趣等</li>
+      <li>C036 生活格調：如使用消費品之種類及服務之細節等</li>
+      <li>C061 現行之受僱情形：如工作職稱、工作描述、等級等</li>
+      <li>C081 收入、所得、資產與投資相關資料</li>
+    </ul>
+  </div>
+
+  <!-- 三、Cookie -->
+  <div class="section-block">
+    <h2>三、Cookie 使用原則</h2>
+    <p>為提供您最佳服務，本人將於您的電腦中放置並存取 Cookie，俾利使用 Cookie 進行電子商務網站管理及記錄您於本站及旗下網站中之活動紀錄，惟僅有本人設置 Cookie 之網站能讀取其內容。</p>
+    <p>若您不願接受此項設置，您可透過將您所使用瀏覽器功能項中之隱私權等級設定調高，以拒絕 Cookie 寫入，惟可能會導致網站上某些功能無法正常執行。</p>
+    <p>Cookie 是您在瀏覽網站時，網站傳送給瀏覽器的一小段文字，有助網站記錄您的瀏覽資料（例如偏好語言和其他設定），下次瀏覽時就會更方便。我們是基於多個目的使用 Cookie，包括但不限於用來記錄您的推廣介紹資訊、統計網頁的訪客人數、協助您註冊我們的服務以及保護您的資料。</p>
+  </div>
+
+  <!-- 四、利用期間 -->
+  <div class="section-block">
+    <h2>四、本站蒐集上述資料之利用期間、地區、對象及方式</h2>
+    <ul>
+      <li>利用期間：本人將於營運期間保存您的個人資料</li>
+      <li>地區：您的個人資料將用於本站所營運之地區及與本站有業務往來之機構營業處所所在地</li>
+      <li>利用對象及方式：本人、本人關係企業及本人業務合作夥伴</li>
+      <li>方式：以自動化機器或非自動化之利用方式</li>
+    </ul>
+  </div>
+
+  <!-- 五、消費者權利 -->
+  <div class="section-block">
+    <h2>五、法律賦予消費者之權利</h2>
+    <p>對於您交予本人之個人資料，依個人資料保護法之規定，您得行使下列權利：</p>
+    <ul>
+      <li>查詢或請求閱覽、製給複製本，而本人得酌收必要之成本費用</li>
+      <li>請求補充或更正，惟依法您應為適當之釋明</li>
+      <li>請求停止蒐集、處理、利用或刪除，惟依法本人因執行業務所必須者，得不依您的請求為之</li>
+    </ul>
+    <p>當您欲行使上述權利時，可向本人進行申請。為確保您的個人資料不會遭他人盜取或外洩，於申請過程中，須由您提供身分證件或其他證明文件，供本人作身份核對及驗證等相關作業之用。</p>
+  </div>
+
+  <!-- 一般條款 -->
+  <div class="section-block">
+    <h2>一般條款</h2>
+    <p>本站條款構成您與本站就您使用本站之完整合意，取代您先前與本站間有關本站所為之任何約定。本站條款之解釋與適用，以及與本站條款有關的爭議，除法律另有規定者外，均應依照中華民國法律予以處理，並以台灣台北地方法院為管轄法院。</p>
+  </div>
+
+  <!-- 會員義務 -->
+  <div class="section-block">
+    <h2>會員的註冊義務及帳號安全</h2>
+    <p>為了能使用本站，您同意並承諾以下事項：</p>
+    <ul>
+      <li>依本站註冊流程之提示提供您本人正確及完整的資料，並維持、更新該資料，確保其為正確、最新及完整</li>
+      <li>若您提供任何不完整、錯誤或不實的資料，本站有權暫停或終止您的帳號</li>
+      <li>您有責任維持帳號及密碼的機密安全</li>
+      <li>當您的帳號遭到盜用或有其他任何安全問題發生時，您將立即通知本站</li>
+    </ul>
+  </div>
+
+  <!-- 使用規範 -->
+  <div class="section-block">
+    <h2>會員使用規範與義務</h2>
+    <p>您同意不從事以下行為：</p>
+    <ul>
+      <li>冒用他人名義使用本站</li>
+      <li>侵害他人名譽、隱私權、著作權、智慧財產權及其他權利</li>
+      <li>上載、張貼或公布任何不實、誹謗、侮辱、具威脅性或違背公序良俗之內容</li>
+      <li>違反依法律或契約所應負之保密義務</li>
+      <li>上載含有電腦木馬、病毒或任何破壞性程式碼之資料</li>
+      <li>從事販賣槍枝、毒品、禁藥、盜版軟體或其他違禁物之不法交易行為</li>
+      <li>未經同意收集他人電子郵件位址及其他個人資料</li>
+    </ul>
+  </div>
+
+  <!-- 退款說明 -->
+  <div class="section-block">
+    <h2>退款說明</h2>
+    <p>若您所訂購的商品有瑕疵，您可以要求全額退費。您在「心映好事」所訂購的商品，可以在十天之內要求退貨退款；但是，下列商品不在此限：</p>
+    <ul>
+      <li>依照您所要求或註明的規格、需求或時間，所訂製、調整或送達的商品</li>
+      <li>依照通常運送條件，貨物取回時已逾保存期限、或已變質或損壞的商品</li>
+    </ul>
+    <p>您所退回的商品，必須保持所有商品、贈品、附件、包裝、及所有附隨文件或資料的完整性，否則「心映好事」得拒絕接受您的退貨退款要求。</p>
+  </div>
+
+  <!-- 智慧財產權 -->
+  <div class="section-block">
+    <h2>智慧財產權的保護</h2>
+    <p>本站所使用之程式、軟體及網站內容，包括但不限於：資訊、資料、圖片、檔案、網站架構、網頁設計及會員內容等，均由本站或其他權利人依法擁有其智慧財產權，包括但不限於專利權、著作權與專有技術等。任何人不得逕自修改、重製、散布、發行或公開發表。若有違反，您應負損害賠償責任。</p>
+  </div>
+
+  <!-- 客服與爭議 -->
+  <div class="section-block">
+    <h2>客服與爭議政策</h2>
+    <p>本人並未提供電話客服服務，若有課程內容相關事宜將由線上客服人員提供服務與協助。因履約以及個人資料保護所生之爭議應另以書面郵寄：</p>
+    <p style="background:var(--cream);padding:16px 20px;border-radius:6px;border:.5px solid rgba(192,154,136,.25);margin:12px 0;">
+      台北市內湖區新明路380巷4弄19號1樓<br>
+      心映好事「蔡心怡」收<br>
+      或來信至：<a href="mailto:service@singingtsai.com">service@singingtsai.com</a>
+    </p>
+  </div>
+
+  <!-- 管轄權 -->
+  <div class="section-block">
+    <h2>管轄權條款</h2>
+    <p>本合約未訂明事項依中華民國法律為準據法，雙方之間如發生糾紛，應共同協商、並本於利於合作事業發展之前提予以解決。如進行訴訟，雙方合意以臺灣桃園地方法院為第一審管轄法院。</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg class="footer-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.068 60">
+        <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
+          <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
+          <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
+          <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
+          <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
+          <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
+          <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
+          <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
+        </g></g>
+      </svg>
+      <svg class="footer-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36">
+        <g transform="translate(-3191.114 327.963)">
+          <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
+          <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
+          <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
+          <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
+          <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
+          <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
+          <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
+        </g>
+      </svg>
+    </div>
+    <div class="footer-social">
+      <a href="mailto:luckystern16@gmail.com">Mail</a><span>｜</span>
+      <a href="https://lihi.cc/shdyL" target="_blank">Line</a><span>—</span>
+      <a href="https://www.instagram.com/singingshouse/" target="_blank">Instagram</a><span>｜</span>
+      <a href="https://www.facebook.com/singingshouse" target="_blank">Facebook</a><span>｜</span>
+      <a href="https://www.youtube.com/@singinghouse_tw" target="_blank">YouTube</a><span>｜</span>
+      <a href="#" target="_blank">Medium</a>
+    </div>
+    <p class="footer-copy">
+      © Singingtsai. All Rights Reserved Founded by Singing Tsai&nbsp;&nbsp;
+      <a href="./privacy.html">隱私權政策與使用條款</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+let mobOpen=false;
+hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+</script>
+</body>
+</html>
