@@ -102,47 +102,69 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 
 /* ── BUTTONS ── */
 
-/* 1. 膠囊型（capsule）— Hero + hyp-cta 三個區塊下方 */
+/* 1. 膠囊型（capsule）— 統一背景色，箭頭放大50%，hover左下進右上出 */
 .capsule-btn{
-  display:inline-flex;align-items:center;gap:0;
+  display:inline-flex;align-items:center;gap:16px;
   font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;
-  border:none;cursor:pointer;transition:transform .25s,opacity .25s;
-  border-radius:60px;overflow:hidden;text-decoration:none;
+  border:none;cursor:pointer;
+  border-radius:60px;padding:0 10px 0 32px;
+  text-decoration:none;overflow:hidden;
+  transition:opacity .25s;
 }
-.capsule-btn:hover{transform:translateY(-2px);}
-.capsule-label{padding:16px 28px 16px 32px;}
+.capsule-btn:hover{opacity:.82;}
+.capsule-label{padding:18px 0;}
+/* 箭頭圓圈 — 大50%，81px */
 .capsule-arr{
-  width:54px;height:54px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:81px;height:81px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;position:relative;overflow:hidden;
+  margin:6px;
 }
-.capsule-arr svg{width:26px;height:26px;}
-/* 深色底（暗背景用）*/
+/* 箭頭 SVG — hover 左下進右上出 */
+.capsule-arr svg{
+  width:38px;height:38px;
+  position:relative;z-index:1;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.capsule-btn:hover .capsule-arr svg{
+  transform:translate(3px,-3px);
+}
+/* 深色底 */
 .capsule-dark{background:var(--charcoal);color:#fff;}
-.capsule-dark .capsule-arr{background:rgba(255,255,255,.18);}
+.capsule-dark .capsule-arr{background:rgba(255,255,255,.12);}
 .capsule-dark .capsule-arr svg path{fill:#fff;}
-/* 淺色底（淺背景用）*/
+/* 淺色底 */
 .capsule-light{background:var(--cream);color:var(--charcoal);}
-.capsule-light .capsule-arr{background:var(--charcoal);}
-.capsule-light .capsule-arr svg path{fill:#fff;}
+.capsule-light .capsule-arr{background:rgba(44,36,32,.12);}
+.capsule-light .capsule-arr svg path{fill:var(--charcoal);}
+/* 玫瑰底 */
+.capsule-rose{background:var(--rose-dark);color:#fff;}
+.capsule-rose .capsule-arr{background:rgba(255,255,255,.15);}
+.capsule-rose .capsule-arr svg path{fill:#fff;}
 
-/* 2. 圓形箭頭型（circle-btn）— About + booking 用 */
+/* 2. 圓形箭頭型（circle-btn）— 箭頭放大50%，hover左下進右上出 */
 .circle-btn{
   display:inline-flex;align-items:center;gap:16px;
   font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;
   color:var(--charcoal);background:none;border:none;
   cursor:pointer;transition:opacity .2s;text-decoration:none;
 }
-.circle-btn:hover{opacity:.65;}
+.circle-btn:hover{opacity:.7;}
 .circle-btn-icon{
-  width:60px;height:60px;border-radius:50%;
+  width:72px;height:72px;border-radius:50%;
   background:var(--charcoal);
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:transform .3s;
+  flex-shrink:0;overflow:hidden;
 }
-.circle-btn:hover .circle-btn-icon{transform:translate(2px,-2px);}
-.circle-btn-icon svg{width:30px;height:30px;}
+.circle-btn-icon svg{
+  width:36px;height:36px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.circle-btn:hover .circle-btn-icon svg{transform:translate(3px,-3px);}
 .circle-btn-icon svg path{fill:#fff;}
 .circle-btn-rose .circle-btn-icon{background:var(--rose-dark);}
+/* 白色文字版（深色背景用）*/
+.circle-btn-white{color:#fff;}
 
 /* 3. booking 圖片左下角按鈕 */
 .booking-img-btn{
@@ -153,23 +175,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 }
 .booking-img-btn:hover{opacity:.75;}
 .booking-img-btn-icon{
-  width:56px;height:56px;border-radius:50%;background:var(--rose-dark);
+  width:68px;height:68px;border-radius:50%;
+  background:var(--rose-dark);
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:transform .3s;
+  flex-shrink:0;overflow:hidden;
 }
-.booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
-.booking-img-btn-icon svg{width:28px;height:28px;}
+.booking-img-btn-icon svg{
+  width:34px;height:34px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.booking-img-btn:hover .booking-img-btn-icon svg{transform:translate(3px,-3px);}
 .booking-img-btn-icon svg path{fill:#fff;}
 
-/* 4. Hero 用舊 btn（圓形大箭頭）—深色背景淺色圓 */
+/* 4. Hero 大圓箭頭型（btn）*/
 .btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;padding:0;background:none;border:none;cursor:pointer;transition:opacity .25s;color:#fff;text-decoration:none;}
 .btn:hover{opacity:.75;}
 .btn-light{color:#fff;}
-.btn-arr{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
-.btn:hover .btn-arr{transform:translate(2px,-2px);}
-.btn-arr svg{width:32px;height:32px;}
+.btn-arr{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.btn-arr svg{width:38px;height:38px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.btn:hover .btn-arr svg{transform:translate(3px,-3px);}
+.btn-arr svg path{fill:var(--charcoal);}
 .btn-light .btn-arr{background:var(--cream);}
-.btn-light .btn-arr svg path{fill:var(--charcoal);}
 .btn-dark .btn-arr{background:var(--charcoal);}
 .btn-dark .btn-arr svg path{fill:#fff;}
 
