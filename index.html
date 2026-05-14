@@ -41,12 +41,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(–nav-h);display
 .nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .nav-brand-logo{width:22px;height:auto;flex-shrink:0;}
 .nav-brand-txt{height:17px;width:auto;}
-.nav-links{display:flex;align-items:center;gap:26px;list-style:none;}
+.nav-links{display:none;align-items:center;gap:26px;list-style:none;}
 .nav-links a{font-family:var(–zh);font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(–charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
 .nav-links a:hover{opacity:1;}
 .nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
 .mob-menu a.disabled{opacity:.2!important;cursor:not-allowed;pointer-events:none;}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
 .hamburger span{display:block;width:20px;height:1px;background:var(–charcoal);transition:all .38s cubic-bezier(.77,0,.18,1);}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
@@ -383,32 +383,51 @@ footer{padding:32px var(–px-m);}
 .footer-social a{padding:0 7px;}
 }
 
+/* ── 桌機：顯示nav，隱藏漢堡 ── */
+@media(min-width:768px){
+.nav-links{display:flex!important;}
+.hamburger{display:none!important;}
+}
 /* ── iPad（768px ~ 1100px）── */
 @media(min-width:768px) and (max-width:1100px){
 :root{–px:40px;}
+/* Nav */
+nav{padding:0 40px;}
+.nav-links{gap:16px;}
+.nav-links a{font-size:11px;letter-spacing:1px;}
 /* Hero */
-.hero-h1{font-size:clamp(28px,4.5vw,44px);}
-.hero-content-wrap{padding:0;}
-/* Nav 收窄 */
-.nav-links{gap:18px;}
-.nav-links a{font-size:11px;letter-spacing:1.5px;}
+.hero-inner{padding:0 40px;}
+.hero-h1{font-size:clamp(26px,4vw,40px);}
+.hero-text-block{max-width:520px;}
+.hero-sub{font-size:12px;}
 /* Hyp */
+.hyp-blocks-wrap{padding:0 40px;}
 .hyp-inner{padding:44px 36px;}
 .hyp-num{font-size:72px;}
+.hyp-title{font-size:clamp(20px,2.8vw,32px);}
+/* sym-div */
+.sym-div{padding:40px 40px;}
 /* About */
 .about-grid{gap:36px;}
 .about-logos{gap:10px;}
 .about-logo-img{width:36px;}
 .about-ngh-img{width:54px;}
+.about-caption{width:90%;}
 /* Door */
+.door-inner{padding:0 40px;}
 .door-grid{gap:14px;}
 .door-card-sub{font-size:13px;}
 .door-card-label{font-size:15px;}
+/* Tags */
+.tags-strip .wrap{padding:0 40px;}
 /* Booking */
+.booking-wrap{padding:0 40px;}
 .booking-content{padding:40px 32px;}
 .booking-title{font-size:clamp(28px,4vw,42px);}
+/* Hyp CTA */
+.hyp-cta{padding:40px 40px 12px;}
 /* Footer */
-footer{padding:36px var(–px);}
+footer{padding:36px 40px;}
 }
 
 /* ── MOBILE 手機版修正 ── */
