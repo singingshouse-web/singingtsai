@@ -365,7 +365,7 @@ footer{background:var(–rose-med);border-top:.5px solid rgba(192,154,136,.18);p
 .door-card-sub{font-size:12px;}
 .door-card-label{font-size:14px;}
 .door-sec{padding:52px 0;}
-/* 手機版大標統一 — booking title, about title, hyp title, sym-div */
+/* 手機版大標統一 */
 .booking-title{font-size:clamp(28px,7vw,38px);}
 .about-title{font-size:clamp(24px,6vw,32px);}
 .hyp-title{font-size:clamp(20px,5.5vw,28px);}
@@ -381,6 +381,58 @@ footer{background:var(–rose-med);border-top:.5px solid rgba(192,154,136,.18);p
 footer{padding:32px var(–px-m);}
 .footer-social{gap:0;font-size:10px;}
 .footer-social a{padding:0 7px;}
+}
+
+/* ── iPad（768px ~ 1100px）── */
+@media(min-width:768px) and (max-width:1100px){
+:root{–px:40px;}
+/* Hero */
+.hero-h1{font-size:clamp(28px,4.5vw,44px);}
+.hero-content-wrap{padding:0;}
+/* Nav 收窄 */
+.nav-links{gap:18px;}
+.nav-links a{font-size:11px;letter-spacing:1.5px;}
+/* Hyp */
+.hyp-inner{padding:44px 36px;}
+.hyp-num{font-size:72px;}
+/* About */
+.about-grid{gap:36px;}
+.about-logos{gap:10px;}
+.about-logo-img{width:36px;}
+.about-ngh-img{width:54px;}
+/* Door */
+.door-grid{gap:14px;}
+.door-card-sub{font-size:13px;}
+.door-card-label{font-size:15px;}
+/* Booking */
+.booking-content{padding:40px 32px;}
+.booking-title{font-size:clamp(28px,4vw,42px);}
+/* Footer */
+footer{padding:36px var(–px);}
+}
+
+/* ── MOBILE 手機版修正 ── */
+@media(max-width:767px){
+/* Nav - 確保漢堡顯示 */
+.nav-links{display:none!important;}
+.hamburger{display:flex!important;}
+nav{padding:0 var(–px-m);}
+/* 防止文字溢出 */
+*{max-width:100%;word-break:break-word;}
+body{overflow-x:hidden;}
+.wrap{padding:0 var(–px-m);}
+/* letter-spacing 在手機版縮小 */
+.mob-menu a{letter-spacing:3px;font-size:18px;}
+h1,h2{letter-spacing:.02em;}
+.sym-div{letter-spacing:.04em;}
+/* Hero 手機版安全區 */
+.hero-inner{padding:0 var(–px-m);}
+.hero-text-block{max-width:100%;}
+.hero-sub{display:none;}
+/* 圖文並排在手機改單欄 */  
+.about-grid,.struggle-grid,.change-grid,.detail-grid,.card-intro-grid,.workshop-grid,.best-grid,.booking-grid{grid-template-columns:1fr!important;}
+/* 貼齊左邊問題修正 */
+.page-header-inner,.privacy-wrap{padding:0 var(–px-m);}
 }
 </style>
 
