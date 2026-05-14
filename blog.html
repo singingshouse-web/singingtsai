@@ -6,21 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>心映日記 — 心映好事</title>
 <link rel="stylesheet" href="https://use.typekit.net/eou7jyi.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Th.ttf') format('truetype');font-weight:300;font-display:swap;}
-@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Rg.ttf') format('truetype');font-weight:400;font-display:swap;}
-@font-face{font-family:'LINESeedTW';src:url('./fonts/LINESeedTW_TTF_Bd.ttf') format('truetype');font-weight:700;font-display:swap;}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{overflow-x:hidden;scroll-behavior:smooth;}
-body{font-family:'LINESeedTW','Noto Sans TC',sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
+body{font-family:‘Noto Sans TC’,sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
 img{display:block;max-width:100%;}
 :root{
-  --rose:#EDD5CC;--rose-med:#D9B8AA;--rose-dark:#9A6B63;
-  --cream:#F5F0EB;--charcoal:#2C2420;--warm:#8A7060;--warm-lt:#C9B5A5;
-  --nav-h:60px;--max:1200px;--px:72px;--px-m:22px;
-  --zh:'LINESeedTW','Noto Sans TC',sans-serif;
-  --en:'tt-ricordi-allegria','Georgia',serif;
+–rose:#EDD5CC;–rose-med:#D9B8AA;–rose-dark:#9A6B63;
+–cream:#F5F0EB;–charcoal:#2C2420;–warm:#8A7060;–warm-lt:#C9B5A5;
+–nav-h:60px;–max:1200px;–px:72px;–px-m:22px;
+–zh:‘Noto Sans TC’,sans-serif;
+–en:‘tt-ricordi-allegria’,‘Georgia’,serif;
 }
 
 /* ── CURSOR ── */
@@ -170,6 +171,13 @@ footer{background:var(–rose-med);border-top:.5px solid rgba(192,154,136,.18);p
 .blog-hero-inner{min-height:56vw;padding-bottom:36px;}
 .post-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
 footer{padding:36px var(–px-m);}
+}
+
+/* ── iPad（768px ~ 1100px）── */
+@media(min-width:768px) and (max-width:1100px){
+:root{–px:40px;}
+.nav-links{gap:18px;}
+.nav-links a{font-size:11px;letter-spacing:1.5px;}
 }
 </style>
 
