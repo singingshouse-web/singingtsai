@@ -115,33 +115,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 }
 .capsule-btn:hover{opacity:.82;}
 .capsule-label{padding:18px 0;}
-/* 箭頭圓圈 — 大50%，81px */
+/* 箭頭圓圈 — 透明背景，箭頭放大60% */
 .capsule-arr{
   width:81px;height:81px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;position:relative;overflow:hidden;
-  margin:6px;
+  flex-shrink:0;overflow:hidden;
+  margin:6px;background:transparent!important;
 }
-/* 箭頭 SVG — hover 左下進右上出 */
+/* 箭頭 SVG — 放大60%，hover 左下進右上出 */
 .capsule-arr svg{
-  width:38px;height:38px;
-  position:relative;z-index:1;
+  width:61px;height:61px;
   transition:transform .35s cubic-bezier(.34,1.56,.64,1);
 }
 .capsule-btn:hover .capsule-arr svg{
-  transform:translate(3px,-3px);
+  transform:translate(4px,-4px);
 }
 /* 深色底 */
 .capsule-dark{background:var(--charcoal);color:#fff;}
-.capsule-dark .capsule-arr{background:rgba(255,255,255,.12);}
 .capsule-dark .capsule-arr svg path{fill:#fff;}
 /* 淺色底 */
 .capsule-light{background:var(--cream);color:var(--charcoal);}
-.capsule-light .capsule-arr{background:rgba(44,36,32,.12);}
 .capsule-light .capsule-arr svg path{fill:var(--charcoal);}
 /* 玫瑰底 */
 .capsule-rose{background:var(--rose-dark);color:#fff;}
-.capsule-rose .capsule-arr{background:rgba(255,255,255,.15);}
 .capsule-rose .capsule-arr svg path{fill:#fff;}
 
 /* 2. 圓形箭頭型（circle-btn）— 箭頭放大50%，hover左下進右上出 */
@@ -699,7 +695,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
       <a href="https://www.instagram.com/singingshouse/" target="_blank">Instagram</a><span>｜</span>
       <a href="https://www.facebook.com/singingshouse" target="_blank">Facebook</a><span>｜</span>
       <a href="https://www.youtube.com/@singinghouse_tw" target="_blank">YouTube</a><span>｜</span>
-      <a href="#" target="_blank">Medium</a>
+      <a href="https://medium.com/@hsinyisworld" target="_blank">Medium</a>
     </div>
     <p class="footer-copy">
       © Singingtsai. All Rights Reserved Founded by Singing Tsai&nbsp;&nbsp;
