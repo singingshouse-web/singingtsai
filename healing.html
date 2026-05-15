@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>療癒角落 — 心映好事</title>
+<link rel="stylesheet" href="https://use.typekit.net/eou7jyi.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<style>
+
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+:root{
+  --rose:#EDD5CC;--rose-med:#D9B8AA;--rose-dark:#9A6B63;
+  --cream:#F5F0EB;--charcoal:#2C2420;--warm:#8A7060;--warm-lt:#C9B5A5;--moss:#546B5A;
+  --nav-h:60px;--max:1200px;--px:72px;--px-m:22px;
+  --zh:'Noto Sans TC',sans-serif;
+  --en:'tt-ricordi-allegria','Georgia',serif;
+}
+
+/* ── CURSOR ── */
+@media(hover:hover){
+  body{cursor:none;}
+  #cur{position:fixed;width:8px;height:8px;background:var(--charcoal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+  #cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(44,36,32,.28);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s,height .35s;}
+  body.lk #cur-ring{width:54px;height:54px;}
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(237,213,204,.92);backdrop-filter:blur(16px);border-bottom:.5px solid rgba(192,154,136,.22);}
+.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-brand-logo{width:22px;height:auto;}
+.nav-brand-txt{height:17px;width:auto;}
+.nav-links{display:none;align-items:center;gap:26px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(--charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
+.nav-links a:hover{opacity:1;}
+.nav-links a.active{opacity:1;}
+.nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.mob-menu{position:fixed;inset:0;z-index:490;background:var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity .42s;}
+.mob-menu.open{opacity:1;pointer-events:all;}
+.mob-menu a{font-size:20px;font-weight:400;letter-spacing:6px;color:var(--charcoal);opacity:0;transform:translateY(18px);transition:opacity .4s,transform .4s;}
+.mob-menu.open a:nth-child(1){opacity:1;transform:none;transition-delay:.08s;}
+.mob-menu.open a:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.mob-menu.open a:nth-child(3){opacity:1;transform:none;transition-delay:.22s;}
+.mob-menu.open a:nth-child(4){opacity:1;transform:none;transition-delay:.29s;}
+.mob-menu.open a:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
+.mob-menu a.disabled{opacity:.2!important;pointer-events:none;}
+
+/* ── SUBMENU (次選單 — 未來活動用) ── */
+.submenu-bar{
+  position:fixed;top:var(--nav-h);left:0;right:0;z-index:490;
+  height:44px;
+  background:rgba(245,240,235,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:.5px solid rgba(192,154,136,.2);
+  display:flex;align-items:center;
+  padding:0 var(--px);
+  gap:32px;
+}
+.submenu-bar a{
+  font-size:12px;font-weight:400;letter-spacing:2px;
+  color:var(--charcoal);opacity:.5;
+  transition:opacity .2s;white-space:nowrap;
+}
+.submenu-bar a:hover{opacity:1;}
+.submenu-bar a.active{opacity:1;border-bottom:1px solid var(--charcoal);padding-bottom:2px;}
+/* 有次選單時，內容往下推 */
+.has-submenu-offset{margin-top:calc(var(--nav-h) + 44px);}
+
+/* ── SHARED ── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.12s;}.d2{transition-delay:.22s;}.d3{transition-delay:.32s;}
+
+/* ── BUTTONS ── */
+.capsule-btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;border:none;cursor:pointer;border-radius:60px;padding:0 10px 0 32px;text-decoration:none;overflow:hidden;transition:opacity .25s;}
+.capsule-btn:hover{opacity:.82;}
+.capsule-label{padding:14px 0;line-height:1.5;white-space:normal;text-align:left;}
+.capsule-arr{width:81px;height:81px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;margin:6px;background:transparent!important;}
+.capsule-arr svg{width:61px;height:61px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.capsule-btn:hover .capsule-arr svg{transform:translate(4px,-4px);}
+.capsule-dark{background:var(--charcoal);color:#fff;}
+.capsule-dark .capsule-arr svg path{fill:#fff;}
+.capsule-rose{background:var(--rose-dark);color:#fff;}
+.capsule-rose .capsule-arr svg path{fill:#fff;}
+
+.circle-btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;color:var(--charcoal);background:none;border:none;cursor:pointer;transition:opacity .2s;text-decoration:none;}
+.circle-btn:hover{opacity:.7;}
+.circle-btn-icon{width:72px;height:72px;border-radius:50%;background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.circle-btn-icon svg{width:36px;height:36px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.circle-btn:hover .circle-btn-icon svg{transform:translate(3px,-3px);}
+.circle-btn-icon svg path{fill:#fff;}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.healing-hero{
+  background:var(--cream);
+  padding-top:calc(var(--nav-h) + 44px + 60px);
+  padding-bottom:80px;
+  position:relative;overflow:hidden;
+}
+.healing-hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1920&q=80');
+  background-size:cover;background-position:center;
+  opacity:.12;
+}
+.healing-hero-inner{position:relative;z-index:1;}
+.healing-eyebrow{font-size:11px;letter-spacing:4px;color:var(--warm);margin-bottom:20px;font-weight:400;}
+.healing-hero-title{
+  font-family:var(--zh);font-weight:700;
+  font-size:clamp(32px,5vw,64px);
+  line-height:1.2;color:var(--charcoal);margin-bottom:20px;
+}
+.healing-hero-sub{
+  font-size:clamp(16px,1.8vw,22px);font-weight:400;
+  color:var(--warm);margin-bottom:32px;line-height:1.7;
+}
+.healing-hero-body{
+  font-size:13px;font-weight:400;line-height:2.3;
+  color:var(--charcoal);opacity:.7;max-width:620px;
+}
+
+/* ══════════════════════════════
+   WORKSHOP INTRO（類關於心映）
+══════════════════════════════ */
+.workshop-intro{background:var(--rose);padding:88px 0;}
+.workshop-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.workshop-title{
+  font-family:var(--zh);font-weight:700;
+  font-size:clamp(26px,3.5vw,44px);
+  line-height:1.3;color:var(--charcoal);margin-bottom:28px;
+}
+.workshop-body{font-size:13px;font-weight:400;line-height:2.3;color:var(--charcoal);opacity:.72;}
+.workshop-body p{margin-bottom:18px;}
+.workshop-body p:last-child{margin-bottom:0;}
+/* 圖片區 */
+.workshop-img-wrap{position:relative;}
+.workshop-img{width:100%;height:auto;display:block;border-radius:200px 200px 0 0;overflow:hidden;}
+.workshop-img img{width:100%;height:100%;object-fit:cover;}
+/* 色塊左下角 */
+.workshop-caption{
+  position:absolute;bottom:0;left:0;
+  background:var(--rose-dark);color:#fff;
+  padding:20px 24px;border-radius:0 14px 0 0;
+  width:85%;font-size:12px;line-height:1.9;font-weight:400;
+}
+.workshop-caption-title{font-size:11px;letter-spacing:2px;opacity:.85;margin-bottom:6px;}
+
+/* ══════════════════════════════
+   WHAT IS THE CARD（牌卡介紹）
+══════════════════════════════ */
+.card-intro{background:var(--rose);padding:0 0 88px;}
+.card-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+/* 左側圖 */
+.card-img{width:100%;height:auto;display:block;border-radius:12px;overflow:hidden;}
+.card-img img{width:100%;height:auto;object-fit:cover;}
+/* 右側文字 */
+.card-intro-eyebrow{font-size:11px;letter-spacing:4px;color:var(--warm);margin-bottom:14px;font-weight:400;}
+.card-intro-title{font-family:var(--zh);font-weight:700;font-size:clamp(22px,2.8vw,36px);line-height:1.3;color:var(--charcoal);margin-bottom:24px;}
+.card-intro-body{font-size:13px;font-weight:400;line-height:2.3;color:var(--charcoal);opacity:.72;}
+.card-intro-body p{margin-bottom:16px;}
+
+/* ══════════════════════════════
+   FOUR CATEGORIES（四大牌卡類別）
+══════════════════════════════ */
+.categories-sec{background:var(--cream);padding:88px 0;}
+.categories-title{font-family:var(--zh);font-weight:700;font-size:clamp(24px,3vw,40px);color:var(--charcoal);margin-bottom:52px;text-align:center;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.cat-card{
+  background:var(--rose);border-radius:12px;
+  padding:32px 24px;position:relative;overflow:hidden;
+  transition:transform .25s;
+}
+.cat-card:hover{transform:translateY(-4px);}
+.cat-num{
+  font-family:var(--en);font-size:64px;font-weight:300;
+  color:rgba(44,36,32,.08);line-height:1;
+  position:absolute;top:16px;right:20px;
+}
+.cat-icon{font-size:28px;margin-bottom:16px;}
+.cat-name{font-family:var(--zh);font-weight:700;font-size:16px;color:var(--charcoal);margin-bottom:12px;letter-spacing:.5px;}
+.cat-desc{font-size:12px;font-weight:400;line-height:2;color:var(--charcoal);opacity:.65;}
+.cat-usage{
+  margin-top:16px;padding-top:16px;
+  border-top:.5px solid rgba(192,154,136,.3);
+  font-size:11px;color:var(--warm);line-height:1.9;
+}
+.cat-usage strong{display:block;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+
+/* ══════════════════════════════
+   WORKSHOP DETAILS（工作坊說明）
+══════════════════════════════ */
+.workshop-detail{background:var(--rose);padding:88px 0;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.detail-title{font-family:var(--zh);font-weight:700;font-size:clamp(24px,3vw,40px);color:var(--charcoal);margin-bottom:8px;}
+.detail-sub{font-size:14px;color:var(--warm);margin-bottom:32px;line-height:1.8;}
+.detail-list{list-style:none;}
+.detail-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 0;border-bottom:.5px solid rgba(192,154,136,.25);
+  font-size:13px;font-weight:400;line-height:2;color:var(--charcoal);opacity:.8;
+}
+.detail-list li:last-child{border-bottom:none;}
+.detail-list li::before{
+  content:'✦';color:var(--rose-dark);font-size:12px;
+  flex-shrink:0;margin-top:4px;
+}
+/* 右側資訊卡 */
+.detail-info-card{
+  background:var(--cream);border-radius:16px;
+  padding:36px 32px;
+  border:.5px solid rgba(192,154,136,.25);
+}
+.info-row{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:14px 0;border-bottom:.5px solid rgba(192,154,136,.2);
+  font-size:13px;
+}
+.info-row:last-child{border-bottom:none;}
+.info-label{font-weight:700;color:var(--charcoal);flex-shrink:0;margin-right:16px;}
+.info-val{color:var(--charcoal);opacity:.7;text-align:right;line-height:1.8;}
+.info-cta{margin-top:28px;}
+
+/* ══════════════════════════════
+   TESTIMONIALS（心得見證）
+══════════════════════════════ */
+.testimonial-sec{background:var(--cream);padding:88px 0;}
+.test-eyebrow{font-size:11px;letter-spacing:4px;color:var(--warm);margin-bottom:16px;font-weight:400;text-align:center;}
+.test-title{font-family:var(--zh);font-weight:700;font-size:clamp(22px,3vw,36px);color:var(--charcoal);margin-bottom:48px;text-align:center;}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.test-card{
+  background:var(--rose);border-radius:12px;
+  padding:28px 24px;position:relative;
+}
+.test-quote{font-size:40px;color:var(--rose-dark);opacity:.35;line-height:1;margin-bottom:12px;}
+.test-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--charcoal);opacity:.75;margin-bottom:16px;}
+.test-author{font-size:12px;font-weight:700;color:var(--warm);letter-spacing:1px;}
+
+/* ══════════════════════════════
+   BOOKING CTA
+══════════════════════════════ */
+.healing-cta{background:var(--rose-med);padding:80px 0;}
+.healing-cta-inner{text-align:center;}
+.healing-cta-eyebrow{font-size:11px;letter-spacing:4px;color:var(--warm);margin-bottom:16px;font-weight:400;}
+.healing-cta-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,52px);color:var(--charcoal);line-height:1.3;margin-bottom:16px;}
+.healing-cta-sub{font-size:14px;color:var(--warm);margin-bottom:36px;line-height:1.8;}
+
+/* ── FOOTER ── */
+footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);padding:44px var(--px);}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:10px;}
+.footer-brand-logo{width:22px;height:auto;opacity:.8;}
+.footer-brand-txt{height:15px;width:auto;opacity:.8;}
+.footer-social{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;}
+.footer-social a{font-size:11px;color:var(--charcoal);padding:0 10px;transition:opacity .2s;}
+.footer-social a:hover{opacity:.5;}
+.footer-social span{color:var(--charcoal);opacity:.3;font-size:11px;}
+.footer-copy{font-size:10px;color:var(--charcoal);opacity:.45;line-height:2;}
+.footer-copy a{color:var(--charcoal);opacity:.65;text-decoration:underline;text-underline-offset:2px;}
+
+/* ── MOBILE ── */
+@media(max-width:767px){
+  :root{--px:var(--px-m);--nav-h:56px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .submenu-bar{padding:0 var(--px-m);gap:20px;overflow-x:auto;}
+  .healing-hero{padding-top:calc(var(--nav-h) + 44px + 40px);padding-bottom:52px;}
+  .workshop-grid,.card-intro-grid,.detail-grid{grid-template-columns:1fr;gap:40px;}
+  .workshop-img-wrap{order:-1;}
+  .cat-grid{grid-template-columns:1fr 1fr;gap:14px;}
+  .test-grid{grid-template-columns:1fr;gap:16px;}
+  footer{padding:32px var(--px-m);}
+}
+
+/* ── 桌機：顯示nav，隱藏漢堡 ── */
+@media(min-width:768px){
+  .nav-links{display:flex!important;}
+  .hamburger{display:none!important;}
+}
+/* ── iPad（768px ~ 1100px）── */
+@media(min-width:768px) and (max-width:1100px){
+  :root{--px:40px;}
+  .nav-links{gap:18px;}
+  .nav-links a{font-size:11px;letter-spacing:1.5px;}
+  .workshop-grid,.card-intro-grid,.detail-grid{grid-template-columns:1fr 1fr;gap:36px;}
+  .cat-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .test-grid{grid-template-columns:1fr 1fr;gap:16px;}
+  .healing-hero-title{font-size:clamp(32px,5vw,52px);}
+  .detail-info-card{padding:28px 24px;}
+  footer{padding:36px 40px;}
+}
+
+/* ── MOBILE 手機版修正 ── */
+@media(max-width:767px){
+  /* Hero 手機版 — 只留大標+次標 */
+  .hero-sub,.about-hero-body,.healing-hero-body,.blog-hero-body,.podcast-hero-desc,
+  .blog-hero-featured,.about-hero-ngh{display:none!important;}
+  .about-hero-title,.healing-hero-title,.blog-hero-title,.podcast-hero-title{
+    font-size:clamp(24px,7vw,36px)!important;
+  }
+  .about-hero-sub,.healing-hero-sub,.blog-hero-sub,.podcast-hero-sub{
+    font-size:14px!important;margin-bottom:0!important;
+  }
+
+  /* Nav - 確保漢堡顯示 */
+  .nav-links{display:none!important;}
+  .hamburger{display:flex!important;}
+  nav{padding:0 var(--px-m);}
+  /* 防止文字溢出 */
+  *{max-width:100%;word-break:break-word;}
+  body{overflow-x:hidden;}
+  .wrap{padding:0 var(--px-m);}
+  /* letter-spacing 在手機版縮小 */
+  .mob-menu a{letter-spacing:3px;font-size:18px;}
+  h1,h2{letter-spacing:.02em;}
+  .sym-div{letter-spacing:.04em;}
+  /* Hero 手機版安全區 */
+  .hero-inner{padding:0 var(--px-m);}
+  .hero-text-block{max-width:100%;}
+  .hero-sub{display:none;}
+  /* 圖文並排在手機改單欄 */  
+  .about-grid,.struggle-grid,.change-grid,.detail-grid,.card-intro-grid,.workshop-grid,.best-grid,.booking-grid{grid-template-columns:1fr!important;}
+  /* 貼齊左邊問題修正 */
+  .page-header-inner,.privacy-wrap{padding:0 var(--px-m);}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-ring"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="./about.html" onclick="closeMob()">關於心怡</a>
+  <a href="./podcast.html" onclick="closeMob()">宇宙放映室</a>
+  <a href="./blog.html" onclick="closeMob()">心映日誌</a>
+  <a href="./shop.html">心映好物</a>
+  <a href="./healing.html" onclick="closeMob()">療癒角落</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="./index.html" class="nav-brand">
+    <img src="./images/logo_menu.svg" alt="" class="nav-brand-logo">
+    <img src="./images/logotype_menu_txt.svg" alt="心映好事" class="nav-brand-txt">
+  </a>
+  <ul class="nav-links">
+    <li><a href="./about.html">關於心怡</a></li>
+    <li><a href="./podcast.html">宇宙放映室</a></li>
+    <li><a href="./blog.html">心映日誌</a></li>
+    <li><a href="./shop.html">心映好物</a></li>
+    <li><a href="./healing.html" class="active">療癒角落</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- 次選單（目前只有牌卡工作坊，未來可新增） -->
+<div class="submenu-bar">
+  <a href="./healing.html" class="active">擁抱情緒牌卡工作坊</a>
+  <!-- 未來新增活動在這裡加：<a href="./healing-xxx.html">新活動名稱</a> -->
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="healing-hero">
+  <div class="healing-hero-bg"></div>
+  <div class="healing-hero-inner wrap rv">
+    <p class="healing-eyebrow">療癒角落 · HEALING SPACE</p>
+    <h1 class="healing-hero-title">擁抱情緒牌卡<br>工作坊</h1>
+    <p class="healing-hero-sub">透過牌卡，與自己的情緒相遇</p>
+    <p class="healing-hero-body">
+      你是否曾有過那些說不清楚的感受？那些在心裡轉了很久、卻找不到出口的情緒？<br><br>
+      「擁抱情緒牌卡」工作坊，是一個為你創造的安全空間。在這裡，我們不追求答案，只是學習與情緒在一起——帶著好奇，帶著溫柔，帶著接納。
+    </p>
+  </div>
+</section>
+
+<!-- ═══ WORKSHOP INTRO ═══ -->
+<section class="workshop-intro">
+  <div class="wrap">
+    <div class="workshop-grid">
+      <!-- 左：文字 -->
+      <div class="rv">
+        <h2 class="workshop-title">這不是一場尋找答案的旅程，<br>而是一次與自己相遇的機會</h2>
+        <div class="workshop-body">
+          <p>很多時候，我們以為情緒是需要被解決的問題。但其實，情緒是你內在最忠實的信使——它告訴你，此刻你真正需要什麼。</p>
+          <p>在這個工作坊裡，我們透過「擁抱情緒牌卡」這套特別設計的牌卡工具，引導你認識自己的情緒模式、理解潛意識的語言，並在溫柔的陪伴下，讓那些長久以來被壓抑的感受，得到被看見的機會。</p>
+          <p>不需要有任何牌卡經驗，不需要表現得很好。你只需要帶著一顆願意探索的心，就已經足夠。</p>
+        </div>
+        <div style="margin-top:36px;">
+          <a href="https://lihi.cc/shdyL" target="_blank" class="circle-btn">
+            <span class="circle-btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
+            </span>
+            我想了解更多，加入 Line 詢問
+          </a>
+        </div>
+      </div>
+      <!-- 右：圖片 -->
+      <div class="workshop-img-wrap rv d2">
+        <div class="workshop-img">
+          <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80" alt="擁抱情緒牌卡工作坊" style="width:100%;height:520px;object-fit:cover;">
+        </div>
+        <div class="workshop-caption">
+          <p class="workshop-caption-title">擁抱情緒牌卡 · 心映好事</p>
+          <p>帶著溫柔與好奇，一起探索內在的情緒世界</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT IS THE CARD ═══ -->
+<section class="card-intro">
+  <div class="wrap">
+    <div class="card-intro-grid">
+      <!-- 左：圖片 -->
+      <div class="rv">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=800&q=80" alt="擁抱情緒牌卡介紹" style="width:100%;height:480px;object-fit:cover;border-radius:12px;">
+        </div>
+      </div>
+      <!-- 右：文字 -->
+      <div class="rv d2">
+        <p class="card-intro-eyebrow">關於牌卡</p>
+        <h2 class="card-intro-title">擁抱情緒牌卡<br>是什麼？</h2>
+        <div class="card-intro-body">
+          <p>「擁抱情緒牌卡」是一套由心映好事設計的情緒探索工具，結合心理學與潛意識的概念，以溫柔而直觀的方式，幫助你與自己的情緒建立連結。</p>
+          <p>這套牌卡共分為四大類別，每一個類別都有其獨特的使用方式與三個步驟的引導框架，讓你可以根據當下的狀態，選擇最適合自己的探索方向。</p>
+          <p>不論是想深入了解自己的情緒模式、還是在低潮時需要一個溫柔的支持，這套牌卡都能成為你最忠實的陪伴。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOUR CATEGORIES ═══ -->
+<section class="categories-sec">
+  <div class="wrap">
+    <h2 class="categories-title rv">牌卡四大類別</h2>
+    <div class="cat-grid">
+      <div class="cat-card rv">
+        <div class="cat-num">01</div>
+        <div class="cat-icon">🌊</div>
+        <div class="cat-name">內在雙向</div>
+        <div class="cat-desc">探索你與自己內在兩種聲音之間的對話，理解那些看似矛盾的情緒如何共存。</div>
+        <div class="cat-usage">
+          <strong>三步使用框架</strong>
+          感受現在 · 理解根源 · 找到平衡
+        </div>
+      </div>
+      <div class="cat-card rv d1">
+        <div class="cat-num">02</div>
+        <div class="cat-icon">🌸</div>
+        <div class="cat-name">情緒支援</div>
+        <div class="cat-desc">當你感到情緒湧現、不知所措時，這類牌卡給予你當下最需要的溫柔支持。</div>
+        <div class="cat-usage">
+          <strong>三步使用框架</strong>
+          承認感受 · 接納情緒 · 給予支持
+        </div>
+      </div>
+      <div class="cat-card rv d2">
+        <div class="cat-num">03</div>
+        <div class="cat-icon">🔍</div>
+        <div class="cat-name">深入覺察</div>
+        <div class="cat-desc">引導你進入更深的自我探索，覺察那些潛藏在情緒背後的信念與模式。</div>
+        <div class="cat-usage">
+          <strong>三步使用框架</strong>
+          觀察觸發 · 探索信念 · 重新框架
+        </div>
+      </div>
+      <div class="cat-card rv d3">
+        <div class="cat-num">04</div>
+        <div class="cat-icon">✨</div>
+        <div class="cat-name">宇宙任務</div>
+        <div class="cat-desc">以輕盈而帶有玩心的方式，邀請你接受一個溫柔的任務，為生活帶來微小而美好的改變。</div>
+        <div class="cat-usage">
+          <strong>三步使用框架</strong>
+          接受任務 · 實踐行動 · 分享感受
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORKSHOP DETAILS ═══ -->
+<section class="workshop-detail">
+  <div class="wrap">
+    <div class="detail-grid">
+      <!-- 左：工作坊內容 -->
+      <div class="rv">
+        <h2 class="detail-title">工作坊內容</h2>
+        <p class="detail-sub">每一場工作坊，都是一次溫柔的自我陪伴之旅</p>
+        <ul class="detail-list">
+          <li>認識「擁抱情緒牌卡」四大類別與使用方式，建立屬於你的探索框架</li>
+          <li>學習如何用牌卡與自己的情緒對話，而不是急著解決或逃避它</li>
+          <li>透過引導式的牌卡練習，深入覺察當下最需要被看見的情緒訊息</li>
+          <li>在安全、溫柔的空間裡，分享你的感受與發現（完全自願，無壓力）</li>
+          <li>學習如何在日常生活中持續使用牌卡，建立與自己情緒相處的習慣</li>
+          <li>每位參與者將帶走一套「擁抱情緒牌卡」，作為持續探索的工具</li>
+        </ul>
+      </div>
+      <!-- 右：資訊卡 -->
+      <div class="rv d2">
+        <div class="detail-info-card">
+          <div class="info-row">
+            <span class="info-label">適合對象</span>
+            <span class="info-val">任何想更了解自己情緒的人<br>無需任何牌卡經驗</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">工作坊時長</span>
+            <span class="info-val">約 2.5 至 3 小時</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">人數限制</span>
+            <span class="info-val">每場最多 12 位<br>保持溫馨小班制</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">包含內容</span>
+            <span class="info-val">引導式牌卡練習<br>情緒覺察分享<br>一套擁抱情緒牌卡</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">報名方式</span>
+            <span class="info-val">透過 Line 官方帳號報名<br>可詢問場次與費用</span>
+          </div>
+          <div class="info-cta">
+            <a href="https://lihi.cc/shdyL" target="_blank" class="capsule-btn capsule-dark" style="width:100%;justify-content:space-between;">
+              <span class="capsule-label">加入 Line 詢問工作坊場次</span>
+              <span class="capsule-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="testimonial-sec">
+  <div class="wrap">
+    <p class="test-eyebrow rv">參與者心得</p>
+    <h2 class="test-title rv">她們說</h2>
+    <div class="test-grid">
+      <div class="test-card rv">
+        <div class="test-quote">"</div>
+        <p class="test-body">第一次接觸牌卡工作坊，沒想到可以這麼自然地說出自己的感受。心怡的引導非常溫柔，讓我在完全沒有壓力的情況下，看見了一直藏在心裡的那個小小的自己。</p>
+        <div class="test-author">— 30 歲，設計師</div>
+      </div>
+      <div class="test-card rv d1">
+        <div class="test-quote">"</div>
+        <p class="test-body">我以為我不擅長表達情緒，但那天透過牌卡，我發現其實我一直都知道自己的感受，只是不知道怎麼說出口。這套牌卡給了我一個新的語言。</p>
+        <div class="test-author">— 35 歲，教育工作者</div>
+      </div>
+      <div class="test-card rv d2">
+        <div class="test-quote">"</div>
+        <p class="test-body">在工作坊結束後，我開始每天早上抽一張牌，問自己「今天的情緒是什麼？」這個小小的習慣，讓我和自己的關係親近了很多。真的很推薦給每一個在尋找自己的人。</p>
+        <div class="test-author">— 40 歲，家庭主婦</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HEALING CTA ═══ -->
+<section class="healing-cta">
+  <div class="wrap">
+    <div class="healing-cta-inner rv">
+      <p class="healing-cta-eyebrow">準備好了嗎？</p>
+      <h2 class="healing-cta-title">讓我們一起，<br>輕柔地走進情緒的世界</h2>
+      <p class="healing-cta-sub">加入 Line 官方帳號，詢問最新工作坊場次與報名資訊</p>
+      <a href="https://lihi.cc/shdyL" target="_blank" class="capsule-btn capsule-dark">
+        <span class="capsule-label">加入 Line，了解工作坊場次</span>
+        <span class="capsule-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="./images/logo_menu.svg" alt="" class="footer-brand-logo">
+      <img src="./images/logotype_menu_txt.svg" alt="心映好事" class="footer-brand-txt">
+    </div>
+    <div class="footer-social">
+      <a href="mailto:luckystern16@gmail.com">Mail</a><span>｜</span>
+      <a href="https://lihi.cc/shdyL" target="_blank">Line</a><span>—</span>
+      <a href="https://www.instagram.com/singingshouse/" target="_blank">Instagram</a><span>｜</span>
+      <a href="https://www.facebook.com/singingshouse" target="_blank">Facebook</a><span>｜</span>
+      <a href="https://www.youtube.com/@singinghouse_tw" target="_blank">YouTube</a><span>｜</span>
+      <a href="https://medium.com/@hsinyisworld" target="_blank">Medium</a>
+    </div>
+    <p class="footer-copy">© Singingtsai. All Rights Reserved &nbsp;<a href="./privacy.html">隱私權政策</a></p>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+if(cur&&ring){let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('lk'));el.addEventListener('mouseleave',()=>document.body.classList.remove('lk'));});}
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+let mobOpen=false;
+hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+</script>
+</body>
+</html>

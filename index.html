@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心映好事 — 陪你穿越，發現新的自己</title>
+<link rel="stylesheet" href="https://use.typekit.net/eou7jyi.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<style>
+
+
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:#EDD5CC;color:#2C2420;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+
+:root{
+  --rose:#EDD5CC;--rose-med:#D9B8AA;--rose-dark:#9A6B63;
+  --cream:#F5F0EB;--charcoal:#2C2420;--warm:#8A7060;--warm-lt:#C9B5A5;--moss:#546B5A;
+  --nav-h:60px;--max:1200px;--px:72px;--px-m:22px;
+  --en:'tt-ricordi-allegria','Georgia',serif;
+  --zh:'Noto Sans TC',sans-serif;
+}
+
+/* ── CURSOR ── */
+@media(hover:hover){
+  body{cursor:none;}
+  #cur{position:fixed;width:8px;height:8px;background:var(--charcoal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+  #cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(44,36,32,.28);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s,height .35s;}
+  body.lk #cur{width:0;height:0;}
+  body.lk #cur-ring{width:54px;height:54px;border-color:rgba(44,36,32,.12);}
+  /* cursor 不出現在按鈕內容上方 */
+  .btn,.circle-btn,.booking-img-btn{cursor:none;}
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 72px;background:rgba(237,213,204,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:.5px solid rgba(192,154,136,.22);}
+.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-brand-logo{width:22px;height:auto;flex-shrink:0;}
+.nav-brand-txt{height:17px;width:auto;}
+.nav-links{display:none;align-items:center;gap:26px;list-style:none;}
+.nav-links a{font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(--charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
+.nav-links a:hover{opacity:1;}
+.nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.mob-menu a.disabled{opacity:.2!important;cursor:not-allowed;pointer-events:none;}
+.hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
+.hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s cubic-bezier(.77,0,.18,1);}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.mob-menu{position:fixed;inset:0;z-index:490;background:var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity .42s cubic-bezier(.77,0,.18,1);}
+.mob-menu.open{opacity:1;pointer-events:all;}
+.mob-menu a{font-family:var(--zh);font-size:20px;font-weight:400;letter-spacing:6px;color:var(--charcoal);opacity:0;transform:translateY(18px);transition:opacity .4s,transform .4s;}
+.mob-menu.open a:nth-child(1){opacity:1;transform:none;transition-delay:.08s;}
+.mob-menu.open a:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.mob-menu.open a:nth-child(3){opacity:1;transform:none;transition-delay:.22s;}
+.mob-menu.open a:nth-child(4){opacity:1;transform:none;transition-delay:.29s;}
+.mob-menu.open a:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
+.mob-menu a:hover{opacity:.45!important;}
+
+/* ── HERO ── */
+/* 高度縮小，不要佔滿整個視窗 */
+.hero{position:relative;height:75vh;min-height:480px;max-height:680px;overflow:hidden;margin-top:var(--nav-h);}
+.hero-parallax{position:absolute;inset:-20% 0;will-change:transform;}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease;}
+.hero-slide.on{opacity:1;}
+.hero-slide img{width:100%;height:100%;object-fit:cover;}
+.hero-grain{position:absolute;inset:0;opacity:.13;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(44,36,32,.15) 0%,rgba(44,36,32,.6) 100%);}
+/* hero content — wrap 容器置中，文字靠左 */
+.hero-inner{position:absolute;inset:0;display:flex;align-items:center;padding:0 var(--px);}
+.hero-content-wrap{max-width:var(--max);width:100%;margin:0 auto;}
+.hero-text-block{max-width:580px;}
+/* 移除 eyebrow（心映好事 · XINYING） */
+.hero-eyebrow{display:none;}
+/* hero txt sets — JS 控制顯示 */
+.hero-txt-set{display:none;}
+.hero-txt-set.on{display:block;}
+.hero-h1{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,52px);color:#fff;line-height:1.2;margin-bottom:20px;}
+.hero-h1 .ln{display:block;overflow:hidden;}
+.hero-h1 .ln span{display:block;transform:translateY(108%);opacity:0;}
+.ln:nth-child(1) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .1s forwards;}
+.ln:nth-child(2) span{animation:slideUp .9s cubic-bezier(.16,1,.3,1) .25s forwards;}
+.hero-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.72);line-height:2;max-width:480px;margin-bottom:32px;opacity:0;animation:fadeIn .9s ease .4s forwards;}
+.hero-actions{opacity:0;animation:fadeIn .9s ease .55s forwards;}
+.hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:7px;opacity:0;animation:fadeIn .8s ease 1.2s forwards;}
+.hdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);}
+.hdot.on{background:#fff;width:20px;border-radius:3px;}
+.harr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);cursor:pointer;user-select:none;transition:background .3s,border-color .3s;}
+.harr:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55);}
+.harr.prev{left:24px;}.harr.next{right:24px;}
+.hero-scroll{position:absolute;bottom:28px;right:var(--px);display:flex;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s ease 1.4s forwards;}
+.scroll-line{width:36px;height:.5px;background:rgba(255,255,255,.22);position:relative;overflow:hidden;}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(255,255,255,.65);animation:scanLine 2.4s ease 2s infinite;}
+.scroll-txt{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.35);font-weight:400;}
+
+/* ── SHARED ── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* ── BUTTONS ── */
+
+/* 1. 膠囊型（capsule）— 統一背景色，箭頭放大50%，hover左下進右上出 */
+.capsule-btn{
+  display:inline-flex;align-items:center;gap:16px;
+  font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;
+  border:none;cursor:pointer;
+  border-radius:60px;padding:0 10px 0 32px;
+  text-decoration:none;overflow:hidden;
+  transition:opacity .25s;
+}
+.capsule-btn:hover{opacity:.82;}
+.capsule-label{padding:14px 0;line-height:1.5;white-space:normal;text-align:left;}
+/* 箭頭圓圈 — 透明背景，箭頭放大60% */
+.capsule-arr{
+  width:81px;height:81px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+  margin:6px;background:transparent!important;
+}
+/* 箭頭 SVG — 放大60%，hover 左下進右上出 */
+.capsule-arr svg{
+  width:61px;height:61px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.capsule-btn:hover .capsule-arr svg{
+  transform:translate(4px,-4px);
+}
+/* 深色底 */
+.capsule-dark{background:var(--charcoal);color:#fff;}
+.capsule-dark .capsule-arr svg path{fill:#fff;}
+/* 淺色底 */
+.capsule-light{background:var(--cream);color:var(--charcoal);}
+.capsule-light .capsule-arr svg path{fill:var(--charcoal);}
+/* 玫瑰底 */
+.capsule-rose{background:var(--rose-dark);color:#fff;}
+.capsule-rose .capsule-arr svg path{fill:#fff;}
+
+/* 2. 圓形箭頭型（circle-btn）— 箭頭放大50%，hover左下進右上出 */
+.circle-btn{
+  display:inline-flex;align-items:center;gap:16px;
+  font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;
+  color:var(--charcoal);background:none;border:none;
+  cursor:pointer;transition:opacity .2s;text-decoration:none;
+}
+.circle-btn:hover{opacity:.7;}
+.circle-btn-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--charcoal);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.circle-btn-icon svg{
+  width:36px;height:36px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.circle-btn:hover .circle-btn-icon svg{transform:translate(3px,-3px);}
+.circle-btn-icon svg path{fill:#fff;}
+.circle-btn-rose .circle-btn-icon{background:var(--rose-dark);}
+/* 白色文字版（深色背景用）*/
+.circle-btn-white{color:#fff;}
+
+/* 3. booking 圖片左下角按鈕 */
+.booking-img-btn{
+  position:absolute;bottom:28px;left:28px;
+  display:flex;align-items:center;gap:14px;
+  color:#fff;font-family:var(--zh);font-size:14px;font-weight:700;letter-spacing:1px;
+  background:none;border:none;cursor:pointer;transition:opacity .2s;
+}
+.booking-img-btn:hover{opacity:.75;}
+.booking-img-btn-icon{
+  width:68px;height:68px;border-radius:50%;
+  background:var(--rose-dark);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.booking-img-btn-icon svg{
+  width:34px;height:34px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.booking-img-btn:hover .booking-img-btn-icon svg{transform:translate(3px,-3px);}
+.booking-img-btn-icon svg path{fill:#fff;}
+
+/* 4. Hero 大圓箭頭型（btn）*/
+.btn{display:inline-flex;align-items:center;gap:16px;font-family:var(--zh);font-size:15px;font-weight:700;letter-spacing:2px;padding:0;background:none;border:none;cursor:pointer;transition:opacity .25s;color:#fff;text-decoration:none;}
+.btn:hover{opacity:.75;}
+.btn-light{color:#fff;}
+.btn-arr{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.btn-arr svg{width:38px;height:38px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.btn:hover .btn-arr svg{transform:translate(3px,-3px);}
+.btn-arr svg path{fill:var(--charcoal);}
+.btn-light .btn-arr{background:var(--cream);}
+.btn-dark .btn-arr{background:var(--charcoal);}
+.btn-dark .btn-arr svg path{fill:#fff;}
+
+/* sym divider */
+.sym-div{text-align:center;padding:44px 0;font-family:var(--zh);font-weight:700;font-size:clamp(22px,3vw,40px);letter-spacing:.05em;color:var(--charcoal);display:flex;align-items:center;justify-content:center;gap:20px;}
+.sym-div::before,.sym-div::after{content:'✦';font-size:12px;color:var(--rose-dark);font-weight:400;}
+
+/* ── TAGS ── */
+.tags-strip{background:var(--rose);border-bottom:.5px solid rgba(192,154,136,.2);padding:38px 0;text-align:center;}
+.tags-lbl{font-size:11px;letter-spacing:3px;font-weight:400;color:var(--warm);margin-bottom:18px;}
+.tags-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
+.tag{display:inline-block;border:1px solid var(--warm);color:var(--warm);font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:1px;padding:7px 20px;border-radius:24px;cursor:pointer;transition:all .25s;}
+.tag:hover,.tag.on{background:var(--charcoal);border-color:var(--charcoal);color:var(--cream);}
+
+/* ── HYPNOSIS BLOCKS ── */
+.hyp-section{background:var(--rose);padding:0 0 60px;}
+.hyp-blocks-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.hyp-blocks-inner{border:1px solid rgba(192,154,136,.4);border-radius:4px;overflow:hidden;}
+.hyp-block{position:relative;min-height:320px;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.hyp-block.on{opacity:1;transform:none;}
+.hyp-par{position:absolute;inset:-18% 0;will-change:transform;}
+.hyp-par img{width:100%;height:100%;object-fit:cover;}
+.hyp-ov{position:absolute;inset:0;}
+.hb1 .hyp-ov,.hb2 .hyp-ov{background:rgba(44,36,32,.5);}
+.hb3 .hyp-ov{background:rgba(240,232,220,.35);}
+.hyp-inner{position:relative;z-index:2;padding:52px 48px;}
+.hyp-eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2px;font-weight:400;margin-bottom:12px;}
+.hyp-eyebrow::before{content:'';display:block;width:3px;height:14px;background:currentColor;flex-shrink:0;}
+.hyp-num{font-family:var(--en);font-size:80px;font-weight:300;line-height:1;margin-bottom:8px;letter-spacing:-2px;}
+.hyp-title{font-family:var(--zh);font-weight:700;font-size:clamp(22px,2.8vw,36px);line-height:1.35;margin-bottom:14px;}
+.hyp-body{font-size:13px;font-weight:400;line-height:2.1;max-width:520px;margin-bottom:0;}
+.hb1,.hb2{color:#fff;}
+.hb1 .hyp-eyebrow,.hb2 .hyp-eyebrow{color:rgba(255,255,255,.55);}
+.hb1 .hyp-num,.hb2 .hyp-num{color:rgba(255,255,255,.18);}
+.hb1 .hyp-body,.hb2 .hyp-body{color:rgba(255,255,255,.75);}
+.hb3{color:var(--charcoal);}
+.hb3 .hyp-eyebrow{color:var(--warm);}
+.hb3 .hyp-num{color:rgba(44,36,32,.12);}
+.hb3 .hyp-body{color:var(--warm);}
+.hyp-cta{text-align:center;padding:52px 0 12px;}
+.hyp-cta p{font-size:13px;font-weight:400;color:var(--warm);margin-bottom:24px;}
+
+/* ── ABOUT ── */
+.about-sec{background:var(--rose);padding:72px 0;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+/* logo 尺寸放大 */
+.about-logos{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.about-logo-img{width:52px;height:auto;opacity:.85;}
+.about-x{font-size:24px;color:var(--charcoal);font-weight:300;opacity:.4;margin:0 4px;}
+.about-ngh-img{width:80px;height:auto;opacity:.85;}
+.about-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,3.5vw,48px);line-height:1.25;color:var(--charcoal);margin-bottom:20px;}
+.about-body{font-size:13px;font-weight:400;line-height:2.2;color:var(--charcoal);opacity:.7;margin-bottom:36px;}
+.about-img-col{position:relative;}
+.about-img-wrap{position:relative;display:block;width:100%;}
+.about-img{width:100%;height:auto;display:block;}
+.about-img img{width:100%;height:auto;object-fit:cover;display:block;}
+.about-caption{position:absolute;bottom:0;left:0;background:#9A6B63;color:#fff;padding:20px 24px;border-radius:0 14px 0 0;width:85%;font-size:12px;line-height:1.9;font-weight:400;}
+.about-caption-title{font-size:11px;letter-spacing:2px;opacity:.85;margin-bottom:8px;font-weight:400;}
+.about-caption-tags{font-size:12px;margin-bottom:6px;opacity:.9;}
+.about-caption-desc{font-size:12px;opacity:.85;}
+
+/* ── DOOR SECTION ── */
+.door-sec{position:relative;padding:80px 0;overflow:hidden;}
+.door-bg-wrap{position:absolute;inset:0;}
+.door-bg-img{width:100%;height:100%;object-fit:cover;}
+.door-bg-overlay{position:absolute;inset:0;background:rgba(74,97,80,.6);}
+.door-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.door-header{text-align:center;margin-bottom:52px;}
+.door-tag-pill{display:inline-block;border:1px solid rgba(255,255,255,.55);color:#fff;font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2px;padding:5px 18px;border-radius:20px;margin-bottom:18px;}
+.door-title{font-family:var(--zh);font-weight:700;font-size:clamp(28px,4vw,52px);color:#fff;line-height:1.2;}
+/* 寬度跟其他區塊一致，不設 max-width 限制 */
+.door-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%;}
+.door-card{display:block;text-decoration:none;cursor:pointer;transition:transform .3s;}
+.door-card:hover{transform:translateY(-8px);}
+.door-card-img{position:relative;width:100%;}
+.door-arch{width:100%;height:auto;display:block;}
+/* icon 下移到中間偏下，避免上方空白過大 */
+.door-icon-img{position:absolute;top:25%;left:50%;transform:translateX(-50%);width:42%;height:auto;}
+.door-card-txt{position:absolute;bottom:7%;left:0;right:0;text-align:center;}
+/* 文字放大 */
+.door-card-sub{font-size:17px;font-weight:400;color:rgba(255,255,255,.9);margin-bottom:6px;}
+.door-card-label{font-size:21px;font-weight:700;color:#fff;letter-spacing:.5px;}
+
+/* ── BOOKING (shared) ── */
+.booking-sec{background:var(--rose-med);padding:40px 0;}
+.booking-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
+.booking-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;overflow:hidden;border-radius:8px;
+}
+.booking-img-col{position:relative;overflow:hidden;min-height:400px;}
+.booking-img-col img{width:100%;height:100%;object-fit:cover;object-position:center;}
+/* 左下角圓形按鈕疊在圖上 */
+.booking-img-btn{
+  position:absolute;bottom:28px;left:28px;
+  display:flex;align-items:center;gap:12px;
+  color:#fff;font-family:var(--zh);font-size:13px;font-weight:400;letter-spacing:1px;
+  background:none;border:none;cursor:pointer;
+  transition:opacity .2s;
+}
+.booking-img-btn:hover{opacity:.75;}
+.booking-img-btn-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--rose-dark);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#fff;
+  transition:transform .3s;
+}
+.booking-img-btn:hover .booking-img-btn-icon{transform:translate(2px,-2px);}
+.booking-content{background:var(--rose-dark);padding:52px 48px;display:flex;flex-direction:column;justify-content:center;}
+.booking-eyebrow{font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.6);margin-bottom:12px;font-weight:400;}
+.booking-title{font-family:var(--zh);font-weight:700;font-size:clamp(32px,4vw,52px);color:#fff;line-height:1.15;margin-bottom:10px;}
+.booking-sub{font-size:14px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-bottom:28px;font-weight:300;}
+.booking-body{font-size:13px;font-weight:400;color:rgba(255,255,255,.82);line-height:2.1;margin-bottom:28px;}
+
+/* ── FOOTER ── */
+footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);padding:44px var(--px);}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
+.footer-brand{display:flex;align-items:center;justify-content:center;gap:10px;}
+.footer-brand-logo{width:22px;height:auto;opacity:.8;}
+.footer-brand-txt{height:16px;width:auto;opacity:.8;}
+.footer-social{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;}
+.footer-social a{font-size:11px;font-weight:400;color:var(--charcoal);letter-spacing:.5px;transition:opacity .2s;padding:0 10px;}
+.footer-social a:hover{opacity:.5;}
+.footer-social span{color:var(--charcoal);opacity:.3;font-size:11px;}
+.footer-copy{font-size:10px;color:var(--charcoal);opacity:.45;letter-spacing:.5px;line-height:2;}
+.footer-copy a{color:var(--charcoal);opacity:.65;text-decoration:underline;text-underline-offset:2px;transition:opacity .2s;}
+.footer-copy a:hover{opacity:1;}
+
+/* ── KEYFRAMES ── */
+@keyframes slideUp{from{transform:translateY(100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scanLine{0%{left:-100%;}100%{left:100%;}}
+
+/* ── MOBILE ── */
+@media(max-width:767px){
+  :root{--px:var(--px-m);--nav-h:56px;}
+  /* NAV 手機版 */
+  nav{padding:0 16px;}
+  .nav-links{display:none!important;}
+  .hamburger{display:flex!important;}
+  /* 防止溢出 */
+  html,body{overflow-x:hidden;width:100%;}
+  img,video,iframe{max-width:100%;}
+  /* Hero 手機版 */
+  .hero{height:60vw;min-height:300px;max-height:480px;}
+  .hero-inner{padding:0 16px;}
+  .hero-text-block{max-width:100%;}
+  .harr,.hero-scroll{display:none;}
+  .hero-sub{display:none;}
+  .hero-subtitle{display:block!important;}
+  .hero-h1{font-size:clamp(20px,6vw,32px);letter-spacing:.01em;}
+  /* Hyp 手機版 */
+  .hyp-section{padding:0 0 36px;}
+  .hyp-blocks-wrap{padding:0 16px;}
+  .hyp-inner{padding:32px 20px;}
+  .hyp-num{font-size:48px;}
+  .sym-div{padding:28px 16px;font-size:clamp(18px,5vw,26px);letter-spacing:.02em;}
+  .hyp-title{font-size:clamp(18px,5vw,26px);}
+  /* About 手機版 */
+  .about-grid{grid-template-columns:1fr!important;gap:0;}
+  .about-img-col{order:-1;}
+  .about-img img{max-height:300px;object-fit:cover;object-position:top;}
+  .about-caption{width:90%;border-radius:0 12px 0 0;}
+  .about-sec .wrap .about-grid > .rv{padding:28px 16px 36px;}
+  .about-logos{margin-top:0;}
+  .about-title{font-size:clamp(22px,6vw,30px);}
+  /* Door 手機版 */
+  .door-grid{grid-template-columns:repeat(3,1fr)!important;gap:8px;}
+  .door-inner{padding:0 16px;}
+  .door-title{font-size:clamp(20px,5.5vw,28px);}
+  .door-card-sub{font-size:11px;}
+  .door-card-label{font-size:13px;}
+  .door-sec{padding:48px 0;}
+  /* Tags */
+  .tags-strip .wrap,.tags-strip{padding-left:16px;padding-right:16px;}
+  /* Booking 手機版 */
+  .booking-wrap{padding:16px;}
+  .booking-grid{grid-template-columns:1fr!important;}
+  .booking-img-col{min-height:220px;}
+  .booking-content{padding:32px 16px;}
+  .booking-title{font-size:clamp(26px,7vw,36px);}
+  /* Footer 手機版 */
+  footer{padding:28px 16px;}
+  .footer-social{font-size:10px;}
+  .footer-social a{padding:0 6px;}
+  /* 全站 wrap */
+  .wrap{padding:0 16px!important;}
+}
+
+/* ── 桌機：顯示nav，隱藏漢堡 ── */
+@media(min-width:768px){
+  .nav-links{display:flex!important;}
+  .hamburger{display:none!important;}
+}
+/* ── iPad（768px ~ 1100px）── */
+@media(min-width:768px) and (max-width:1100px){
+  :root{--px:40px;}
+  /* Nav */
+  nav{padding:0 40px;}
+  .nav-links{gap:16px;}
+  .nav-links a{font-size:11px;letter-spacing:1px;}
+  /* Hero */
+  .hero-inner{padding:0 40px;}
+  .hero-h1{font-size:clamp(26px,4vw,40px);}
+  .hero-text-block{max-width:520px;}
+  .hero-sub{font-size:12px;}
+  /* Hyp */
+  .hyp-blocks-wrap{padding:0 40px;}
+  .hyp-inner{padding:44px 36px;}
+  .hyp-num{font-size:72px;}
+  .hyp-title{font-size:clamp(20px,2.8vw,32px);}
+  /* sym-div */
+  .sym-div{padding:40px 40px;}
+  /* About */
+  .about-grid{gap:36px;}
+  .about-logos{gap:10px;}
+  .about-logo-img{width:36px;}
+  .about-ngh-img{width:54px;}
+  .about-caption{width:90%;}
+  /* Door */
+  .door-inner{padding:0 40px;}
+  .door-grid{gap:14px;}
+  .door-card-sub{font-size:13px;}
+  .door-card-label{font-size:15px;}
+  /* Tags */
+  .tags-strip .wrap{padding:0 40px;}
+  /* Booking */
+  .booking-wrap{padding:0 40px;}
+  .booking-content{padding:40px 32px;}
+  .booking-title{font-size:clamp(28px,4vw,42px);}
+  /* Hyp CTA */
+  .hyp-cta{padding:40px 40px 12px;}
+  /* Footer */
+  footer{padding:36px 40px;}
+}
+
+
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="cur-ring"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="./about.html" onclick="closeMob()">關於心怡</a>
+  <a href="./podcast.html">宇宙放映室</a>
+  <a href="./blog.html">心映日誌</a>
+  <a href="./shop.html">心映好物</a>
+  <a href="./healing.html">療癒角落</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="./index.html" class="nav-brand">
+    <svg class="nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.068 60">
+      <g transform="translate(-1655 6.312)"><g transform="translate(1655 -6.312)">
+        <path d="M41.328,53.572c-6.154-7.826-12.307-9.105-18.46-4.621q9.23-6.726,0-18.465c6.154,7.826,12.307,9.107,18.46,4.623q-9.23,6.726,0,18.463" transform="translate(-9.024 -12.03)" fill="#2C2420"/>
+        <path d="M54.941,12.192a4.612,4.612,0,1,0-9.223,0h0C45.711,19.17,52,23.6,54.941,26.069V12.192Z" transform="translate(-18.042 -2.991)" fill="#2C2420"/>
+        <path d="M54.973,68.617c-7.938,5.6-9.234,10.1-9.188,13.866h0v.1h.005a4.592,4.592,0,0,0,9.183-.1Z" transform="translate(-18.067 -27.078)" fill="#2C2420"/>
+        <path d="M2.161,34.635a4.6,4.6,0,0,0-.677,7.278v.006l7.748,7.04V30.5Z" transform="translate(0 -12.035)" fill="#2C2420"/>
+        <path d="M7.6,4.791a3.934,3.934,0,0,0,1.119,2.78A11.665,11.665,0,0,1,12,14.053a26.349,26.349,0,0,1,.229,4.41c1.662-1.185,5.034-4.956,4.559-13.869A4.663,4.663,0,0,0,10.605.266a4.539,4.539,0,0,0-3,4.525" transform="translate(-3 0)" fill="#2C2420"/>
+        <path d="M68.535,45.092v-.005l-7.58-6.965v4.629s0,.354,0,.886v5.3c0,.023,0,.047,0,.07v7.576l6.636-3.924a4.585,4.585,0,0,0,.943-7.567" transform="translate(-24.053 -15.044)" fill="#2C2420"/>
+        <path d="M24.431,74.669c-.014-6.342-4.089-9.228-9.184-13.675V74.805h.013c0,.017,0,.033,0,.05a4.593,4.593,0,0,0,9.186,0c0-.061-.008-.123-.012-.185" transform="translate(-6.017 -24.07)" fill="#2C2420"/>
+      </g></g>
+    </svg>
+    <svg class="nav-brand-txt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.278 36">
+      <g transform="translate(-3191.114 327.963)">
+        <path d="M381.921,52.791h7.873a4.128,4.128,0,0,0,4.128-4.128h-12V45.893l5.706.037a2.395,2.395,0,0,0,4.244-2.214,2.457,2.457,0,0,0-.122-.224c-1.2-2.273-3.673-3.484-5.655-4.164h1.842a4.127,4.127,0,0,0,4.128-4.128H369.4a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h1.716l-1.958,3.4a2.064,2.064,0,0,0,1.775,3.1l6.949.044v2.8h-9.486a2.124,2.124,0,0,0-2.143,1.861,2.064,2.064,0,0,0,2.054,2.266h9.575v2.975H366.14A2.124,2.124,0,0,0,364,57.627a2.064,2.064,0,0,0,2.054,2.266H391.77a4.128,4.128,0,0,0,4.128-4.128H381.921Zm-6.129-13.464h8.671l1.172,2.461-11.214-.074Z" transform="translate(2951.323 -351.876)" fill="#2C2420"/>
+        <path d="M393.475,15.913H380.809a2.074,2.074,0,0,0-.285-.354l-3.7-3.885a2.064,2.064,0,1,0-2.89,2.947l1.229,1.291H363.178a2.064,2.064,0,0,0-2.064,2.064v4.852a2.123,2.123,0,0,0,1.861,2.143,2.064,2.064,0,0,0,2.266-2.054V20.04h26.169v4.886a4.128,4.128,0,0,0,4.128-4.128V17.977a2.064,2.064,0,0,0-2.064-2.064" transform="translate(2952.854 -339.025)" fill="#2C2420"/>
+        <path d="M196.564,20.926h-7.111a2.064,2.064,0,0,0-2.064,2.064v23.3a2.064,2.064,0,0,0,2.064,2.064h7.111a2.064,2.064,0,0,0,2.064-2.064V22.99a2.064,2.064,0,0,0-2.064-2.064M194.5,32.013h-2.983v-6.96H194.5Zm0,5.765v6.443h-2.983v-8.08H194.5v1.637Z" transform="translate(3045.427 -344.269)" fill="#2C2420"/>
+        <path d="M235.168,31.869V20.493a3.785,3.785,0,0,0-3.781-3.781h-4.032V13.1h0a2.061,2.061,0,0,0-4.122,0h0v3.614h-4.033a3.785,3.785,0,0,0-3.781,3.781V32.218A3.786,3.786,0,0,0,219.194,36h3.678a8.594,8.594,0,0,1-5.805,6.946,2.061,2.061,0,0,0,.407,4.081,2.09,2.09,0,0,0,.353-.035l.013.042c6.012-1.784,8.406-6.4,9.191-11.034h4.356c.05,0,.1-.006.149-.007h1.093a4.123,4.123,0,0,0,4.123-4.123Zm-15.627,0V20.839h3.687v10.65q0,.189,0,.384Zm11.5,0h-3.509l-.029,0h-.146c0-.139,0-.277,0-.414V20.839h3.686Z" transform="translate(3030.494 -339)" fill="#2C2420"/>
+        <path d="M250.578,75.533c-2.057-2.847-6.2-3.4-8.136-3.626l4.256,6.437h0c.009.014.016.029.026.044a2.4,2.4,0,1,0,3.852-2.853" transform="translate(3016.092 -371.436)" fill="#2C2420"/>
+        <path d="M166.819,43.161a2.79,2.79,0,0,0-.132-.264c-1.767-3.659-6.37-5.132-8.536-5.777l3.547,8.194h0c.007.018.013.037.021.055a2.778,2.778,0,1,0,5.1-2.207" transform="translate(3061.008 -352.899)" fill="#2C2420"/>
+        <path d="M98.116,46.266a2.786,2.786,0,0,1,.025-.295c.292-4.053,4.026-7.12,5.8-8.519l-.272,8.925h0c0,.02,0,.039,0,.059a2.778,2.778,0,1,1-5.553-.17" transform="translate(3093 -353.076)" fill="#2C2420"/>
+        <path d="M135.417,17.665a2.765,2.765,0,0,0-.287-.071c-3.93-1.034-8.04,1.507-9.938,2.735l8.533,2.628v0l.056.021a2.778,2.778,0,1,0,1.635-5.309" transform="translate(3078.571 -342.365)" fill="#2C2420"/>
+        <path d="M133.8,46.334v4.682a2.677,2.677,0,0,1-2.677,2.677h-8.036a2.677,2.677,0,0,1-2.677-2.677V34.375a2.124,2.124,0,0,0-1.861-2.143,2.065,2.065,0,0,0-2.267,2.054V51.016a6.8,6.8,0,0,0,6.8,6.8h8.036a6.8,6.8,0,0,0,6.8-6.8V47.427Z" transform="translate(3083.32 -350.289)" fill="#2C2420"/>
+        <path d="M284.245,37.271a39.005,39.005,0,0,0,3.039-13.344h-4.131a36.348,36.348,0,0,1-2.163,10.364l-3.316-3.035,2.38-9.077h4.691a4.128,4.128,0,0,0,4.128-4.128h-7.737l1.159-4.419a2.064,2.064,0,0,0-3.989-1.06l-1.438,5.479H273.24a2.064,2.064,0,1,0,0,4.128h2.545L273.363,31.4a2.063,2.063,0,0,0,.6,2.052l5.181,4.743a18.246,18.246,0,0,1-4.351,5.152l.007.009a2.052,2.052,0,1,0,2.555,3.212l.007.009a22.051,22.051,0,0,0,4.892-5.535l3.789,3.468a2.064,2.064,0,1,0,2.787-3.044Z" transform="translate(3000.78 -339)" fill="#2C2420"/>
+        <path d="M320.383,31.736V29.244l5.556-8.7a2.064,2.064,0,0,0-1.739-3.175H311.416a2.064,2.064,0,0,0,0,4.128h9.016L316.58,27.53a2.064,2.064,0,0,0-.325,1.111v3.095h-6.911A2.124,2.124,0,0,0,307.2,33.6a2.064,2.064,0,0,0,2.054,2.266h7v4.368c0,.058,0,.121.008.178.085,1,.045,4.132-1.2,5.373a1.893,1.893,0,0,1-1.678.488,2.064,2.064,0,0,0-.357,4.113q.337.029.664.029a5.9,5.9,0,0,0,4.3-1.718c2.7-2.7,2.466-7.62,2.4-8.548V35.863h3.151a4.128,4.128,0,0,0,4.128-4.128Z" transform="translate(2981.587 -342.376)" fill="#2C2420"/>
+      </g>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./about.html">關於心怡</a></li>
+    <li><a href="./podcast.html">宇宙放映室</a></li>
+    <li><a href="./blog.html">心映日誌</a></li>
+    <li><a href="./shop.html">心映好物</a></li>
+    <li><a href="./healing.html">療癒角落</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-parallax" id="heroPar">
+    <div class="hero-slide on"><img src="./images/hero_bg_01.webp" alt="" loading="eager"></div>
+    <div class="hero-slide"><img src="./images/hero_bg_02.webp" alt="" loading="lazy"></div>
+    <div class="hero-slide"><img src="./images/hero_bg_03.webp" alt="" loading="lazy"></div>
+    <div class="hero-slide"><img src="./images/hero_bg_04.webp" alt="" loading="lazy"></div>
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- 各輪播文字（JS 控制顯示） -->
+  <div class="hero-inner">
+    <div class="hero-content-wrap">
+      <div class="hero-text-block">
+
+        <!-- Slide 1 文字 -->
+        <div class="hero-txt-set on" data-slide="0">
+          <h1 class="hero-h1">
+            <span class="ln"><span>你的過去＝現在的你？</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「你的過去，是否悄悄影響現在的你？」</span></span>
+          </h1>
+          <p class="hero-sub">那些未解的心結，反覆重演的情緒，曾經深深困擾著我。也讓我慢慢找到了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
+        </div>
+
+        <!-- Slide 2 文字 -->
+        <div class="hero-txt-set" data-slide="1">
+          <h1 class="hero-h1">
+            <span class="ln"><span>從潛意識開始改變</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「真正的改變，從內在開始。」</span></span>
+          </h1>
+          <p class="hero-sub">催眠不是魔法，而是一把鑰匙。幫助你打開那扇一直存在、卻從未被發現的門。</p>
+        </div>
+
+        <!-- Slide 3 文字 -->
+        <div class="hero-txt-set" data-slide="2">
+          <h1 class="hero-h1">
+            <span class="ln"><span>療癒，是回到自己</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「不是找到答案，而是找到自己。」</span></span>
+          </h1>
+          <p class="hero-sub">每一次的迷失，都是一次機會。讓我們一起，重新認識那個值得被愛的自己。</p>
+        </div>
+
+        <!-- Slide 4 文字 -->
+        <div class="hero-txt-set" data-slide="3">
+          <h1 class="hero-h1">
+            <span class="ln"><span>陪伴你穿越黑暗</span></span>
+            <span class="ln hero-subtitle"><span style="font-size:.52em;font-weight:300;opacity:.8">「你不需要一個人面對。」</span></span>
+          </h1>
+          <p class="hero-sub">心映好事，是一個溫柔的空間。在這裡，你可以慢下來，聽見自己的聲音。</p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
+        </div>
+      </div><!-- end hero-text-block -->
+    </div><!-- end hero-content-wrap -->
+  </div><!-- end hero-inner -->
+  <button class="harr prev" id="hPrev">‹</button>
+  <button class="harr next" id="hNext">›</button>
+  <div class="hero-dots" id="hDots">
+    <div class="hdot on"></div><div class="hdot"></div><div class="hdot"></div><div class="hdot"></div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-txt">SCROLL</span></div>
+</section>
+
+<!-- HYPNOSIS BLOCKS -->
+<section class="hyp-section">
+  <div class="sym-div rv wrap">催眠能幫助你什麼？</div>
+  <div class="hyp-blocks-wrap">
+    <div class="hyp-blocks-inner">
+    <!-- 01 -->
+    <div class="hyp-block hb1">
+      <div class="hyp-par"><img src="./images/benefit-01.webp" alt=""></div>
+      <div class="hyp-ov"></div>
+      <div class="hyp-inner">
+        <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+        <div class="hyp-num">01</div>
+        <h2 class="hyp-title">直擊潛意識底層<br>的問題根源</h2>
+        <p class="hyp-body">潛意識中藏著你所有的經歷與信念，無論是未解的創傷，還是限制性的想法。<br>催眠讓你深入探索內心，找到阻礙你的情緒、行為模式或恐懼的根源，從根本上實現改變。</p>
+      </div>
+    </div>
+    <!-- 02 -->
+    <div class="hyp-block hb2">
+      <div class="hyp-par"><img src="./images/benefit-02.webp" alt=""></div>
+      <div class="hyp-ov"></div>
+      <div class="hyp-inner">
+        <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+        <div class="hyp-num">02</div>
+        <h2 class="hyp-title">喚醒內在力量，<br>療癒過去的創傷</h2>
+        <p class="hyp-body">你不需要再與過去的傷痕糾纏。催眠幫助你用更健康、更有力量的方式與過去和解，釋放壓力，讓內心轉化成平靜與自由。</p>
+      </div>
+    </div>
+    <!-- 03 -->
+    <div class="hyp-block hb3">
+      <div class="hyp-par"><img src="./images/benefit-03.webp" alt=""></div>
+      <div class="hyp-ov"></div>
+      <div class="hyp-inner">
+        <p class="hyp-eyebrow">催眠能幫助你什麼？</p>
+        <div class="hyp-num">03</div>
+        <h2 class="hyp-title">重建內心的平衡<br>創造全新的可能性</h2>
+        <p class="hyp-body">不只是療癒過去，催眠也是一個強大的創造工具。它幫助你設定清晰的目標，重寫人生劇本，主動設計一個更自由、更快樂、更有力量的未來。</p>
+      </div>
+    </div>
+    </div><!-- end hyp-blocks-inner -->
+  </div><!-- end hyp-blocks-wrap -->
+  <!-- CTA -->
+  <div class="hyp-cta rv wrap">
+    <p>如果你正在找一個可以慢慢整理內在的方式，下面有一個入口。</p>
+    <a href="#about" class="capsule-btn capsule-light">
+      <span class="capsule-label">想了解更多我的故事</span>
+      <span class="capsule-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv">
+        <!-- logo_166 × logo_NGH -->
+        <div class="about-logos">
+          <img src="./images/logo_166.svg" alt="心映好事" class="about-logo-img">
+          <span class="about-x">×</span>
+          <img src="./images/logo_NGH_w200.svg" alt="NGH" class="about-ngh-img">
+        </div>
+        <h2 class="about-title">認識心映好事</h2>
+        <p class="about-body">我是一個催眠師 也是一位在外商公司擔任設計部副理十多年的插畫家，以前的我，相信凡事都是要靠努力跟力氣才能達到我想要的目標，對自己不夠有信心，讓自己安於現狀不敢勇敢追求自己的夢想，雖然我夢想名單落落長，我總是提不起勁去行動，每天日複一日的上班下班，越來越覺得真實的自己在枯萎，由於這樣的心態讓自己非常限縮的關係，之前的我很容易對周遭的事情發怒或是不耐煩，隨著年紀見長，越來越跨不出舒適圈，找不出解決的方法也找不出答案。</p>
+        <a href="/about" class="circle-btn circle-btn-dark">
+          <span class="circle-btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
+          </span>
+          了解更多關於心怡
+        </a>
+      </div>
+      <!-- 右側：boss.webp + 疊加色塊 -->
+      <div class="about-img-col rv d2">
+        <div class="about-img-wrap">
+          <div class="about-img">
+            <img src="./images/boss.webp" alt="心怡" style="width:100%;height:auto;display:block;">
+          </div>
+          <div class="about-caption">
+            <p class="about-caption-title">NGH認證催眠師／插畫家Hsinyi</p>
+            <p class="about-caption-tags">🪶 催眠療癒 🪶 內在力量 🪶 自我成長 🪶 潛意識探索</p>
+            <p class="about-caption-desc">陪伴妳一起穿越一起發現新的自己</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 誰適合探索潛意識？ -->
+<section class="door-sec">
+  <div class="door-bg-wrap">
+    <img src="./images/alldoor_bg.webp" alt="" class="door-bg-img">
+    <div class="door-bg-overlay"></div>
+  </div>
+  <div class="door-inner rv">
+    <div class="door-header">
+      <span class="door-tag-pill">潛意識世界</span>
+      <h2 class="door-title">誰適合探索潛意識？</h2>
+    </div>
+    <div class="door-grid">
+      <a href="#booking" class="door-card">
+        <div class="door-card-img">
+          <img src="./images/door_bg.webp" alt="" class="door-arch">
+          <img src="./images/door_key.webp" alt="鑰匙" class="door-icon-img">
+          <div class="door-card-txt">
+            <p class="door-card-sub">被困住</p>
+            <p class="door-card-label">而渴望改變的人</p>
+          </div>
+        </div>
+      </a>
+      <a href="#booking" class="door-card">
+        <div class="door-card-img">
+          <img src="./images/door_bg.webp" alt="" class="door-arch">
+          <img src="./images/door_star.webp" alt="星星" class="door-icon-img">
+          <div class="door-card-txt">
+            <p class="door-card-sub">想療癒</p>
+            <p class="door-card-label">過去創傷的人</p>
+          </div>
+        </div>
+      </a>
+      <a href="#booking" class="door-card">
+        <div class="door-card-img">
+          <img src="./images/door_bg.webp" alt="" class="door-arch">
+          <img src="./images/door_moon.webp" alt="月亮" class="door-icon-img">
+          <div class="door-card-txt">
+            <p class="door-card-sub">想找回</p>
+            <p class="door-card-label">人生主控權的人</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TAGS -->
+<section class="tags-strip">
+  <div class="wrap">
+    <p class="tags-lbl rv">快來看看心映好事的觀點，或許能與你產生共鳴，解答你對生命的看法</p>
+    <div class="tags-row rv d1">
+      <span class="tag on">催眠</span>
+      <span class="tag">心靈深處</span>
+      <span class="tag">情緒</span>
+      <span class="tag">顯化</span>
+      <span class="tag">微笑告白</span>
+      <span class="tag">自我成長</span>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING (shared component) -->
+<section class="booking-sec" id="booking">
+  <div class="booking-wrap">
+    <div class="booking-grid">
+      <div class="booking-img-col rv">
+        <img src="./images/footer_booking_desk_short.webp" alt="催眠預約">
+        <a href="https://lihi.cc/shdyL" target="_blank" class="booking-img-btn">
+          <span class="booking-img-btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
+          </span>
+          我想預約一段催眠對話
+        </a>
+      </div>
+      <div class="booking-content rv d2">
+        <p class="booking-eyebrow">療癒角落</p>
+        <h2 class="booking-title">催眠預約</h2>
+        <p class="booking-sub">一段只屬於你的內在對話</p>
+        <p class="booking-body">
+          當你反覆卡在同一個情緒、關係或人生節點，<br>
+          催眠不是讓你被引導去成為誰，<br>
+          而是陪你回到自己，<br>
+          聽見那些平常被壓下來、卻一直存在的聲音。<br><br>
+          每一次預約，都是一段一對一的深度陪伴，<br>
+          節奏會依你的狀態而走，沒有標準答案，也不需要表現得很好。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (shared component) -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="./images/logo_menu.svg" alt="" class="footer-brand-logo">
+      <img src="./images/logotype_menu_txt.svg" alt="心映好事" class="footer-brand-txt">
+    </div>
+    <div class="footer-social">
+      <a href="mailto:luckystern16@gmail.com">Mail</a><span>｜</span>
+      <a href="https://lihi.cc/shdyL" target="_blank">Line</a><span>—</span>
+      <a href="https://www.instagram.com/singingshouse/" target="_blank">Instagram</a><span>｜</span>
+      <a href="https://www.facebook.com/singingshouse" target="_blank">Facebook</a><span>｜</span>
+      <a href="https://www.youtube.com/@singinghouse_tw" target="_blank">YouTube</a><span>｜</span>
+      <a href="https://medium.com/@hsinyisworld" target="_blank">Medium</a>
+    </div>
+    <p class="footer-copy">
+      © Singingtsai. All Rights Reserved Founded by Singing Tsai&nbsp;&nbsp;
+      <a href="https://singingtsai.com/%e9%9a%b1%e7%a7%81%e6%ac%8a%e6%94%bf%e7%ad%96%e8%88%87%e4%bd%bf%e7%94%a8%e6%a2%9d%e6%ac%be/">隱私權政策與使用條款</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+if(cur&&ring){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('lk'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('lk'));
+  });
+}
+
+// Hero Slider — 同步切換文字
+const slides=document.querySelectorAll('.hero-slide');
+const dots=document.querySelectorAll('.hdot');
+const txtSets=document.querySelectorAll('.hero-txt-set');
+let si=0,st;
+function goTo(n){
+  slides[si].classList.remove('on');
+  dots[si].classList.remove('on');
+  txtSets[si].classList.remove('on');
+  si=(n+slides.length)%slides.length;
+  slides[si].classList.add('on');
+  dots[si].classList.add('on');
+  // 重設文字動畫
+  const newTxt=txtSets[si];
+  newTxt.classList.remove('on');
+  void newTxt.offsetWidth; // reflow
+  newTxt.classList.add('on');
+  // 重置動畫
+  newTxt.querySelectorAll('.ln span').forEach(s=>{
+    s.style.animation='none';
+    void s.offsetWidth;
+    s.style.animation='';
+  });
+}
+function startT(){st=setInterval(()=>goTo(si+1),5500);}
+document.getElementById('hNext').addEventListener('click',()=>{clearInterval(st);goTo(si+1);startT();});
+document.getElementById('hPrev').addEventListener('click',()=>{clearInterval(st);goTo(si-1);startT();});
+dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(st);goTo(i);startT();}));
+startT();
+
+// Parallax
+const heroPar=document.getElementById('heroPar');
+const hypPars=document.querySelectorAll('.hyp-par');
+function onScroll(){
+  const hr=document.getElementById('hero').getBoundingClientRect();
+  if(hr.bottom>0&&hr.top<window.innerHeight)heroPar.style.transform=`translateY(${(hr.top/window.innerHeight)*18}%)`;
+  hypPars.forEach(p=>{
+    const br=p.closest('.hyp-block').getBoundingClientRect();
+    if(br.bottom>0&&br.top<window.innerHeight){
+      const pct=(br.top+br.height/2-window.innerHeight/2)/window.innerHeight;
+      p.style.transform=`translateY(${pct*12}%)`;
+    }
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+// Scroll Reveal
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.rv,.hyp-block').forEach(el=>obs.observe(el));
+
+// Tags
+document.querySelectorAll('.tag').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));t.classList.add('on');}));
+
+// Mobile menu
+const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+let mobOpen=false;
+hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+</script>
+</body>
+</html>
