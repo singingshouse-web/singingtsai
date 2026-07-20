@@ -36,6 +36,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .nav-links a:hover{opacity:1;}
 .nav-links a.active{opacity:1;}
 .nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.soon-tag{font-size:9px;font-weight:400;letter-spacing:1px;margin-left:5px;opacity:.9;vertical-align:1px;}
+.mob-menu a.disabled .soon-tag{display:block;font-size:11px;letter-spacing:2px;margin:6px 0 0;text-align:center;}
 .hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
 .hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s;}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
@@ -233,11 +235,11 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
 <div id="cur"></div><div id="cur-ring"></div>
 
 <div class="mob-menu" id="mobMenu">
-  <a href="./about.html" onclick="closeMob()">關於心怡</a>
-  <a href="./podcast.html" onclick="closeMob()">宇宙放映室</a>
-  <a href="./blog.html" onclick="closeMob()">心映日誌</a>
+  <a class="disabled">關於心怡<span class="soon-tag">Coming Soon</span></a>
+  <a class="disabled">宇宙放映室<span class="soon-tag">Coming Soon</span></a>
+  <a class="disabled">心映日誌<span class="soon-tag">Coming Soon</span></a>
   <a href="./shop.html" onclick="closeMob()">心映好物</a>
-  <a href="./healing.html" onclick="closeMob()">療癒角落</a>
+  <a class="disabled">療癒角落<span class="soon-tag">Coming Soon</span></a>
 </div>
 
 <nav>
@@ -246,11 +248,11 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
     <img src="./images/logotype_menu_txt.svg" alt="心映好事" class="nav-brand-txt">
   </a>
   <ul class="nav-links">
-    <li><a href="./about.html">關於心怡</a></li>
-    <li><a href="./podcast.html">宇宙放映室</a></li>
-    <li><a href="./blog.html">心映日誌</a></li>
+    <li><a class="disabled">關於心怡<span class="soon-tag">Coming Soon</span></a></li>
+    <li><a class="disabled">宇宙放映室<span class="soon-tag">Coming Soon</span></a></li>
+    <li><a class="disabled">心映日誌<span class="soon-tag">Coming Soon</span></a></li>
     <li><a href="./shop.html" class="active">心映好物</a></li>
-    <li><a href="./healing.html">療癒角落</a></li>
+    <li><a class="disabled">療癒角落<span class="soon-tag">Coming Soon</span></a></li>
   </ul>
   <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
 </nav>
