@@ -48,6 +48,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .nav-links a{font-family:var(--zh);font-size:12px;font-weight:400;letter-spacing:2.5px;color:var(--charcoal);opacity:.55;transition:opacity .2s;white-space:nowrap;}
 .nav-links a:hover{opacity:1;}
 .nav-links a.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.soon-tag{font-size:9px;font-weight:400;letter-spacing:1px;margin-left:5px;opacity:.9;vertical-align:1px;}
+.mob-menu a.disabled .soon-tag{display:block;font-size:11px;letter-spacing:2px;margin:6px 0 0;text-align:center;}
+.is-soon{opacity:.4!important;pointer-events:none;cursor:default;}
+.soon-note{display:block;font-size:11px;font-weight:400;letter-spacing:2px;opacity:.85;margin-top:3px;}
 .mob-menu a.disabled{opacity:.2!important;cursor:not-allowed;pointer-events:none;}
 .hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:600;}
 .hamburger span{display:block;width:20px;height:1px;background:var(--charcoal);transition:all .38s cubic-bezier(.77,0,.18,1);}
@@ -215,7 +219,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 /* ── HYPNOSIS BLOCKS ── */
 .hyp-section{background:var(--rose);padding:0 0 60px;}
 .hyp-blocks-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
-.hyp-blocks-inner{border:1px solid rgba(192,154,136,.4);border-radius:4px;overflow:hidden;}
+.hyp-blocks-inner{border:1px solid rgba(192,154,136,.4);border-radius:16px;overflow:hidden;}
 .hyp-block{position:relative;min-height:320px;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .hyp-block.on{opacity:1;transform:none;}
 .hyp-par{position:absolute;inset:-18% 0;will-change:transform;}
@@ -254,7 +258,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .about-img-wrap{position:relative;display:block;width:100%;}
 .about-img{width:100%;height:auto;display:block;}
 .about-img img{width:100%;height:auto;object-fit:cover;display:block;}
-.about-caption{position:absolute;bottom:0;left:0;background:#9A6B63;color:#fff;padding:20px 24px;border-radius:0 14px 0 0;width:85%;font-size:12px;line-height:1.9;font-weight:400;}
+.about-caption{position:absolute;bottom:0;left:0;background:#9A6B63;color:#fff;padding:20px 24px;border-radius:0 16px 0 0;width:85%;font-size:12px;line-height:1.9;font-weight:400;}
 .about-caption-title{font-size:11px;letter-spacing:2px;opacity:.85;margin-bottom:8px;font-weight:400;}
 .about-caption-tags{font-size:12px;margin-bottom:6px;opacity:.9;}
 .about-caption-desc{font-size:12px;opacity:.85;}
@@ -286,7 +290,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 .booking-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px);}
 .booking-grid{
   display:grid;grid-template-columns:1fr 1fr;
-  gap:0;overflow:hidden;border-radius:8px;
+  gap:0;overflow:hidden;border-radius:16px;
 }
 .booking-img-col{position:relative;overflow:hidden;min-height:400px;}
 .booking-img-col img{width:100%;height:100%;object-fit:cover;object-position:center;}
@@ -361,7 +365,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   .about-grid{grid-template-columns:1fr!important;gap:0;}
   .about-img-col{order:-1;}
   .about-img img{max-height:300px;object-fit:cover;object-position:top;}
-  .about-caption{width:90%;border-radius:0 12px 0 0;}
+  .about-caption{width:90%;border-radius:0 16px 0 0;}
   .about-sec .wrap .about-grid > .rv{padding:28px 16px 36px;}
   .about-logos{margin-top:0;}
   .about-title{font-size:clamp(22px,6vw,30px);}
@@ -444,11 +448,11 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <a href="./about.html" onclick="closeMob()">關於心怡</a>
-  <a href="./podcast.html">宇宙放映室</a>
-  <a href="./blog.html">心映日誌</a>
+  <a class="disabled">關於心怡<span class="soon-tag">Coming Soon</span></a>
+  <a class="disabled">宇宙放映室<span class="soon-tag">Coming Soon</span></a>
+  <a class="disabled">心映日誌<span class="soon-tag">Coming Soon</span></a>
   <a href="./shop.html">心映好物</a>
-  <a href="./healing.html">療癒角落</a>
+  <a class="disabled">療癒角落<span class="soon-tag">Coming Soon</span></a>
 </div>
 
 <!-- NAV -->
@@ -482,11 +486,11 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="./about.html">關於心怡</a></li>
-    <li><a href="./podcast.html">宇宙放映室</a></li>
-    <li><a href="./blog.html">心映日誌</a></li>
+    <li><a class="disabled">關於心怡<span class="soon-tag">Coming Soon</span></a></li>
+    <li><a class="disabled">宇宙放映室<span class="soon-tag">Coming Soon</span></a></li>
+    <li><a class="disabled">心映日誌<span class="soon-tag">Coming Soon</span></a></li>
     <li><a href="./shop.html">心映好物</a></li>
-    <li><a href="./healing.html">療癒角落</a></li>
+    <li><a class="disabled">療癒角落<span class="soon-tag">Coming Soon</span></a></li>
   </ul>
   <button class="hamburger" id="hamBtn" aria-label="選單">
     <span></span><span></span><span></span>
@@ -546,7 +550,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
         </div>
 
         <div class="hero-actions">
-          <a href="#blog" class="btn btn-light">心映日誌<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
+          <a href="./shop.html" class="btn btn-light">心映好物<span class="btn-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span></a>
         </div>
       </div><!-- end hero-text-block -->
     </div><!-- end hero-content-wrap -->
@@ -602,10 +606,10 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   <!-- CTA -->
   <div class="hyp-cta rv wrap">
     <p>如果你正在找一個可以慢慢整理內在的方式，下面有一個入口。</p>
-    <a href="#about" class="capsule-btn capsule-light">
-      <span class="capsule-label">想了解更多我的故事</span>
+    <span class="capsule-btn capsule-light is-soon">
+      <span class="capsule-label">想了解更多我的故事<span class="soon-note">Coming Soon</span></span>
       <span class="capsule-arr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg></span>
-    </a>
+    </span>
   </div>
 </section>
 
@@ -622,12 +626,12 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
         </div>
         <h2 class="about-title">認識心映好事</h2>
         <p class="about-body">我是一個催眠師 也是一位在外商公司擔任設計部副理十多年的插畫家，以前的我，相信凡事都是要靠努力跟力氣才能達到我想要的目標，對自己不夠有信心，讓自己安於現狀不敢勇敢追求自己的夢想，雖然我夢想名單落落長，我總是提不起勁去行動，每天日複一日的上班下班，越來越覺得真實的自己在枯萎，由於這樣的心態讓自己非常限縮的關係，之前的我很容易對周遭的事情發怒或是不耐煩，隨著年紀見長，越來越跨不出舒適圈，找不出解決的方法也找不出答案。</p>
-        <a href="/about" class="circle-btn circle-btn-dark">
+        <span class="circle-btn circle-btn-dark is-soon">
           <span class="circle-btn-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 128"><path d="M37.2 33.9c-.8.5-1.2 1.7-1 2.7.3 1.8 1.8 1.9 24.8 2.2l24.4.2-25.8 25.9C41 83.5 33.9 91.2 34.2 92.6c.9 5 4 2.6 30.9-24.2L92 41.6l.2 26.4c.3 25 .4 26.5 2.2 26.8 1 .2 2.2-.2 2.7-1 1.3-1.9 1.1-56.5-.1-58.9-1-1.8-2.4-1.9-29.8-1.9-15.8 0-29.3.4-30 .9"/></svg>
           </span>
-          了解更多關於心怡
-        </a>
+          了解更多關於心怡<span class="soon-tag">Coming Soon</span>
+        </span>
       </div>
       <!-- 右側：boss.webp + 疊加色塊 -->
       <div class="about-img-col rv d2">
