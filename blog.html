@@ -151,6 +151,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:
 
 .load-more-wrap{text-align:center;padding-bottom:8px;}
 
+/* ── POSTS LOADING ── */
+.post-loading{grid-column:1/-1;text-align:center;font-size:12px;letter-spacing:2px;color:var(--warm);padding:48px 0;}
+.post-loading a{text-decoration:underline;text-underline-offset:3px;}
+
 /* ── FOOTER ── */
 footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);padding:44px var(--px);}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
@@ -268,12 +272,12 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
       <p class="blog-hero-body">那些未解的心結，反覆重演的情緒，曾經深深困擾著我，也讓我慢慢失去了自己。<br>我的人生，從努力追求外在的成功，到學會探索內在的力量，經歷了很長一段迷失到蛻變的旅程。</p>
     </div>
     <!-- 最新文章縮圖 -->
-    <div class="blog-hero-featured rv d2" id="featuredThumb">
+    <a class="blog-hero-featured rv d2" id="featuredThumb" href="https://medium.com/@hsinyisworld" target="_blank" rel="noopener">
       <div class="blog-hero-thumb">
-        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="最新文章">
+        <img id="featuredImg" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="最新文章">
       </div>
-      <p class="blog-hero-thumb-label">心映日誌</p>
-    </div>
+      <p class="blog-hero-thumb-label" id="featuredLabel">最新文章</p>
+    </a>
   </div>
 </section>
 
@@ -283,12 +287,7 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
     <p class="filter-label">快來看看心映好室的觀點，或許能與你產生共鳴，解答你對生命的看法</p>
     <div class="filter-row" id="blogFilters">
       <span class="ftag on" data-tag="all">全部</span>
-      <span class="ftag" data-tag="催眠">催眠</span>
-      <span class="ftag" data-tag="心靈深處">心靈深處</span>
-      <span class="ftag" data-tag="情緒">情緒</span>
-      <span class="ftag" data-tag="顯化">顯化</span>
-      <span class="ftag" data-tag="微笑告白">微笑告白</span>
-      <span class="ftag" data-tag="自我成長">自我成長</span>
+      <!-- 其餘標籤由 Medium 文章自動產生 -->
     </div>
   </div>
 </section>
@@ -298,79 +297,9 @@ footer{background:var(--rose-med);border-top:.5px solid rgba(192,154,136,.18);pa
   <div class="wrap">
     <h2 class="blog-sec-title rv">Blog</h2>
     <div class="post-grid" id="postGrid">
-      <!-- 8 posts — 點擊開啟 Medium 文章 -->
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv" data-tags="催眠,心靈深處">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">催眠</span><span class="post-tag-chip">心靈深處</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d1" data-tags="情緒,自我成長">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">情緒</span><span class="post-tag-chip">自我成長</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d2" data-tags="顯化,心靈深處">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">顯化</span><span class="post-tag-chip">心靈深處</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d3" data-tags="催眠,自我成長">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">催眠</span><span class="post-tag-chip">自我成長</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv" data-tags="微笑告白,情緒">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">微笑告白</span><span class="post-tag-chip">情緒</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d1" data-tags="心靈深處,自我成長">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">心靈深處</span><span class="post-tag-chip">自我成長</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d2" data-tags="顯化,催眠">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">顯化</span><span class="post-tag-chip">催眠</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
-      <a href="https://medium.com/@hsinyisworld" target="_blank" class="post-card rv d3" data-tags="情緒,微笑告白">
-        <div class="post-thumb"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=70" alt=""></div>
-        <div class="post-body">
-          <div class="post-tags-row"><span class="post-tag-chip">情緒</span><span class="post-tag-chip">微笑告白</span></div>
-          <div class="post-date">2024/01/06</div>
-          <div class="post-title">心映宇宙放映室</div>
-          <div class="post-desc">EP03 學會探索內在的力量，經歷了很長一段迷失到蛻變的旅...</div>
-        </div>
-      </a>
+      <!-- 文章由 Medium RSS 自動載入（見頁尾 script） -->
+      <div class="post-loading" id="postLoading">文章載入中⋯</div>
+    </div>
     </div>
     <div class="load-more-wrap rv" style="padding-bottom:64px;">
       <a href="https://medium.com/@hsinyisworld" target="_blank" class="capsule-btn capsule-dark">
@@ -415,21 +344,96 @@ let mobOpen=false;
 hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
 function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
 
-// Filter tags
-document.querySelectorAll('#blogFilters .ftag').forEach(tag=>{
-  tag.addEventListener('click',()=>{
-    document.querySelectorAll('#blogFilters .ftag').forEach(t=>t.classList.remove('on'));
-    tag.classList.add('on');
-    const sel=tag.dataset.tag;
-    document.querySelectorAll('#postGrid .post-card').forEach(card=>{
-      if(sel==='all'){card.classList.remove('hidden');}
-      else{
-        const tags=card.dataset.tags.split(',');
-        card.classList.toggle('hidden',!tags.includes(sel));
-      }
+// ══ Medium 文章自動同步 ══
+const MEDIUM_USER='hsinyisworld';
+const FEED_API='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://medium.com/feed/@'+MEDIUM_USER);
+const grid=document.getElementById('postGrid');
+const loadingEl=document.getElementById('postLoading');
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function firstImg(htmlStr){
+  const doc=new DOMParser().parseFromString(htmlStr,'text/html');
+  const img=doc.querySelector('img');
+  return img?img.src:'';
+}
+function plainText(htmlStr){
+  const doc=new DOMParser().parseFromString(htmlStr,'text/html');
+  return (doc.body.textContent||'').replace(/\s+/g,' ').trim();
+}
+function fmtDate(s){
+  const d=new Date(s.replace(' ','T'));
+  if(isNaN(d))return '';
+  const p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'/'+p(d.getMonth()+1)+'/'+p(d.getDate());
+}
+
+function bindFilters(){
+  document.querySelectorAll('#blogFilters .ftag').forEach(tag=>{
+    tag.addEventListener('click',()=>{
+      document.querySelectorAll('#blogFilters .ftag').forEach(t=>t.classList.remove('on'));
+      tag.classList.add('on');
+      const sel=tag.dataset.tag;
+      document.querySelectorAll('#postGrid .post-card').forEach(card=>{
+        if(sel==='all'){card.classList.remove('hidden');}
+        else{
+          const tags=(card.dataset.tags||'').split(',');
+          card.classList.toggle('hidden',!tags.includes(sel));
+        }
+      });
     });
   });
-});
+}
+
+fetch(FEED_API)
+  .then(r=>{if(!r.ok)throw new Error('feed error');return r.json();})
+  .then(data=>{
+    const items=(data.items||[]).filter(it=>(it.categories||[]).length>0); // 有標籤的視為文章（過濾留言）
+    if(!items.length)throw new Error('no items');
+
+    // 動態產生篩選標籤
+    const allTags=[...new Set(items.flatMap(it=>it.categories||[]))];
+    const filterRow=document.getElementById('blogFilters');
+    allTags.forEach(t=>{
+      const s=document.createElement('span');
+      s.className='ftag';s.dataset.tag=t;s.textContent=t;
+      filterRow.appendChild(s);
+    });
+    bindFilters();
+
+    // 更新 Hero 最新文章縮圖
+    const latest=items[0];
+    const latestImg=latest.thumbnail||firstImg(latest.content||latest.description||'');
+    if(latestImg){document.getElementById('featuredImg').src=latestImg;}
+    document.getElementById('featuredThumb').href=latest.link;
+    document.getElementById('featuredLabel').textContent='最新文章';
+
+    // 產生文章卡片
+    if(loadingEl)loadingEl.remove();
+    items.forEach((it,i)=>{
+      const img=it.thumbnail||firstImg(it.content||it.description||'');
+      const descSrc=plainText(it.description||it.content||'');
+      const desc=descSrc.length>60?descSrc.slice(0,60)+'⋯':descSrc;
+      const tags=(it.categories||[]).slice(0,3);
+      const a=document.createElement('a');
+      a.href=it.link;a.target='_blank';a.rel='noopener';
+      a.className='post-card rv'+(i%4? ' d'+(i%4):'');
+      a.dataset.tags=tags.join(',');
+      a.innerHTML=
+        '<div class="post-thumb">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':'')+'</div>'+
+        '<div class="post-body">'+
+          '<div class="post-tags-row">'+tags.map(t=>'<span class="post-tag-chip">'+esc(t)+'</span>').join('')+'</div>'+
+          '<div class="post-date">'+fmtDate(it.pubDate||'')+'</div>'+
+          '<div class="post-title">'+esc(it.title||'')+'</div>'+
+          '<div class="post-desc">'+esc(desc)+'</div>'+
+        '</div>';
+      grid.appendChild(a);
+      obs.observe(a); // 沿用原本的滾動顯示動畫
+    });
+  })
+  .catch(err=>{
+    console.error('Medium feed 載入失敗',err);
+    if(loadingEl)loadingEl.innerHTML='文章暫時無法載入，歡迎前往 <a href="https://medium.com/@'+MEDIUM_USER+'" target="_blank" rel="noopener">Medium</a> 閱讀。';
+  });
 </script>
 </body>
 </html>
