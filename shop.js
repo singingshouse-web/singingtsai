@@ -40,11 +40,11 @@ function up01(p){
 }
 
 /* ---------- 牆（02 / 06） ---------- */
-function buildWall(el,cols,seed,gap){
+function buildWall(el,cols,seed,gap,cap){
   var r=rng(seed),W=el.clientWidth||innerWidth,H=el.clientHeight||innerHeight;
-  var cw=(W-(cols+1)*gap)/cols,ch=cw*1286/750,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
+  var cw=Math.min((W-(cols+1)*gap)/cols,cap||1e4),ox=(W-(cols*cw+(cols+1)*gap))/2,ch=cw*1286/750,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
   for(var c=0;c<cols;c++){
-    var x=gap+c*(cw+gap),bl='';
+    var x=ox+gap+c*(cw+gap),bl='';
     var off=-Math.round(r()*.35*H)-40;if(c%2)off-=Math.round(1.35*H);
     for(var i=0;i<n;i++){bl+='<div class="card" style="height:'+ch.toFixed(1)+'px">'+imgTag(ids[k++%ids.length],'',true)+'</div>'}
     h+='<div class="col" data-c="'+c+'" style="left:'+x.toFixed(1)+'px;width:'+cw.toFixed(1)+'px;top:'+off+'px">'+bl+'</div>';
@@ -280,7 +280,7 @@ addEventListener('scroll',req,{passive:true});
 var rz,lastW=innerWidth;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(innerWidth!==lastW){lastW=innerWidth;init(true)}},150)});
 
 function init(re){
-  build01();buildWall($('#wall02'),isM()?4:6,11,isM()?12:18);buildWall($('#w06'),3,5,isM()?10:18);
+  build01();buildWall($('#wall02'),isM()?4:6,11,isM()?12:18);buildWall($('#w06'),4,5,isM()?10:18,310);
   build03();buildRing();render04();
   if(!re){
     if(/[?&]hud=1/.test(location.search)){hud=document.createElement('div');hud.className='hud';document.body.appendChild(hud)}

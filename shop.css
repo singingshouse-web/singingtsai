@@ -66,7 +66,7 @@ body:not(.kb) main :focus-visible{outline:none}
 .hint.off,.dots.off{opacity:0;pointer-events:none}
 .dots{position:fixed;right:clamp(8px,1.5vw,26px);top:50%;translate:0 -50%;z-index:40;display:grid;gap:6px;transition:opacity .35s}
 .dots button{position:relative;width:24px;height:24px;border:0;background:none;padding:0;display:grid;place-items:center;cursor:pointer}
-.dots button::before{content:"";width:9px;height:9px;border-radius:50%;background:rgba(51,51,51,.55);box-shadow:0 0 0 1.5px rgba(255,255,255,.9);transition:transform .25s,background .25s}
+.dots button::before{content:"";width:9px;height:9px;border-radius:50%;background:rgba(139,97,90,.6);transition:transform .25s,background .25s}
 .dots button.on::before{background:var(--accent);transform:scale(1.55)}
 .dots button span{position:absolute;right:32px;top:50%;translate:0 -50%;white-space:nowrap;font-size:13px;line-height:1;background:#333;color:#fff;border-radius:999px;padding:6px 12px;opacity:0;pointer-events:none;transition:opacity .2s}
 @media(hover:hover){.dots button:hover span,.dots button:focus-visible span{opacity:1}}
@@ -85,8 +85,8 @@ body.kb .dots button:focus-visible,body.kb .hint:focus-visible{outline:2px solid
 .card02 p{margin-top:18px;font-size:clamp(15px,1.5vw,24px);line-height:1.6;opacity:0}
 
 /* ---------- 03 ---------- */
-.outline{position:absolute;left:50%;top:23%;translate:-50% 0;width:clamp(280px,62vw,980px);height:auto;opacity:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
-@media (max-width:760px){.outline{width:88vw;top:22%}}
+.outline{position:absolute;left:50%;top:31%;translate:-50% 0;width:clamp(280px,62vw,980px);height:auto;opacity:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
+@media (max-width:760px){.outline{width:88vw;top:29%}}
 .amount{position:absolute;left:0;right:0;top:41%;display:flex;justify-content:center;align-items:baseline;gap:.14em;font-family:var(--font-num);font-weight:800;font-size:clamp(54px,10.4vw,190px);line-height:1;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 .amount .cur{font-family:var(--font-cn);font-weight:400;font-size:.34em}
 .chip{position:absolute;left:0;right:0;top:62%;display:flex;justify-content:center;align-items:center;gap:10px;font-size:clamp(14px,1.5vw,22px);opacity:0}
