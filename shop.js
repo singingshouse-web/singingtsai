@@ -43,7 +43,7 @@ function up01(p){
 /* ---------- 牆（02 / 06） ---------- */
 function buildWall(el,cols,seed,gap){
   var r=rng(seed),W=el.clientWidth||innerWidth,H=el.clientHeight||innerHeight;
-  var cw=(W-(cols+1)*gap)/cols,ch=cw*1232/702,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
+  var cw=(W-(cols+1)*gap)/cols,ch=cw*1286/750,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
   for(var c=0;c<cols;c++){
     var x=gap+c*(cw+gap),bl='';
     var off=-Math.round(r()*.35*H)-40;if(c%2)off-=Math.round(1.35*H);
@@ -130,13 +130,13 @@ function computeBlk(){
   function add(r,pad){if(r&&r.width>0)lastBlk.push({l:r.left-sr.left-pad,t:r.top-sr.top-pad,r:r.right-sr.left+pad,b:r.bottom-sr.top+pad})}
   add(textRect($('.t05',st)),14);
   if(s==='s0'){add(textRect($('.s0text',st)),14);add($('#b05').getBoundingClientRect(),14)}
-  else if(s==='s1'){var dh=H*(m?.42:.46),dw=dh*702/1232,cy=H/2;
+  else if(s==='s1'){var dh=H*(m?.42:.46),dw=dh*750/1286,cy=H/2;
     lastBlk.push({l:W/2-dw/2-26,t:cy-dh/2-26,r:W/2+dw/2+26,b:cy+dh/2+26});add($('#b05').getBoundingClientRect(),26)}
 }
 function buildRing(){
   var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='';
   if(st.dataset.state==='s0'||st.dataset.state==='s1')computeBlk();
-  var Rb=m?W*.62:Math.min(W*.34,H*.44),ys=m?1.25:1,n=12,w=Rb*(m?.3:.26),hh=w*1232/702;RC=[];
+  var Rb=m?W*.62:Math.min(W*.34,H*.44),ys=m?1.25:1,n=12,w=Rb*(m?.3:.26),hh=w*1286/750;RC=[];
   for(var i=0;i<n;i++){var a=i/n*Math.PI*2-Math.PI/2,x=Math.cos(a)*Rb,y=Math.sin(a)*Rb*ys;RC.push({x:x,y:y,rad:hh/2});
     h+='<div class="rc" style="width:'+w.toFixed(1)+'px;height:'+hh.toFixed(1)+'px;transform:translate('+(x-w/2).toFixed(1)+'px,'+(y-hh/2).toFixed(1)+'px) rotate('+(a*180/Math.PI+90).toFixed(1)+'deg)">'+imgTag(ids[i])+'</div>'}
   var rg=$('#ring05');rg.innerHTML=h;RC.forEach(function(o,i){o.el=rg.children[i]});
@@ -175,13 +175,13 @@ async function shareImage(card){
   var g=ctx.createLinearGradient(0,0,W*.5,H);g.addColorStop(0,'#F5D9C8');g.addColorStop(.35,'#EDCBD8');g.addColorStop(.65,'#D4C0E8');g.addColorStop(1,'#C4D4F0');
   ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
   ctx.font="400 50px 'Noto Sans TC', sans-serif";ctx.fillStyle='rgba(60,50,70,0.62)';ctx.textAlign='center';ctx.fillText('擁  抱  情  緒  牌  卡',W/2,140);
-  var CW=660,CH=Math.round(CW*1232/702),cx=(W-CW)/2,cy=210,img=new Image();
+  var CW=660,CH=Math.round(CW*1286/750),cx=(W-CW)/2,cy=210,img=new Image();
   await new Promise(function(res){img.onload=res;img.onerror=res;img.src=IMG+'draw/'+card.id+'.webp'});
   ctx.save();ctx.shadowColor='rgba(0,0,0,0.28)';ctx.shadowBlur=80;ctx.shadowOffsetY=28;
-  ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,26);ctx.clip();
+  ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,34);ctx.clip();
   if(img.naturalWidth>0)ctx.drawImage(img,cx,cy,CW,CH);else{ctx.fillStyle='#d8d0e8';ctx.fillRect(cx,cy,CW,CH)}
   ctx.restore();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-  ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=6;ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,26);ctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=6;ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,34);ctx.stroke();
   var by=cy+CH+60,bW=240,bH=72;ctx.fillStyle='#333';ctx.beginPath();ctx.roundRect((W-bW)/2,by,bW,bH,36);ctx.fill();
   ctx.font="600 32px 'Noto Sans TC', sans-serif";ctx.fillStyle='#fff';ctx.fillText(card.cat||'內在雙向',W/2,by+48);
   var dy=by+bH+68;ctx.strokeStyle='rgba(60,50,70,0.18)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(160,dy);ctx.lineTo(W-160,dy);ctx.stroke();
