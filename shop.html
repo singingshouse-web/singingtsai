@@ -125,6 +125,7 @@
 
 <script>
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+if(cur&&ring){let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('lk'));el.addEventListener('mouseleave',()=>document.body.classList.remove('lk'));});}
 const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
 let mobOpen=false;
 hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
