@@ -3,6 +3,8 @@
    每個單元＝一段釘住的舞台（sticky）＋一段捲動距離，進度 0→1 驅動場景 */
 (function(){
 'use strict';
+document.documentElement.classList.add('js');
+addEventListener('keydown',function(e){if(e.key==='Tab')document.body.classList.add('kb')});addEventListener('pointerdown',function(){document.body.classList.remove('kb')});
 var POOL=[{"id": "A_01", "name": "走吧，邁出那一步", "intro": "你已經準備得比你想像中更多了。現在向前一步，是向自己證明：我願意往前走一點點。世界會在你踏出去的那刻開始回應你。", "cat": "內在雙向"}, {"id": "A_02", "name": "承認還沒準備好", "intro": "此刻，你的身體與心靈需要停泊。放慢腳步，允許自己暫時停下來，那也是一種前進。", "cat": "內在雙向"}, {"id": "A_03", "name": "我正在改變", "intro": "外界可能看不出來，但你知道自己已經不同了。一些念頭正在鬆動，一些舊的反應開始消失。悄悄地、緩緩地向新的自己靠近。", "cat": "內在雙向"}, {"id": "A_04", "name": "我好像又退縮了", "intro": "退縮也是可以的，身體正在溫柔保護那小小的舊傷疤。「我們還需要一點安全感，再往前。」當你願意聽見這個訊號了，就是改變的開始。", "cat": "內在雙向"}, {"id": "A_05", "name": "願意與生命合作", "intro": "當你允許鬆開執著，你會發現事情開始有自己的韻律。步伐會變得更輕，發現自己可以不用再那麼用力。願意讓世界參與你的旅程。", "cat": "內在雙向"}, {"id": "A_06", "name": "放下控制", "intro": "過去的經驗讓你深信，把一切抓在手中，秩序才不會崩塌。但越想抓住的結果，是讓自己累得喘不過氣。心裡留下一點空間,  你將會發現自己擁有自由。", "cat": "內在雙向"}, {"id": "A_07", "name": "我願意相信一次", "intro": "信任，是將心交付給未知的勇敢。儘管不安，你仍願意為自己敞開一扇窗，看見可能性。", "cat": "內在雙向"}, {"id": "A_08", "name": "不急著打開全部的心", "intro": "疑慮像迷霧，讓你看不清前方。允許自己暫時停下，檢視內心的不安。\n你正在用自己的方式，慢慢靠近", "cat": "內在雙向"}, {"id": "A_09", "name": "輕拾行囊，再啟程", "intro": "你已經走過的那些路，無需再證明。現在，只要讓呼吸慢下來，安穩的整合自己。\n當節奏跟頻率對齊，下一步，會自然浮現。", "cat": "內在雙向"}, {"id": "A_10", "name": "停下也是一種前進", "intro": "有時候，真正的力量，是在你願意承認自己累了的那一刻開始的。正為了下一次出發，靜靜地整合能量。", "cat": "內在雙向"}, {"id": "A_11", "name": "點起那盞小小的光", "intro": "你付出了很多，但你最想聽見的那句話，可能還沒對自己說過。\n為自己亮起一盞光,學著當最先看見自己努力的人。", "cat": "內在雙向"}, {"id": "A_12", "name": "從來沒對自己說過謝謝的我", "intro": "撐過那麼多，不是因為你多堅強，而是因為當時沒有選擇。現在你可以回來，看見自己的努力，給自己一個擁抱。", "cat": "內在雙向"}, {"id": "A_13", "name": "身體為我按下了保護鍵", "intro": "當你感到麻木，那是身體溫柔的保護。它暫時將過重的情緒收起，給你空間喘息。現在，你可以開始相信這份愛，並靜待內心再次與世界相連。", "cat": "內在雙向"}, {"id": "A_14", "name": "世界，好像關機了", "intro": "當內心麻木，世界彷彿靜音，感受像被按下暫停鍵。此刻，你只是需要一個沒有外界雜訊的空間，靜靜地回到內在。\n在這裡，沒有人覺得你慢,也沒有誰期待你趕上。", "cat": "內在雙向"}, {"id": "A_15", "name": "選擇將重擔交還給時間", "intro": "或許會發現，緊抓著某些沉重過往，是對自己無形的消耗。現在，你選擇將這份重量輕輕放下，交由時間溫柔承接。回到內在最柔軟的角落，與完整的自己，靜靜相伴。", "cat": "內在雙向"}, {"id": "A_16", "name": "有些重量，還放在心上", "intro": "有些記憶或感受，你還無法將它們輕易放下。那份沉重感是真實的，它也許仍需要一點黑暗。允許自己擁有這段緩緩鬆開的過程。", "cat": "內在雙向"}, {"id": "A_17", "name": "被遺忘的選擇權", "intro": "我一直以為，卸下責任不是我的選項。所以我就苦撐著，習慣了不放手。但有些重量，從來不是我的。", "cat": "內在雙向"}, {"id": "A_18", "name": "在這個時刻，選擇放下", "intro": "我坐下來，讓自己不再獨自撐完整場戲。卸下戲服的那一刻，終於看見，我值得回到最初的平衡裡。", "cat": "內在雙向"}, {"id": "A_19", "name": "被時間縫補的傷痕", "intro": "有些失去，不會被忘記。它像細細的線，織進我靈魂的紋理，成為我之所以堅韌的理由。我不再害怕想起它，因為它已經成為我身體的一部分。", "cat": "內在雙向"}, {"id": "A_20", "name": "我一個人留在了這裡", "intro": "有些失去，不是說了再見就能結束。我的某一部分，還坐在回憶裡，靜靜看著那個沒能留下的風景。我知道我終究會離開，只是現在我還想多陪它一會。", "cat": "內在雙向"}, {"id": "A_21", "name": "回到此刻", "intro": "慢慢地，把注意力帶回現在。感覺呼吸的起伏，也去感覺現在身體所處的位置。當你開始照看自己的情緒，就正在拿回，屬於自己的節奏。", "cat": "內在雙向"}, {"id": "A_22", "name": "焦慮感", "intro": "焦慮，是頭腦在為你尋找生存的方法。反覆檢查，是想確保你不會措手不及。你的身體與頭腦，正在盡最大的力量保護你。而此刻，沒有需要被處理的事情。你可以讓這個系統，暫時休息一下。", "cat": "內在雙向"}, {"id": "A_23", "name": "跟隨內在羅盤", "intro": "開始練習，在沒有保證、沒有標準答案的時候，仍然自己做選擇。所有的嘗試，都在為正確的路徑累積經驗。", "cat": "內在雙向"}, {"id": "A_24", "name": "放手的決定權", "intro": "不敢為自己做決定，因為總是太害怕選錯。過去的你學會相信權威、相信別人的正確答案。卻慢慢忘了，自己也能為自己創造獨特的選擇。", "cat": "內在雙向"}, {"id": "A_25", "name": "選擇我自己身上的標籤", "intro": "那些曾被批評、壓抑的部分，不一定是錯的，只是還沒被你親手命名。當你自己選擇出專屬於你的標籤，它們會成為你的力量，讓它們成為你獨有的光芒。", "cat": "內在雙向"}, {"id": "A_26", "name": "永遠在扮演「適合」的樣子", "intro": "你熟練地演著，角色台詞早已寫好，只要乖一點、懂事一點，世界就不會那麼可怕。但那個角色，是你真心願意扮演的嗎？", "cat": "內在雙向"}, {"id": "A_27", "name": "專屬於我的步調", "intro": "不是每個人都適合用一樣的速度前進，你正在用屬於自己的方式，緩慢而確實地走著。別人的成就不是你的刻度，只要跟內在對齊，就能找到自己的方向。", "cat": "內在雙向"}, {"id": "A_28", "name": "緊緊追趕", "intro": "曾以為，只要跟著別人的方向，就會走到目的地，所以一直努力追趕。但現在，開始意識到，自己背負著某個被期待的樣子往前走。", "cat": "內在雙向"}, {"id": "A_29", "name": "這一次，我不再退後", "intro": "開始學著往內走，看見憤怒底下未被說出口的傷口與需求。每次看見，都是在重新接納那個終於敢開口的自己。", "cat": "內在雙向"}, {"id": "A_30", "name": "怒氣，是邊界被踐踏的證明", "intro": "以為只要不說，就沒有衝突。退一步，事情就會過去。但身體卻開始出現徵兆。憤怒並沒有錯，內在正在告訴你——夠了，我不能再退讓了。", "cat": "內在雙向"}, {"id": "A_31", "name": "與自己在一起", "intro": "當你願意在最孤單的時候靠近自己，世界就會一點一點變得柔軟。你不需要別人給你位置獲認可，你正在為自己打造一個世界上獨一無二的個體。", "cat": "內在雙向"}, {"id": "A_32", "name": "孤獨感受", "intro": "努力迎合，但仍覺得孤單，像被世界遺落。以為被別人接納才是完整，但也許，那個孤單的你，才是你真正的起點。在還沒被擁抱之前，你願不願意，先陪著那個自己？", "cat": "內在雙向"}];            // 內在雙向 A_01–A_32：{id,name,intro}（取自 App 資料，已清理）
 var IMG='./images/shop/';
 var ALL=[];(function(){var r={A:[1,32],B:[33,43],C:[44,55],D:[56,60]};for(var k in r)for(var n=r[k][0];n<=r[k][1];n++)ALL.push(k+'_'+(n<10?'0'+n:n))})();
@@ -41,7 +43,7 @@ function up01(p){
 /* ---------- 牆（02 / 06） ---------- */
 function buildWall(el,cols,seed,gap){
   var r=rng(seed),W=el.clientWidth||innerWidth,H=el.clientHeight||innerHeight;
-  var cw=(W-(cols+1)*gap)/cols,ch=cw*12/7,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
+  var cw=(W-(cols+1)*gap)/cols,ch=cw*1232/702,n=Math.ceil(H*3.6/(ch+gap))+1,h='',ids=shuffle(ALL),k=0;
   for(var c=0;c<cols;c++){
     var x=gap+c*(cw+gap),bl='';
     var off=-Math.round(r()*.35*H)-40;if(c%2)off-=Math.round(1.35*H);
@@ -70,8 +72,8 @@ function build03(){
 function up03(p,pe){
   var v=Math.round(1032197*easeIO(clamp((pe-.08)/.5)));if(RM)v=pe>.1?1032197:0;
   $('#am03').textContent=v.toLocaleString('en-US');
-  var o=clamp((pe-.52)/.18),ol=$('#ol03');ol.style.opacity=String(o);ol.style.transform='translateY('+((1-o)*18).toFixed(1)+'px)';
-  $('#ch03').style.opacity=String(clamp((pe-.58)/.14));
+  var o=easeOut(clamp((pe-.52)/.3)),ol=$('#ol03');ol.style.opacity=String(o);ol.style.transform=RM?'none':'translateY('+((1-o)*150).toFixed(1)+'px) scale('+(.92+.08*o).toFixed(3)+')';
+  $('#ch03').style.opacity=String(clamp((pe-.7)/.14));
 }
 
 /* ---------- 04 ---------- */
@@ -109,24 +111,36 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open04>=0){
 /* ---------- 05 ---------- */
 var st=$('#st05'),u05=$('#u05'),cur=null,extra=0,y0=0,baseH=0;
 var lastBlk=[],RC=[];
-function ringBlur(sc){
-  var W=st.clientWidth,H=st.clientHeight;
-  RC.forEach(function(o){var cx=W/2+o.x*sc,cy=H/2+o.y*sc,r=o.rad*sc,hit=false;
+function ringBlur(sc,rot){
+  var W=st.clientWidth,H=st.clientHeight,co=Math.cos(rot*Math.PI/180),si=Math.sin(rot*Math.PI/180);
+  RC.forEach(function(o){var cx=W/2+(o.x*co-o.y*si)*sc,cy=H/2+(o.x*si+o.y*co)*sc,r=o.rad*sc,hit=false;
     lastBlk.forEach(function(q){if(cx+r>q.l&&cx-r<q.r&&cy+r>q.t&&cy-r<q.b)hit=true});
     if(o.hit!==hit){o.hit=hit;o.el.classList.toggle('bl',hit)}});
 }
 function ringScale(p){var m=isM();return RM?1:(m?1:1.15)-p*(m?.4:.45)}
+function ringRot(p){return RM?0:p*140}
+function ringFx(p){var sc=ringScale(p),rot=ringRot(p),rg=$('#ring05'),s2=st.dataset.state==='s2';
+  rg.style.scale=s2?'':String(sc);rg.style.rotate=s2?'':rot.toFixed(1)+'deg';
+  if(!s2)ringBlur(sc,rot)}
+function textRect(e){var rg=document.createRange();rg.selectNodeContents(e);return rg.getBoundingClientRect()}
+function computeBlk(){
+  var sr=st.getBoundingClientRect(),W=st.clientWidth,H=st.clientHeight,m=isM(),s=st.dataset.state;lastBlk=[];
+  function add(r,pad){if(r&&r.width>0)lastBlk.push({l:r.left-sr.left-pad,t:r.top-sr.top-pad,r:r.right-sr.left+pad,b:r.bottom-sr.top+pad})}
+  add(textRect($('.t05',st)),14);
+  if(s==='s0'){add(textRect($('.s0text',st)),14);add($('#b05').getBoundingClientRect(),14)}
+  else if(s==='s1'){var dh=H*(m?.42:.46),dw=dh*702/1232,cy=H/2;
+    lastBlk.push({l:W/2-dw/2-26,t:cy-dh/2-26,r:W/2+dw/2+26,b:cy+dh/2+26});add($('#b05').getBoundingClientRect(),26)}
+}
 function buildRing(){
-  var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='',sr=st.getBoundingClientRect();
-  if(st.dataset.state==='s0'){lastBlk=[];['.t05','.s0text','#b05'].forEach(function(s){var e=$(s,st),r=null;if(e){if(s==='#b05')r=e.getBoundingClientRect();else{var rg=document.createRange();rg.selectNodeContents(e);r=rg.getBoundingClientRect()}}
-    if(r&&r.width>0)lastBlk.push({l:r.left-sr.left-14,t:r.top-sr.top-14,r:r.right-sr.left+14,b:r.bottom-sr.top+14})})}
-  var Rb=m?W*.62:Math.min(W*.34,H*.44),ys=m?1.25:1,n=12,w=Rb*(m?.3:.26),hh=w*12/7;RC=[];
+  var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='';
+  if(st.dataset.state==='s0'||st.dataset.state==='s1')computeBlk();
+  var Rb=m?W*.62:Math.min(W*.34,H*.44),ys=m?1.25:1,n=12,w=Rb*(m?.3:.26),hh=w*1232/702;RC=[];
   for(var i=0;i<n;i++){var a=i/n*Math.PI*2-Math.PI/2,x=Math.cos(a)*Rb,y=Math.sin(a)*Rb*ys;RC.push({x:x,y:y,rad:hh/2});
     h+='<div class="rc" style="width:'+w.toFixed(1)+'px;height:'+hh.toFixed(1)+'px;transform:translate('+(x-w/2).toFixed(1)+'px,'+(y-hh/2).toFixed(1)+'px) rotate('+(a*180/Math.PI+90).toFixed(1)+'deg)">'+imgTag(ids[i])+'</div>'}
   var rg=$('#ring05');rg.innerHTML=h;RC.forEach(function(o,i){o.el=rg.children[i]});
-  ringBlur(ringScale(units&&units[4]?units[4].p||0:0));
+  ringFx(units&&units[4]?units[4].p||0:0);
 }
-function setState(s){st.dataset.state=s}
+function setState(s){st.dataset.state=s;if(s==='s0'||s==='s1'){computeBlk();ringFx(units&&units[4]?units[4].p||0:0)}}
 function resetBlur(){st.classList.remove('blur');st.style.removeProperty('--e');st.style.removeProperty('--sh')}
 function showCard(c){
   var ci=catIdx(c.id);
@@ -159,13 +173,13 @@ async function shareImage(card){
   var g=ctx.createLinearGradient(0,0,W*.5,H);g.addColorStop(0,'#F5D9C8');g.addColorStop(.35,'#EDCBD8');g.addColorStop(.65,'#D4C0E8');g.addColorStop(1,'#C4D4F0');
   ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
   ctx.font="400 50px 'Noto Sans TC', sans-serif";ctx.fillStyle='rgba(60,50,70,0.62)';ctx.textAlign='center';ctx.fillText('擁  抱  情  緒  牌  卡',W/2,140);
-  var CW=660,CH=Math.round(CW*12/7),cx=(W-CW)/2,cy=210,img=new Image();
+  var CW=660,CH=Math.round(CW*1232/702),cx=(W-CW)/2,cy=210,img=new Image();
   await new Promise(function(res){img.onload=res;img.onerror=res;img.src=IMG+'draw/'+card.id+'.webp'});
   ctx.save();ctx.shadowColor='rgba(0,0,0,0.28)';ctx.shadowBlur=80;ctx.shadowOffsetY=28;
-  ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,44);ctx.clip();
+  ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,26);ctx.clip();
   if(img.naturalWidth>0)ctx.drawImage(img,cx,cy,CW,CH);else{ctx.fillStyle='#d8d0e8';ctx.fillRect(cx,cy,CW,CH)}
   ctx.restore();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-  ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=6;ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,44);ctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=6;ctx.beginPath();ctx.roundRect(cx,cy,CW,CH,26);ctx.stroke();
   var by=cy+CH+60,bW=240,bH=72;ctx.fillStyle='#333';ctx.beginPath();ctx.roundRect((W-bW)/2,by,bW,bH,36);ctx.fill();
   ctx.font="600 32px 'Noto Sans TC', sans-serif";ctx.fillStyle='#fff';ctx.fillText(card.cat||'內在雙向',W/2,by+48);
   var dy=by+bH+68;ctx.strokeStyle='rgba(60,50,70,0.18)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(160,dy);ctx.lineTo(W-160,dy);ctx.stroke();
@@ -210,7 +224,7 @@ $('#x05').addEventListener('click',closeGo);
 $('#ct05').addEventListener('click',function(){track('shop_continue');closeGo()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGo()});
 function up05(p){
-  var sc=ringScale(p);$('#ring05').style.scale=st.dataset.state==='s2'?'':String(sc);if(st.dataset.state==='s0')ringBlur(sc);
+  ringFx(p);
   if(st.dataset.state==='s2'&&isM()&&extra){
     var q=clamp((scrollY-y0)/extra),e=easeIO(clamp((q-.15)/.7));
     st.style.setProperty('--e',e.toFixed(3));st.style.setProperty('--sh',clamp((q-.85)/.15).toFixed(3));
@@ -222,12 +236,11 @@ function up05(p){
 $('#cta1').addEventListener('click',function(){track('shop_cta_1shop')});
 $('#ctaL').addEventListener('click',function(){track('shop_cta_line')});
 
-var R6=$$('#u06 .rv6');
+var R6=$$('#u06 .rv6');R6.forEach(function(e,i){e.style.setProperty('--k',i)});
+if('IntersectionObserver' in window){var r6=$('#u06 .r');new IntersectionObserver(function(es){es.forEach(function(en){if(en.intersectionRatio>=.3)r6.classList.add('in');else if(en.intersectionRatio<.05)r6.classList.remove('in')})},{threshold:[0,.05,.3]}).observe(r6)}else{$('#u06 .r').classList.add('in')}
 function up06(){
   var r=$('#u06').getBoundingClientRect(),vh=innerHeight,s=clamp((vh-r.top)/vh),w=$('#w06'),H=w.clientHeight||vh;
   $$('.col',w).forEach(function(c,i){c._s=(i%2?1:-1)*s*SP[i%SP.length]*.9*H;if(RM)c.style.transform='none'});
-  R6.forEach(function(e,i){var st0=.25+i*.17,pr=RM?1:easeOut(clamp((s-st0)/.25));
-    e._ty=(1-pr)*(34+i*18);e.style.opacity=String(pr);e.style.transform=RM?'none':'translateY('+e._ty.toFixed(1)+'px)'});
 }
 
 /* ---------- 牆的背景動態（不隨捲動，持續緩慢上下漂移） ---------- */
