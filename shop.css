@@ -144,7 +144,13 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 .cnav{position:absolute;top:50%;translate:0 -50%;width:44px;height:72px;border:0;background:none;color:var(--ink);display:grid;place-items:center;cursor:pointer}
 .cnav.prev{left:0}.cnav.next{right:0}.cnav.next svg{rotate:180deg}
 .clab{text-align:center;margin-top:12px}
-.thumbs.home .card{transition:width .4s,rotate .4s}
+.thumbs .card{transition:width .4s,rotate .4s}
+.pair.leave .f1{animation:outL .3s ease-in both}
+.pair.leave .f2{animation:outR .3s ease-in both}
+.pair.leave .mid{animation:outM .25s ease-in both}
+@keyframes outL{to{transform:translateX(-30vw);opacity:0}}
+@keyframes outR{to{transform:translateX(30vw);opacity:0}}
+@keyframes outM{to{transform:translateY(-14px);opacity:0}}
 .detail .f1{animation:inL 1s cubic-bezier(.22,1,.36,1) both}
 .detail .f2{animation:inR 1s cubic-bezier(.22,1,.36,1) both}
 .detail .mid{animation:fadeUp .9s .45s cubic-bezier(.22,1,.36,1) both}
