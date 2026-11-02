@@ -25,7 +25,7 @@ function track(name,p){try{if(window.fbq)fbq('trackCustom',name,p||{});if(window
 
 /* ---------- 01 ---------- */
 var C01=[ // xn,yn,rot,速度,手機 xn,yn
- [.17,.29,-25,.5,.2,.2],[.34,.26,-5,1.0,.62,.14],[.73,.28,15,1.3,.84,.3],[.11,.62,12,.7,.16,.7],[.33,.77,8,1.2,.5,.84],[.69,.78,-5,.6,.82,.76],[.89,.55,10,.9,.5,.5]];
+ [.11,.27,-25,.5,.2,.2],[.26,.15,-5,1.0,.62,.14],[.73,.28,15,1.3,.84,.3],[.11,.62,12,.7,.16,.7],[.33,.77,8,1.2,.5,.84],[.69,.78,-5,.6,.82,.76],[.89,.55,10,.9,.5,.5]];
 function build01(){
   var m=isM(),h='',list=m?[0,1,2,3,4,5]:[0,1,2,3,4,5,6],ids=shuffle(ALL);
   list.forEach(function(k,i){var c=C01[k],x=m?c[4]:c[0],y=m?c[5]:c[1];
@@ -55,8 +55,8 @@ var SP=[.5,1,.7,1.25,.6,.95];
 function up02(p,pe){
   var H=innerHeight;
   $$('#wall02 .col').forEach(function(c,i){c._s=(i%2?1:-1)*pe*SP[i%SP.length]*.9*H;if(RM)c.style.transform='none'});
-  var c=$('#c02');c.style.scale=String(.94+.06*easeOut(clamp(p/.15)));c.style.opacity=String(clamp((pe-.25)/.2));
-  var h2=$('#u02').offsetHeight||1,pe1=H/h2+.22*(1-H/h2),v=Math.round(60*easeIO(clamp((pe-.27)/Math.max(.05,pe1-.27))));if(RM)v=pe>.3?60:0;
+  var c=$('#c02');c.style.scale=String(.94+.06*easeOut(clamp(p/.15)));c.style.opacity='1';
+  var cs=clamp((H-c.getBoundingClientRect().top)/(H*.62)),v=Math.round(60*easeOut(cs));if(RM)v=cs>.5?60:0;
   $('#n02').textContent=(v<10?'0':'')+v;
   $('#p02').style.opacity=String(clamp((p-.2)/.1));
 }
@@ -88,10 +88,17 @@ var KIDX={};CATS.forEach(function(c,i){KIDX[c.k]=i});
 var catIdx=function(id){return {A:0,B:1,C:2,D:3}[id.charAt(0)]};
 function backHTML(i){return '<div class="back bk'+i+'"><small>心映好事</small><i>✦</i><span>'+CATS[i].k+'</span></div>'}
 var cover=function(i,alt){return '<div class="card">'+'<img src="'+IMG+'cover/'+CATS[i].id+'.webp" alt="'+(alt||'')+'" decoding="async" draggable="false"></div>'};
-var open04=-1,sel04=-1,rev04=false;
+var open04=-1,sel04=-1,rev04=false,cur04=0,autoT=null,carVis=false,swiped=false;
 function render04(){
   var h='',el=$('#s04');
-  if(open04<0){
+  if(open04<0&&isM()){
+    var chev='<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    h='<div class="car"><button type="button" class="cnav prev" aria-label="上一張">'+chev+'</button><div class="stack" id="stk04">';
+    CATS.forEach(function(c,i){h+='<button type="button" class="sl" data-i="'+i+'" aria-label="展開'+c.n+'">'+cover(i)+'</button>'});
+    h+='</div><button type="button" class="cnav next" aria-label="下一張">'+chev+'</button></div><p class="clab" id="clab04"><span class="lab dot"></span></p><div class="thumbs home">';
+    CATS.forEach(function(c,i){h+='<button type="button" data-i="'+i+'" style="--j:'+i+'" aria-label="展開'+c.n+'">'+cover(i)+'</button>'});
+    h+='</div>';
+  }else if(open04<0){
     h='<div class="grid4'+(rev04?' in':'')+'">';
     CATS.forEach(function(c,i){h+='<button class="tile" type="button" data-i="'+i+'" style="--i:'+i+'" aria-label="展開'+c.n+'">'+cover(i)+'<span class="lab '+(i===sel04?'sel':'dot')+'">'+c.n+'</span></button>'});
     h+='</div>';
@@ -102,10 +109,24 @@ function render04(){
     h+='</div></div>';
   }
   el.innerHTML=h;
+  if(open04<0&&isM())setCur(cur04);
+  auto();
 }
+function setCur(i){cur04=(i+CATS.length)%CATS.length;
+  $$('#stk04 .sl').forEach(function(b){var r=(+b.dataset.i-cur04+CATS.length)%CATS.length;b.style.setProperty('--r',r);b.tabIndex=r?-1:0});
+  var l=$('#clab04 .lab');if(l)l.textContent=CATS[cur04].n;
+  $$('.thumbs.home button').forEach(function(b){b.classList.toggle('cur',+b.dataset.i===cur04)})}
+function auto(){clearInterval(autoT);autoT=null;if(RM||!isM()||open04>=0||!$('#stk04'))return;
+  autoT=setInterval(function(){if(carVis&&!document.hidden)setCur(cur04+1)},2000)}
+var tsx=0,tsy=0;
+$('#s04').addEventListener('touchstart',function(e){if(!e.target.closest('.car'))return;tsx=e.touches[0].clientX;tsy=e.touches[0].clientY},{passive:true});
+$('#s04').addEventListener('touchend',function(e){if(!e.target.closest('.car'))return;var dx=e.changedTouches[0].clientX-tsx,dy=e.changedTouches[0].clientY-tsy;
+  if(Math.abs(dx)>36&&Math.abs(dx)>Math.abs(dy)*1.3){swiped=true;setTimeout(function(){swiped=false},350);setCur(cur04+(dx<0?1:-1));auto()}},{passive:true});
 $('#s04').addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
-  if(b.id==='x04'){var was=open04;sel04=-1;open04=-1;render04();var t=$('#s04 .tile[data-i="'+was+'"]');return}
+  if(b.classList.contains('cnav')){setCur(cur04+(b.classList.contains('next')?1:-1));auto();return}
+  if(b.classList.contains('sl')){if(swiped)return;var si=+b.dataset.i;if(si===cur04){open04=si;sel04=si;render04();track('shop_cat_open',{cat:CATS[si].k})}else{setCur(si);auto()}return}
+  if(b.id==='x04'){var was=open04;cur04=was;sel04=-1;open04=-1;render04();var t=$('#s04 .tile[data-i="'+was+'"]');return}
   if(b.dataset.i!=null){if(+b.dataset.i===open04)return;open04=+b.dataset.i;sel04=open04;render04();track('shop_cat_open',{cat:CATS[open04].k});var x=$('#x04');}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open04>=0){sel04=-1;open04=-1;render04()}});
@@ -143,7 +164,7 @@ function buildRing(){
   ringFx(units&&units[4]?units[4].p||0:0);
 }
 function setState(s){st.dataset.state=s;req();if(s==='s0'||s==='s1'){computeBlk();ringFx(units&&units[4]?units[4].p||0:0)}}
-function resetBlur(){st.classList.remove('blur');st.style.removeProperty('--e');st.style.removeProperty('--sh')}
+function resetBlur(){st.classList.remove('blur');st.style.removeProperty('--e');st.style.removeProperty('--sh');st.style.removeProperty('--cf')}
 function showCard(c){
   var ci=catIdx(c.id);
   $('#dr05').classList.remove('flipped');$('#fl05').textContent='「看看它的另一面」';
@@ -230,7 +251,7 @@ function up05(p){
   if(st.dataset.state==='s2'&&isM()&&extra){
     var q=clamp((scrollY-y0)/extra),e=easeIO(clamp((q-.15)/.7));
     st.style.setProperty('--e',e.toFixed(3));st.style.setProperty('--sh',clamp((q-.85)/.15).toFixed(3));
-    var on=st.classList.contains('blur');if(!on&&q>.4)st.classList.add('blur');else if(on&&q<.36)st.classList.remove('blur');
+    st.style.setProperty('--cf',clamp((e-.5)/.5).toFixed(3));var on=st.classList.contains('blur');if(!on&&e>.6)st.classList.add('blur');else if(on&&e<.55)st.classList.remove('blur');
   }
 }
 
@@ -291,6 +312,7 @@ function init(re){
     if(/[?&]hud=1/.test(location.search)){hud=document.createElement('div');hud.className='hud';document.body.appendChild(hud)}
     requestAnimationFrame(function(){$('#u01').classList.add('play')});if(!RM)requestAnimationFrame(amb);
     var rid=ALL[Math.floor(Math.random()*ALL.length)];$('#fc06 img').src=IMG+'draw/'+rid+'.webp';
+    if('IntersectionObserver' in window)new IntersectionObserver(function(es){carVis=es[0].isIntersecting},{threshold:.2}).observe($('#s04'));
     if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){rev04=true;var g=$('#s04 .grid4');if(g)g.classList.add('in');o.disconnect()}},{threshold:.35}).observe($('#s04'))}else{rev04=true;var g0=$('#s04 .grid4');if(g0)g0.classList.add('in')}
   }
   req();

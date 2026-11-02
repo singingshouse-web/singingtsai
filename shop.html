@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Newsreader:wght@800&family=Huninn&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="./shop.css">
+<link rel="stylesheet" href="./shop.css?v=20261102b">
 </head>
 <body class="shop">
 <div id="cur"></div><div id="cur-ring"></div>
@@ -65,7 +65,7 @@
 
 <section class="unit flow" id="u04">
   <div class="w">
-    <h2>四種牌，四種陪伴</h2>
+    <h2>四種牌<span class="cm">，</span><br class="mb">四種陪伴</h2>
     <div id="s04"></div>
   </div>
 </section>
@@ -139,6 +139,6 @@ let mobOpen=false;
 hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
 function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
 </script>
-<script src="./shop.js"></script>
+<script src="./shop.js?v=20261102b"></script>
 </body>
 </html>
