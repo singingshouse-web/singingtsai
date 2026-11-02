@@ -251,7 +251,7 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 #u06 .l{position:relative;overflow:hidden;background:var(--bg-2)}
 #u06 .sl06{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--od);opacity:0;scale:1.05;transition:opacity 1.3s ease,scale 6.5s ease-out;user-select:none;-webkit-user-drag:none}
 #u06 .sl06.on{opacity:1;scale:1}
-#u06 .sd06{position:absolute;left:24px;bottom:24px;display:flex;gap:4px;z-index:2}
+#u06 .sd06{position:absolute;left:50%;translate:-50% 0;bottom:24px;display:flex;gap:4px;z-index:2}
 #u06 .sd06 button{width:28px;height:28px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
 #u06 .sd06 button::before{content:"";width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.62);box-shadow:0 0 0 1px rgba(30,24,40,.12);transition:background .3s,scale .3s}
 #u06 .sd06 button.on::before{background:#fff;scale:1.25}
@@ -265,7 +265,7 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 @media (max-width:760px){
   #u06{grid-template-columns:1fr}
   #u06 .l{height:50svh}
-  #u06 .sl06{object-position:var(--op);transform-origin:var(--op);scale:calc(var(--ms) + .05)}#u06 .sl06.on{scale:var(--ms)}#u06 .sd06{left:16px;bottom:12px}
+  #u06 .sl06{object-position:var(--op);transform-origin:var(--op);scale:calc(var(--ms) + .05)}#u06 .sl06.on{scale:var(--ms)}#u06 .sd06{bottom:12px}
   #u06 .r{padding:28px 20px 56px;gap:16px}
   #u06 .btns{flex-direction:column;align-items:center}#u06 .btns .btn{width:64%}
 }
