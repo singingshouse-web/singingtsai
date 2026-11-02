@@ -86,8 +86,8 @@ body.kb .dots button:focus-visible,body.kb .hint:focus-visible{outline:2px solid
 .card02 p{margin-top:18px;font-size:clamp(15px,1.5vw,24px);line-height:1.6;opacity:0}
 
 /* ---------- 03 ---------- */
-.outline{position:absolute;left:50%;top:31%;translate:-50% 0;font-size:clamp(72px,15.4vw,248px);line-height:1.15;letter-spacing:.03em;white-space:nowrap;color:transparent;-webkit-text-stroke:clamp(1.5px,.16vw,3px) var(--accent);-webkit-mask-image:linear-gradient(#000 52%,transparent 96%);mask-image:linear-gradient(#000 52%,transparent 96%);pointer-events:none;user-select:none}.outline span{display:inline-block;opacity:0;will-change:transform,opacity}
-@media (max-width:760px){.outline{font-size:21.4vw;top:33%}
+.outline{position:absolute;left:50%;top:19%;translate:-50% 0;font-size:clamp(72px,15.4vw,248px);line-height:1.15;letter-spacing:.03em;white-space:nowrap;color:transparent;-webkit-text-stroke:clamp(1.5px,.16vw,3px) var(--accent);-webkit-mask-image:linear-gradient(#000 28%,transparent 74%);mask-image:linear-gradient(#000 28%,transparent 74%);pointer-events:none;user-select:none}.outline span{display:inline-block;opacity:0;will-change:transform,opacity}
+@media (max-width:760px){.outline{font-size:21.4vw;top:24%}
   .amount{top:38%;font-size:16vw;align-items:flex-end;gap:.06em}
   .amount .cur{writing-mode:vertical-rl;rotate:180deg;font-size:.3em;letter-spacing:.06em;margin-bottom:.1em}
   .chip{top:55%}.bubbles{top:62%}
