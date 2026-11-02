@@ -72,7 +72,7 @@ function build03(){
 function up03(p,pe){
   var v=Math.round(1032197*easeIO(clamp((pe-.08)/.5)));if(RM)v=pe>.1?1032197:0;
   $('#am03').textContent=v.toLocaleString('en-US');
-  var o=easeOut(clamp((pe-.52)/.3)),ol=$('#ol03');ol.style.opacity=String(o);ol.style.transform=RM?'none':'translateY('+((1-o)*150).toFixed(1)+'px) scale('+(.92+.08*o).toFixed(3)+')';
+  $('#ol03').querySelectorAll('span').forEach(function(s,i){var o=RM?(pe>.55?1:0):easeOut(clamp((pe-.5-i*.065)/.13));s.style.opacity=String(o);s.style.transform=RM?'none':'translateY('+((1-o)*.5).toFixed(3)+'em) scale('+(.9+.1*o).toFixed(3)+')'});
   $('#ch03').style.opacity=String(clamp((pe-.7)/.14));
 }
 
