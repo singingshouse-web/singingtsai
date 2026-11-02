@@ -86,7 +86,15 @@ var CATS=[ // 範例牌取自 App；說明文字為暫代，待定稿
  {n:'宇宙任務牌',k:'宇宙任務',id:'D_56',t:'輕盈帶點玩心的小行動，\n邀請你轉換能量'}];
 var KIDX={};CATS.forEach(function(c,i){KIDX[c.k]=i});
 var catIdx=function(id){return {A:0,B:1,C:2,D:3}[id.charAt(0)]};
-function backHTML(i){return '<div class="back bk'+i+'"><small>心映好事</small><i>✦</i><span>'+CATS[i].k+'</span></div>'}
+function backHTML(i){return '<img src="'+IMG+'back/back_'+'ABCD'.charAt(i)+'.webp" alt="'+CATS[i].n+'牌背" decoding="async" draggable="false">'}
+var BKH='<svg class="bh" viewBox="0 0 1163 200" aria-hidden="true"><defs><linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="110" y1="0" x2="1050" y2="0"><stop offset="0" stop-color="#1E3552" stop-opacity="0"/><stop offset=".16" stop-color="#1E3552"/><stop offset=".84" stop-color="#1E3552"/><stop offset="1" stop-color="#1E3552" stop-opacity="0"/></linearGradient></defs><path d="M110 60H1050M110 173H1050" stroke="url(#bg1)" stroke-width="2.4" fill="none"/><path fill="#1E3552" d="M340,22 Q340,60 378,60 Q340,60 340,98 Q340,60 302,60 Q340,60 340,22ZM828,135 Q828,173 866,173 Q828,173 828,211 Q828,173 790,173 Q828,173 828,135ZM828,40 Q828,60 848,60 Q828,60 828,80 Q828,60 808,60 Q828,60 828,40ZM340,153 Q340,173 360,173 Q340,173 340,193 Q340,173 320,173 Q340,173 340,153Z"/></svg>',BKD='<svg class="bd" viewBox="0 0 1163 100" aria-hidden="true"><path d="M120 50H1040" stroke="url(#bg1)" stroke-width="2.4" fill="none"/><path fill="#1E3552" d="M583,10 Q583,50 623,50 Q583,50 583,90 Q583,50 543,50 Q583,50 583,10Z"/></svg>';
+function backCard(c){
+  var n=parseInt(c.id.slice(2),10),intro=String(c.intro||'').replace(/[\u0000-\u0009\u000b-\u001f]/g,'').replace(/\\n/g,'\n'),L=intro.length,
+      ts=c.name.length>9?'7.4cqw':'9cqw',bs=L>100?'4.1cqw':(L>60?'4.7cqw':'5.3cqw');
+  var esc=function(s){return String(s).replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m]})};
+  return '<div class="bkc">'+BKH+'<div class="bl">'+esc(c.cat||'內在雙向')+'</div><div class="bt" style="font-size:'+ts+'">'+esc(c.name)+'</div>'+BKD+'<div class="bp" style="font-size:'+bs+'">'+esc(intro)+'</div><div class="bn">'+n+'</div></div>';
+}
+
 var cover=function(i,alt){return '<div class="card">'+'<img src="'+IMG+'cover/'+CATS[i].id+'.webp" alt="'+(alt||'')+'" decoding="async" draggable="false"></div>'};
 var open04=-1,sel04=-1,rev04=false,cur04=0,autoT=null,carVis=false,swiped=false;
 function render04(){
@@ -184,7 +192,7 @@ function showCard(c){
   var ci=catIdx(c.id);
   $('#dr05').classList.remove('flipped');$('#fl05').textContent='「看看它的另一面」';
   $('#dr05 .fr').innerHTML='<img src="'+IMG+'draw/'+c.id+'.webp" alt="'+c.name+'" decoding="async" draggable="false">';
-  $('#dr05 .bk').innerHTML=backHTML(ci);
+  $('#dr05 .bk').innerHTML=backCard(c);
   $('.blur-layer').style.setProperty('--bl','url("'+thumb(c.id)+'")');
   $('#pt05').textContent=c.name;$('#pi05').textContent=c.intro;$('#pc05').textContent=c.cat||'內在雙向';
 }
