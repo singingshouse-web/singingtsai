@@ -68,6 +68,17 @@ function build03(){
   for(var i=0;i<N;i++){var dd=m?13:9+Math.round(r()*7),dl=m?(i*13/N).toFixed(2):Math.round(r()*14);
     h+='<div class="bub" style="left:'+xs[i]+'%;--H:'+H+'px;--d:'+dd+'s;--dl:-'+dl+'s">'+TXT[i%TXT.length]+'</div>'}
   bb.innerHTML=h;
+  bb.querySelectorAll('.bub').forEach(function(e){e.innerHTML='<b>'+e.innerHTML+'</b>'});
+  fit03(bb);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit03(bb)});if(window.ResizeObserver){if(window.__ro03)window.__ro03.disconnect();window.__ro03=new ResizeObserver(function(){fit03(bb)});bb.querySelectorAll('.bub').forEach(function(e){window.__ro03.observe(e)})}
+}
+/* 氣泡形狀：沿用設計稿 SVG（圓角膠囊＋右下尾巴），寬度依文字自動延伸 */
+function fit03(bb){
+  bb.querySelectorAll('.bub').forEach(function(e){
+    var W=e.offsetWidth,Hh=e.offsetHeight;if(!W||!Hh)return;
+    var s=Hh/67.5,w=W/s,dx=w-231.3,old=e.querySelector('svg');if(old)old.remove();
+    var d='M'+(197.6+dx).toFixed(2)+',0H33.8C15.1,0,0,15.1,0,33.7h0c0,18.6,15.1,33.8,33.8,33.8h'+(135.7+dx).toFixed(2)+'c7.9,16.8,26.7,19.3,26.7,19.3-5.4-6.5-7.3-13.2-6.8-19.3h8.2c18.6,0,33.8-15.1,33.8-33.8h0c0-18.6-15.1-33.8-33.8-33.8Z';
+    e.insertAdjacentHTML('afterbegin','<svg aria-hidden="true" width="'+W+'" height="'+(86.8*s).toFixed(1)+'" viewBox="0 0 '+w.toFixed(2)+' 86.8"><path fill="#fff" d="'+d+'"/></svg>');
+  });
 }
 function up03(p,pe){
   var v=Math.round(1032197*easeIO(clamp((pe-.08)/.5)));if(RM)v=pe>.1?1032197:0;
