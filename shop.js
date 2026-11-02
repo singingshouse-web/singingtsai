@@ -165,7 +165,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open04>=0){
 
 /* ---------- 05 ---------- */
 var st=$('#st05'),u05=$('#u05'),cur=null,extra=0,y0=0,baseH=0;
-var lastBlk=[],RC=[],ringT=0,ringAnim=0,entered=false;
+var lastBlk=[],RC=[],ringT=0,ringAnim=0,entered=false,ringIdle=0;
 function ringBlur(sc,rot){
   var W=st.clientWidth,H=st.clientHeight,co=Math.cos(rot*Math.PI/180),si=Math.sin(rot*Math.PI/180);
   RC.forEach(function(o){var cx=W/2+(o.x*co-o.y*si)*sc,cy=H/2+(o.x*si+o.y*co)*sc,r=o.rad*sc,hit=false;
@@ -173,7 +173,7 @@ function ringBlur(sc,rot){
     if(o.hit!==hit){o.hit=hit;o.el.classList.toggle('bl',hit)}});
 }
 function ringScale(p){var m=isM();return RM?1:(m?1:1.15)-p*(m?.4:.45)}
-function ringRot(p){return RM?0:p*140}
+function ringRot(p){return RM?0:p*140+ringIdle}
 function ringFx(p){var sc=ringScale(p),rot=ringRot(p),rg=$('#ring05'),s2=st.dataset.state==='s2';
   rg.style.scale=s2?'':String(sc);rg.style.rotate=s2?'':rot.toFixed(1)+'deg';
   if(!s2)ringBlur(sc,rot)}
@@ -282,10 +282,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGo()});
 function playRing(){
   cancelAnimationFrame(ringAnim);st.classList.add('in');
   if(RM){ringT=1;ringFx(1);return}
-  var t0=performance.now(),D=2600;
-  (function f(t){var k=clamp((t-t0)/D);ringT=easeOut(k);ringFx(ringT);if(k<1)ringAnim=requestAnimationFrame(f)})(t0);
+  /* 進場 2.6 秒收攏後，環形牌卡持續緩慢旋轉（約 6°/秒） */
+  var t0=performance.now(),D=2600,SPD=6,last=t0;
+  (function f(t){var dt=Math.min(.05,(t-last)/1000),k=clamp((t-t0)/D);last=t;ringT=easeOut(k);
+    if(!document.hidden&&st.dataset.state!=='s2'){ringIdle+=dt*SPD*k;ringFx(ringT)}
+    ringAnim=requestAnimationFrame(f)})(t0);
 }
-function resetRing(){cancelAnimationFrame(ringAnim);ringT=0;st.classList.remove('in');ringFx(0)}
+function resetRing(){cancelAnimationFrame(ringAnim);ringT=0;ringIdle=0;st.classList.remove('in');ringFx(0)}
 if('IntersectionObserver' in window){
   new IntersectionObserver(function(es){var r=es[0].intersectionRatio;
     if(r>=.45&&!entered){entered=true;if(st.dataset.state==='s2')return;playRing()}

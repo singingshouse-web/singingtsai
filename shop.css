@@ -156,7 +156,7 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 @keyframes outM{to{transform:translateY(-14px);opacity:0}}
 .detail .f1{animation:inL 1s cubic-bezier(.22,1,.36,1) both}
 .detail .f2{animation:inR 1s cubic-bezier(.22,1,.36,1) both}
-.detail .mid{animation:fadeUp .9s .45s cubic-bezier(.22,1,.36,1) both}
+.detail .mid{animation:fadeUp .75s .08s cubic-bezier(.22,1,.36,1) both}
 .thumbs button{animation:popUp .9s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.6s + var(--j,0)*.14s)}
 @keyframes inL{from{transform:translateX(-45vw);opacity:0}30%{opacity:1}to{transform:none;opacity:1}}
 @keyframes inR{from{transform:translateX(45vw);opacity:0}30%{opacity:1}to{transform:none;opacity:1}}
