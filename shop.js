@@ -183,8 +183,7 @@ function computeBlk(){
   function add(r,pad){if(r&&r.width>0)lastBlk.push({l:r.left-sr.left-pad,t:r.top-sr.top-pad,r:r.right-sr.left+pad,b:r.bottom-sr.top+pad})}
   add(textRect($('.t05',st)),14);
   if(s==='s0'){add(textRect($('.s0text',st)),14);add($('#b05').getBoundingClientRect(),14)}
-  else if(s==='s1'){var dh=H*(m?.42:.46),dw=dh*750/1286,cy=H/2;
-    lastBlk.push({l:W/2-dw/2-26,t:cy-dh/2-26,r:W/2+dw/2+26,b:cy+dh/2+26});add($('#b05').getBoundingClientRect(),26)}
+  else if(s==='s1'){add($('#b05').getBoundingClientRect(),14)}
 }
 function buildRing(){
   var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='';
