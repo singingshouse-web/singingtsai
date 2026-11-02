@@ -250,6 +250,7 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 /* ---------- 06 ---------- */
 #u06{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;min-height:100svh;background:var(--bg-2)}
 #u06 .l{position:relative;overflow:hidden;background:var(--bg-2)}
+#u06 .l .fc .card{box-shadow:0 34px 80px rgba(30,24,40,.42),0 12px 28px rgba(30,24,40,.3),0 0 0 1px rgba(30,24,40,.06)}
 #u06 .l .fc{position:absolute;left:50%;top:50%;translate:-50% -50%;width:clamp(220px,20vw,400px);z-index:2}
 #u06 .r{display:grid;align-content:center;gap:22px;padding:calc(var(--nav-h) + 24px) max(24px,env(safe-area-inset-right,0px)) 48px clamp(24px,6vw,110px)}
 #u06 h2{font-size:clamp(32px,4.2vw,70px);line-height:1.3;text-wrap:balance}
