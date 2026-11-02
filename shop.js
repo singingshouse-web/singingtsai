@@ -58,7 +58,7 @@ function up02(p,pe){
   var c=$('#c02');c.style.scale=String(.94+.06*easeOut(clamp(p/.15)));c.style.opacity='1';
   var cs=clamp((H-c.getBoundingClientRect().top)/(H*.62)),v=Math.round(60*easeOut(cs));if(RM)v=cs>.5?60:0;
   $('#n02').textContent=(v<10?'0':'')+v;
-  $('#p02').style.opacity=String(clamp((p-.2)/.1));
+  $('#p02').style.opacity=String(clamp((cs-.1)/.7));
 }
 
 /* ---------- 03 ---------- */
