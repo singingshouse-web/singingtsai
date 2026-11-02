@@ -293,21 +293,29 @@ $('#ctaL').addEventListener('click',function(){track('shop_cta_line')});
 
 var R6=$$('#u06 .rv6');R6.forEach(function(e,i){e.style.setProperty('--k',i)});
 if('IntersectionObserver' in window){var r6=$('#u06 .r');new IntersectionObserver(function(es){es.forEach(function(en){if(en.intersectionRatio>=.3)r6.classList.add('in');else if(en.intersectionRatio<.05)r6.classList.remove('in')})},{threshold:[0,.05,.3]}).observe(r6)}else{$('#u06 .r').classList.add('in')}
-function up06(){
-  var r=$('#u06').getBoundingClientRect(),vh=innerHeight,s=clamp((vh-r.top)/vh),w=$('#w06'),H=w.clientHeight||vh;
-  $$('.col',w).forEach(function(c,i){c._s=(i%2?1:-1)*s*SP[i%SP.length]*.9*H;if(RM)c.style.transform='none'});
-}
+/* ---------- 06 左側三張輪播 ---------- */
+(function(){
+  var sl=$$('#l06 .sl06'),ds=$$('#sd06 button'),cur=0,tm=null,vis=false;
+  function go(i){cur=(i+sl.length)%sl.length;sl.forEach(function(e,k){e.classList.toggle('on',k===cur)});ds.forEach(function(e,k){e.classList.toggle('on',k===cur)})}
+  function arm(){clearInterval(tm);if(vis&&!RM&&!document.hidden)tm=setInterval(function(){go(cur+1)},4800)}
+  ds.forEach(function(b,k){b.addEventListener('click',function(){go(k);arm()})});
+  var x0=null,l=$('#l06');
+  l.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  l.addEventListener('touchend',function(e){if(x0==null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40){go(cur+(d<0?1:-1));arm()}},{passive:true});
+  document.addEventListener('visibilitychange',arm);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;arm()},{threshold:.25}).observe(l);else{vis=true;arm()}
+})();
 
 /* ---------- 牆的背景動態（不隨捲動，持續緩慢上下漂移） ---------- */
 function amb(now){
   if(!RM&&!document.hidden){var t=now/1000;
-    [['#wall02','#u02'],['#w06','#u06']].forEach(function(k){var w=$(k[0]),u=$(k[1]);if(!w||!w._cols||!u._vis)return;
+    [['#wall02','#u02']].forEach(function(k){var w=$(k[0]),u=$(k[1]);if(!w||!w._cols||!u._vis)return;
       w._cols.forEach(function(c,i){c.style.transform='translate3d(0,'+((c._s||0)+Math.sin(t*(.32+.07*(i%4))+i*1.9)*.09*w._H).toFixed(1)+'px,0)'})})}
   requestAnimationFrame(amb);
 }
 
 /* ---------- 迴圈 ---------- */
-var units=[{el:$('#u01'),pin:1,f:up01},{el:$('#u02'),pin:1,f:up02},{el:$('#u03'),pin:1,f:up03},{el:$('#u04'),pin:0},{el:$('#u05'),pin:1,f:up05},{el:$('#u06'),pin:0,f:up06}];
+var units=[{el:$('#u01'),pin:1,f:up01},{el:$('#u02'),pin:1,f:up02},{el:$('#u03'),pin:1,f:up03},{el:$('#u04'),pin:0},{el:$('#u05'),pin:1,f:up05},{el:$('#u06'),pin:0}];
 function prog(u){
   var r=u.el.getBoundingClientRect(),vh=u.pin?u.el.querySelector('.stage').offsetHeight:innerHeight;
   if(u.pin){var tot=r.height-vh;return tot>0?clamp(-r.top/tot):0}
@@ -338,12 +346,11 @@ addEventListener('scroll',req,{passive:true});
 var rz,lastW=innerWidth;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(innerWidth!==lastW){lastW=innerWidth;init(true)}},150)});
 
 function init(re){
-  build01();buildWall($('#wall02'),isM()?4:6,11,isM()?12:18);buildWall($('#w06'),4,5,isM()?10:18,310);
+  build01();buildWall($('#wall02'),isM()?4:6,11,isM()?12:18);
   build03();buildRing();render04();
   if(!re){
     if(/[?&]hud=1/.test(location.search)){hud=document.createElement('div');hud.className='hud';document.body.appendChild(hud)}
     requestAnimationFrame(function(){$('#u01').classList.add('play')});if(!RM)requestAnimationFrame(amb);
-    var rid=ALL[Math.floor(Math.random()*ALL.length)];$('#fc06 img').src=IMG+'draw/'+rid+'.webp';
     if('IntersectionObserver' in window)new IntersectionObserver(function(es){carVis=es[0].isIntersecting},{threshold:.2}).observe($('#s04'));
     if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){rev04=true;var g=$('#s04 .grid4');if(g)g.classList.add('in');o.disconnect()}},{threshold:.35}).observe($('#s04'))}else{rev04=true;var g0=$('#s04 .grid4');if(g0)g0.classList.add('in')}
   }
