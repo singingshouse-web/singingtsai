@@ -56,7 +56,7 @@ function up02(p,pe){
   var H=innerHeight;
   $$('#wall02 .col').forEach(function(c,i){c._s=(i%2?1:-1)*pe*SP[i%SP.length]*.9*H;if(RM)c.style.transform='none'});
   var c=$('#c02');c.style.scale=String(.94+.06*easeOut(clamp(p/.15)));c.style.opacity=String(clamp((pe-.25)/.2));
-  var v=Math.round(60*easeIO(clamp(p/.22)));if(RM)v=p>.05?60:0;
+  var h2=$('#u02').offsetHeight||1,pe1=H/h2+.22*(1-H/h2),v=Math.round(60*easeIO(clamp((pe-.27)/Math.max(.05,pe1-.27))));if(RM)v=pe>.3?60:0;
   $('#n02').textContent=(v<10?'0':'')+v;
   $('#p02').style.opacity=String(clamp((p-.2)/.1));
 }
@@ -67,7 +67,8 @@ function build03(){
   var bb=$('#bb03'),H=bb.clientHeight||300,r=rng(7),h='',xs=[6,34,60,20,72,46,10,78,52];
   var AV=[1,2,3,4,5,6,7,8,9]; // 頭像 9 款，每次載入亂數排列；之後換成真實購買人頭像時改這裡
   for(var k=AV.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=AV[k];AV[k]=AV[j];AV[j]=t}
-  for(var i=0;i<9;i++){h+='<div class="bub" style="left:'+xs[i]+'%;--H:'+H+'px;--d:'+(9+Math.round(r()*7))+'s;--dl:-'+Math.round(r()*14)+'s"><img class="av" src="./images/shop/avatar/a'+AV[i]+'.svg" alt="" width="42" height="42" decoding="async" draggable="false">'+TXT[i%TXT.length]+'</div>'}
+  var m=isM(),N=m?6:9;if(m)xs=[4,40,12,44,2,36];
+  for(var i=0;i<N;i++){var dd=m?13:9+Math.round(r()*7),dl=m?(i*13/N).toFixed(2):Math.round(r()*14);h+='<div class="bub" style="left:'+xs[i]+'%;--H:'+H+'px;--d:'+dd+'s;--dl:-'+dl+'s"><img class="av" src="./images/shop/avatar/a'+AV[i]+'.svg" alt="" width="42" height="42" decoding="async" draggable="false">'+TXT[i%TXT.length]+'</div>'}
   bb.innerHTML=h;
 }
 function up03(p,pe){
@@ -97,7 +98,7 @@ function render04(){
   }else{
     var c=CATS[open04];
     h='<div class="detail"><button class="xbtn" id="x04" type="button" aria-label="關閉">✕</button><div class="pair"><div class="f1">'+cover(open04,c.n+'牌面')+'</div><div class="mid"><h3>'+c.n+'</h3><div class="rule"><i>✦</i></div><p>'+c.t+'</p><div class="rule"><i>✦</i></div></div><div class="f2"><div class="card">'+backHTML(open04)+'</div></div></div><div class="thumbs">';
-    CATS.forEach(function(k,i){if(i!==open04)h+='<button type="button" style="--j:'+(i<open04?i:i-1)+'" data-i="'+i+'" aria-label="切換到'+k.n+'"><span class="lab dot">'+k.n+'</span>'+cover(i)+'</button>'});
+    CATS.forEach(function(k,i){var s=i===open04;h+='<button type="button"'+(s?' class="cur" aria-current="true"':'')+' style="--j:'+(s?0:(i<open04?i+1:i))+'" data-i="'+i+'" aria-label="'+(s?'目前：':'切換到')+k.n+'"><span class="lab '+(s?'sel':'dot')+'">'+k.n+'</span>'+cover(i)+'</button>'});
     h+='</div></div>';
   }
   el.innerHTML=h;
@@ -105,7 +106,7 @@ function render04(){
 $('#s04').addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   if(b.id==='x04'){var was=open04;sel04=-1;open04=-1;render04();var t=$('#s04 .tile[data-i="'+was+'"]');return}
-  if(b.dataset.i!=null){open04=+b.dataset.i;sel04=open04;render04();track('shop_cat_open',{cat:CATS[open04].k});var x=$('#x04');}
+  if(b.dataset.i!=null){if(+b.dataset.i===open04)return;open04=+b.dataset.i;sel04=open04;render04();track('shop_cat_open',{cat:CATS[open04].k});var x=$('#x04');}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open04>=0){sel04=-1;open04=-1;render04()}});
 
@@ -135,13 +136,13 @@ function computeBlk(){
 function buildRing(){
   var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='';
   if(st.dataset.state==='s0'||st.dataset.state==='s1')computeBlk();
-  var Rb=m?W*.62:Math.min(W*.34,H*.44),ys=m?1.25:1,n=12,w=Rb*(m?.3:.26),hh=w*1286/750;RC=[];
+  var Rb=m?Math.min(W*.55,H*.4):Math.min(W*.34,H*.44),ys=1,n=12,w=Rb*(m?.28:.26),hh=w*1286/750;RC=[];
   for(var i=0;i<n;i++){var a=i/n*Math.PI*2-Math.PI/2,x=Math.cos(a)*Rb,y=Math.sin(a)*Rb*ys;RC.push({x:x,y:y,rad:hh/2});
     h+='<div class="rc" style="width:'+w.toFixed(1)+'px;height:'+hh.toFixed(1)+'px;transform:translate('+(x-w/2).toFixed(1)+'px,'+(y-hh/2).toFixed(1)+'px) rotate('+(a*180/Math.PI+90).toFixed(1)+'deg)">'+imgTag(ids[i])+'</div>'}
   var rg=$('#ring05');rg.innerHTML=h;RC.forEach(function(o,i){o.el=rg.children[i]});
   ringFx(units&&units[4]?units[4].p||0:0);
 }
-function setState(s){st.dataset.state=s;if(s==='s0'||s==='s1'){computeBlk();ringFx(units&&units[4]?units[4].p||0:0)}}
+function setState(s){st.dataset.state=s;req();if(s==='s0'||s==='s1'){computeBlk();ringFx(units&&units[4]?units[4].p||0:0)}}
 function resetBlur(){st.classList.remove('blur');st.style.removeProperty('--e');st.style.removeProperty('--sh')}
 function showCard(c){
   var ci=catIdx(c.id);
@@ -275,6 +276,10 @@ function render(){
   var f05=ai===4&&$('#st05').dataset.state!=='s0',past=units[5].el.getBoundingClientRect().bottom<innerHeight*.6,endp=scrollY+innerHeight>=document.documentElement.scrollHeight-80;
   DOTS.classList.toggle('off',f05||past);HINT.classList.toggle('off',f05||past||ai===5||endp);
 }
+var NAV=$('nav'),ly=scrollY;
+function navScroll(){var y=scrollY,d=y-ly;if(Math.abs(d)<6)return;
+  if(y<80||d<0||mobOpen)NAV.classList.remove('hide');else NAV.classList.add('hide');ly=y}
+addEventListener('scroll',navScroll,{passive:true});
 function req(){if(!tick){tick=true;requestAnimationFrame(render)}}
 addEventListener('scroll',req,{passive:true});
 var rz,lastW=innerWidth;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(innerWidth!==lastW){lastW=innerWidth;init(true)}},150)});
