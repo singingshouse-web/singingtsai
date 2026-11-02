@@ -132,10 +132,12 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 .rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--ink)}
 .rule i{font-style:normal;padding:0 6px;font-size:16px}
 .mid p{font-size:clamp(17px,1.7vw,30px);line-height:1.6;white-space:pre-line}
-.thumbs{display:flex;justify-content:center;align-items:flex-end;gap:clamp(20px,3.5vw,64px);margin-top:clamp(20px,3svh,40px)}
+.thumbs{display:flex;justify-content:center;align-items:flex-end;gap:clamp(20px,3.5vw,64px);margin-top:calc(clamp(20px,3svh,40px) + var(--tw) * .7)}
 .thumbs button{background:none;border:0;padding:0;display:grid;gap:12px;justify-items:center}
-.thumbs .card{width:min(clamp(72px,7.5vw,150px),9.5svh)}
-.thumbs button.cur .card{width:min(clamp(96px,10.5vw,210px),13svh);rotate:-5deg}
+.thumbs{--tw:min(clamp(72px,7.5vw,150px),9.5svh);--sc:1.4}
+.thumbs .card{width:var(--tw);transform-origin:50% 100%}
+.thumbs button.cur .card{scale:var(--sc);rotate:-5deg}
+.thumbs button.cur .lab{translate:0 calc(var(--tw) * -.7)}
 .thumbs button.cur{cursor:default}
 .mb{display:none}
 .car{position:relative;display:flex;justify-content:center;touch-action:pan-y}
@@ -144,7 +146,8 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 .cnav{position:absolute;top:50%;translate:0 -50%;width:44px;height:72px;border:0;background:none;color:var(--ink);display:grid;place-items:center;cursor:pointer}
 .cnav.prev{left:0}.cnav.next{right:0}.cnav.next svg{rotate:180deg}
 .clab{text-align:center;margin-top:12px}
-.thumbs .card{transition:width .4s,rotate .4s}
+.thumbs .card{transition:scale .4s,rotate .4s}
+.thumbs .lab{transition:background .25s,color .25s,translate .4s}
 .pair.leave .f1{animation:outL .3s ease-in both}
 .pair.leave .f2{animation:outR .3s ease-in both}
 .pair.leave .mid{animation:outM .25s ease-in both}
@@ -170,9 +173,10 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
   .pair .f2{grid-area:1/2;justify-self:start;margin-left:-4vw;margin-top:5vw}
   .mid{grid-area:2/1/3/3;max-width:none;margin-top:12px}
   .mid h3{font-size:6.6vw}.rule{margin:8px 0}.mid p{font-size:15px;line-height:1.5}
-  .thumbs{gap:10px;margin-top:8px}
-  .thumbs .card,.thumbs button.cur .card{width:17vw}.thumbs button.cur .card{width:22vw}
-  .thumbs.home{margin-top:10px}
+  .thumbs{gap:10px;margin-top:calc(8px + var(--tw) * .52)}
+  .thumbs{--tw:17vw;--sc:1.3}
+  .thumbs button.cur .lab{translate:0 calc(var(--tw) * -.52)}
+  .thumbs.home{margin-top:calc(10px + var(--tw) * .52)}
   .thumbs button:not(.cur) .lab{display:none}
   .thumbs .lab{font-size:15px;padding:4px 14px;min-height:32px}
 }
