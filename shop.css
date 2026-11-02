@@ -276,3 +276,6 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
   #u01.play .ci{animation:none}.bub,.hint{animation:none}.tile .card{transition:none}
   .drawn,.panel,.acts,.ring,.blur-layer,.flipper{transition:none}
 }
+
+/* 目前只開放「心映好物」一個頁面：選單只剩一項，手機也直接顯示，不用漢堡 */
+@media (max-width:760px){body.shop .nav-links{display:flex!important}body.shop .hamburger{display:none!important}}

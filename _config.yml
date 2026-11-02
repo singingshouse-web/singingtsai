@@ -1,0 +1,4 @@
+# 暫停的頁面原檔放在 paused_pages/，不對外發布；要恢復時搬回根目錄並刪掉同名導向頁
+exclude:
+  - paused_pages
+  - README.md
