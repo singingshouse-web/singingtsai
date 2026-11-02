@@ -36,14 +36,15 @@ body:not(.kb) main :focus-visible{outline:none}
 .card img{width:100%;height:100%;object-fit:cover;display:block}
 .card.white{box-shadow:0 14px 40px rgba(51,51,51,.2)}
 
-/* 牌背（依類別） */
-.back{width:100%;height:100%;display:grid;place-content:center;justify-items:center;gap:.7em;text-align:center;color:#fff;
-  font-size:clamp(11px,1.15vw,17px);letter-spacing:.2em;padding-left:.2em;
-  background:radial-gradient(120% 90% at 50% 18%,rgba(255,255,255,.28),rgba(255,255,255,0) 60%),linear-gradient(165deg,var(--b1),var(--b2))}
-.back i{font-style:normal;font-size:2.4em;opacity:.9;letter-spacing:0}
-.back small{font-size:.82em;opacity:.8;letter-spacing:.3em}
-.back.bk0{--b1:#B79A9A;--b2:#8B615A}.back.bk1{--b1:#C9A98C;--b2:#9C7660}
-.back.bk2{--b1:#9AA2B3;--b2:#6B6F8C}.back.bk3{--b1:#9FB0A4;--b2:#647A71}
+/* 牌背（04 用匯出圖；05 依抽到的牌即時排版） */
+.flipper .card.bk{background:#F6F4F4;container-type:size}
+.bkc{position:absolute;inset:0;background:#fff;color:#1E3552;font-family:'Noto Sans TC',var(--font-cn),sans-serif;font-weight:300;border-radius:inherit;box-shadow:inset 0 0 0 3.1cqw #F6F4F4}
+.bkc .bh{position:absolute;left:0;top:5%;width:100%}
+.bkc .bl{position:absolute;top:10.85%;left:0;right:0;text-align:center;translate:0 -50%;font-size:4.5cqw;font-weight:400}
+.bkc .bt{position:absolute;left:8%;right:8%;top:15%;height:24%;display:grid;place-content:center;text-align:center;font-weight:400;line-height:1.25;text-wrap:balance}
+.bkc .bd{position:absolute;left:0;top:38.6%;width:100%}
+.bkc .bp{position:absolute;left:7%;right:7%;top:47%;height:38%;display:grid;place-content:center;text-align:center;line-height:1.62;white-space:pre-line;text-wrap:balance}
+.bkc .bn{position:absolute;left:50%;top:94.4%;width:8.8cqw;height:8.8cqw;translate:-50% -50%;border:1px solid #9AA7B4;border-radius:50%;display:grid;place-items:center;font-size:4cqw;color:#7B8FA3}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:16px;letter-spacing:.08em;text-decoration:none;white-space:nowrap;transition:background .25s,color .25s,transform .25s}
 .btn.dark{background:var(--ink);color:#fff}
