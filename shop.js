@@ -168,7 +168,7 @@ var st=$('#st05'),u05=$('#u05'),cur=null,extra=0,y0=0,baseH=0;
 var lastBlk=[],RC=[],ringT=0,ringAnim=0,entered=false,ringIdle=0;
 function ringBlur(sc,rot){
   var W=st.clientWidth,H=st.clientHeight,co=Math.cos(rot*Math.PI/180),si=Math.sin(rot*Math.PI/180);
-  RC.forEach(function(o){var cx=W/2+(o.x*co-o.y*si)*sc,cy=H/2+(o.x*si+o.y*co)*sc,r=o.rad*sc,hit=false;
+  RC.forEach(function(o){var cx=W/2+(o.x*co-o.y*si)*sc,cy=H/2+(o.x*si+o.y*co)*sc,r=o.rad*sc*.55,hit=false;
     lastBlk.forEach(function(q){if(cx+r>q.l&&cx-r<q.r&&cy+r>q.t&&cy-r<q.b)hit=true});
     if(o.hit!==hit){o.hit=hit;o.el.classList.toggle('bl',hit)}});
 }
@@ -181,9 +181,9 @@ function textRect(e){var rg=document.createRange();rg.selectNodeContents(e);retu
 function computeBlk(){
   var sr=st.getBoundingClientRect(),W=st.clientWidth,H=st.clientHeight,m=isM(),s=st.dataset.state;lastBlk=[];
   function add(r,pad){if(r&&r.width>0)lastBlk.push({l:r.left-sr.left-pad,t:r.top-sr.top-pad,r:r.right-sr.left+pad,b:r.bottom-sr.top+pad})}
-  add(textRect($('.t05',st)),14);
-  if(s==='s0'){add(textRect($('.s0text',st)),14);add($('#b05').getBoundingClientRect(),14)}
-  else if(s==='s1'){add($('#b05').getBoundingClientRect(),14)}
+  add(textRect($('.t05',st)),2);
+  if(s==='s0'){add(textRect($('.s0text',st)),2);add($('#b05').getBoundingClientRect(),2)}
+  else if(s==='s1'){add($('#b05').getBoundingClientRect(),2)}
 }
 function buildRing(){
   var W=st.clientWidth,H=st.clientHeight,m=isM(),ids=shuffle(ALL),h='';
