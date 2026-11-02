@@ -52,7 +52,7 @@ body:not(.kb) main :focus-visible{outline:none}
 
 /* ---------- 01 ---------- */
 #u01 .c{position:absolute;left:calc(var(--xn)*100%);top:calc(var(--yn)*100%);width:var(--cw);translate:-50% -50%;will-change:transform}
-#u01{--cw:11.5vw}
+#u01{--cw:min(11.5vw,17svh)}
 #u01 .ci{width:100%;rotate:var(--r);--ox:calc((var(--xn) - .5)*150vw);--oy:calc((var(--yn) - .5)*150vh)}
 #u01.play .ci{animation:cardIn 2.8s cubic-bezier(.06,.78,.16,1) both;animation-delay:calc(var(--i)*90ms)}
 #u01:not(.play) .ci{opacity:0}
@@ -73,7 +73,7 @@ body:not(.kb) main :focus-visible{outline:none}
 body.kb .dots button:focus-visible,body.kb .hint:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:50%}
 @media (max-width:760px){.dots{right:4px;gap:2px}.dots button{width:22px;height:22px}.dots button::before{width:7px;height:7px}.hint{width:38px;height:38px}}
 @keyframes nudge{50%{transform:translateY(8px)}}
-@media (max-width:760px){#u01{--cw:26vw}.hero-text h1{font-size:9.2vw}.hero-text .eb img{height:clamp(24px,7.4vw,34px)}}
+@media (max-width:760px){#u01{--cw:min(21vw,13svh)}.hero-text h1{font-size:9.2vw}.hero-text .eb img{height:clamp(24px,7.4vw,34px)}}
 
 /* ---------- 02 ---------- */
 .wall{position:absolute;inset:0}
@@ -223,7 +223,9 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
   .btn05{top:58%}
   #st05[data-state=s1] .drawn{height:42%;top:50%}
   #st05[data-state=s1] .btn05{top:80%}
-  #st05[data-state=s2] .drawn{height:60%;top:calc(var(--nav-h) + 56px);translate:-50% 0;z-index:2;opacity:calc(1 - var(--cf,0))}
+  #st05[data-state=s2] .drawn{height:60%;top:calc(var(--nav-h) + 56px);translate:-50% 0;z-index:2;transition:opacity .35s,scale .35s,left .8s cubic-bezier(.22,1,.36,1),top .8s cubic-bezier(.22,1,.36,1),height .8s cubic-bezier(.22,1,.36,1),translate .8s cubic-bezier(.22,1,.36,1)}
+  #st05.blur .drawn{opacity:0;scale:1.06}
+  .blur-layer{transition:opacity .35s}
   #st05[data-state=s2] .panel{left:16px;right:16px;top:22%;min-height:52svh;max-height:calc(100svh - 96px);overflow:auto;z-index:3;padding:52px 22px 28px;transform:translateY(calc((1 - var(--e,0))*64svh));opacity:1}
   #st05[data-state=s2] .acts{bottom:max(26px,env(safe-area-inset-bottom,0px));opacity:var(--sh,0);transition:none}
   #st05[data-state=s2] .acts .row{flex-wrap:nowrap}
@@ -250,7 +252,7 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
   #u06 .l{height:46svh}
   #u06 .l .fc{left:50%;translate:-50% -50%;width:32vw}
   #u06 .r{padding:28px 20px 56px;gap:16px}
-  #u06 .btns{flex-direction:column;align-items:center}#u06 .btns .btn{width:auto;min-width:58%}
+  #u06 .btns{flex-direction:column;align-items:center}#u06 .btns .btn{width:64%}
 }
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);translate:-50% 0;z-index:700;background:rgba(51,51,51,.92);color:#fff;padding:10px 16px;border-radius:8px;font:13px var(--font-cn,sans-serif);opacity:0;transition:opacity .2s;pointer-events:none;max-width:86vw;text-align:center}
 .toast.on{opacity:1}
