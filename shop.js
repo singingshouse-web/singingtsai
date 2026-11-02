@@ -112,6 +112,21 @@ function render04(){
   if(open04<0&&isM())setCur(cur04);
   auto();
 }
+var swT=null;
+function switch04(i){
+  var pair=$('#s04 .pair');if(!pair)return;
+  open04=sel04=cur04=i;track('shop_cat_open',{cat:CATS[i].k});
+  $$('#s04 .thumbs button').forEach(function(t){var s=+t.dataset.i===i,l=$('.lab',t);t.classList.toggle('cur',s);
+    if(s)t.setAttribute('aria-current','true');else t.removeAttribute('aria-current');
+    t.setAttribute('aria-label',(s?'目前：':'切換到')+CATS[+t.dataset.i].n);l.className='lab '+(s?'sel':'dot')});
+  clearTimeout(swT);
+  if(RM){fill();return}
+  pair.classList.add('leave');
+  swT=setTimeout(function(){fill();pair.classList.remove('leave')},300);
+  function fill(){var c=CATS[i];
+    $('#s04 .f1').innerHTML=cover(i,c.n+'牌面');$('#s04 .mid h3').textContent=c.n;$('#s04 .mid p').textContent=c.t;
+    $('#s04 .f2 .card').innerHTML=backHTML(i)}
+}
 function setCur(i){cur04=(i+CATS.length)%CATS.length;
   $$('#stk04 .sl').forEach(function(b){var r=(+b.dataset.i-cur04+CATS.length)%CATS.length;b.style.setProperty('--r',r);b.tabIndex=r?-1:0});
   var l=$('#clab04 .lab');if(l)l.textContent=CATS[cur04].n;
@@ -127,7 +142,7 @@ $('#s04').addEventListener('click',function(e){
   if(b.classList.contains('cnav')){setCur(cur04+(b.classList.contains('next')?1:-1));auto();return}
   if(b.classList.contains('sl')){if(swiped)return;var si=+b.dataset.i;if(si===cur04){open04=si;sel04=si;render04();track('shop_cat_open',{cat:CATS[si].k})}else{setCur(si);auto()}return}
   if(b.id==='x04'){var was=open04;cur04=was;sel04=-1;open04=-1;render04();var t=$('#s04 .tile[data-i="'+was+'"]');return}
-  if(b.dataset.i!=null){if(+b.dataset.i===open04)return;open04=+b.dataset.i;sel04=open04;render04();track('shop_cat_open',{cat:CATS[open04].k});var x=$('#x04');}
+  if(b.dataset.i!=null){if(+b.dataset.i===open04)return;if(open04>=0){switch04(+b.dataset.i);return}open04=+b.dataset.i;sel04=open04;render04();track('shop_cat_open',{cat:CATS[open04].k});var x=$('#x04');}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open04>=0){sel04=-1;open04=-1;render04()}});
 
