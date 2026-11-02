@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Newsreader:wght@800&family=Huninn&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="./shop.css?v=20261102h">
+<link rel="stylesheet" href="./shop.css?v=20261102i">
 </head>
 <body class="shop">
 <div id="cur"></div><div id="cur-ring"></div>
@@ -48,7 +48,7 @@
 
 <section class="unit pin cover" id="u03">
   <div class="stage">
-    <img class="outline" id="ol03" src="./images/shop/svg/1m-txt.svg" alt="" aria-hidden="true" width="694" height="159" decoding="async" draggable="false">
+    <div class="outline" id="ol03" aria-hidden="true">百萬成績</div>
     <div class="amount" role="img" aria-label="募資金額新台幣 1,032,197 元"><span class="cur">NT$</span><span id="am03">0</span></div>
     <div class="chip" id="ch03"><b>嘖嘖募資</b><span>達成 1,032%</span></div>
     <div class="bubbles" id="bb03" aria-hidden="true"></div>
@@ -131,6 +131,6 @@ let mobOpen=false;
 hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
 function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
 </script>
-<script src="./shop.js?v=20261102h"></script>
+<script src="./shop.js?v=20261102i"></script>
 </body>
 </html>
