@@ -64,11 +64,9 @@ function up02(p,pe){
 /* ---------- 03 ---------- */
 var TXT=['好美的牌卡','抽到的那張剛好說中我','收到的時候哭了','送給朋友她很喜歡','每一張都好溫柔','插畫好療癒','陪我度過低潮','值得收藏']; // 假留言，待換成真實購買人留言
 function build03(){
-  var bb=$('#bb03'),H=bb.clientHeight||300,r=rng(7),h='',xs=[6,34,60,20,72,46,10,78,52];
-  var AV=[1,2,3,4,5,6,7,8,9]; // 頭像 9 款，每次載入亂數排列；之後換成真實購買人頭像時改這裡
-  for(var k=AV.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=AV[k];AV[k]=AV[j];AV[j]=t}
-  var m=isM(),N=m?6:9;if(m)xs=[4,40,12,44,2,36];
-  for(var i=0;i<N;i++){var dd=m?13:9+Math.round(r()*7),dl=m?(i*13/N).toFixed(2):Math.round(r()*14);h+='<div class="bub" style="left:'+xs[i]+'%;--H:'+H+'px;--d:'+dd+'s;--dl:-'+dl+'s"><img class="av" src="./images/shop/avatar/a'+AV[i]+'.svg" alt="" width="42" height="42" decoding="async" draggable="false">'+TXT[i%TXT.length]+'</div>'}
+  var bb=$('#bb03'),H=bb.clientHeight||300,r=rng(7),h='',m=isM(),N=m?4:5,xs=m?[4,40,12,44]:[6,58,22,72,40];
+  for(var i=0;i<N;i++){var dd=m?13:9+Math.round(r()*7),dl=m?(i*13/N).toFixed(2):Math.round(r()*14);
+    h+='<div class="bub" style="left:'+xs[i]+'%;--H:'+H+'px;--d:'+dd+'s;--dl:-'+dl+'s">'+TXT[i%TXT.length]+'</div>'}
   bb.innerHTML=h;
 }
 function up03(p,pe){
