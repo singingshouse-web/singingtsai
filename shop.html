@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Newsreader:wght@800&family=Huninn&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="./shop.css?v=20261102l">
+<link rel="stylesheet" href="./shop.css?v=20261102n">
 </head>
 <body class="shop">
 <div id="cur"></div><div id="cur-ring"></div>
@@ -85,7 +85,12 @@
 </section>
 
 <section class="unit" id="u06">
-  <div class="l"><div id="w06" class="wall" aria-hidden="true"></div><div class="fc" id="fc06"><div class="card white"><img src="./images/shop/draw/A_10.webp" alt="擁抱情緒牌卡 內在雙向" decoding="async"></div></div></div>
+  <div class="l" id="l06" role="group" aria-roledescription="carousel" aria-label="牌卡在生活裡的樣子">
+    <img class="sl06 on" src="./images/shop/home/read.webp" alt="午後在家，一邊翻書一邊抽一張牌，貓咪在旁" style="--op:30% 56%;--od:42% 56%;--ms:1.45" decoding="async">
+    <img class="sl06" src="./images/shop/home/desk.webp" alt="書桌上的擁抱情緒牌卡與抽出的兩張牌" style="--op:44% 62%;--od:42% 57%;--ms:1.4" loading="lazy" decoding="async">
+    <img class="sl06" src="./images/shop/home/table.webp" alt="客廳小圓桌上攤開的三張牌卡" style="--op:32% 58%;--od:21% 54%;--ms:1.5" loading="lazy" decoding="async">
+    <div class="sd06" id="sd06"><button type="button" class="on" aria-label="第 1 張圖"></button><button type="button" aria-label="第 2 張圖"></button><button type="button" aria-label="第 3 張圖"></button></div>
+  </div>
   <div class="r">
     <h2 class="rv6">想讓這 60 張牌<br>在家陪你嗎？</h2>
     <p class="rv6">加入LINE好友享好友見面禮，折價券$100元。</p>
@@ -131,6 +136,6 @@ let mobOpen=false;
 hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
 function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
 </script>
-<script src="./shop.js?v=20261102l"></script>
+<script src="./shop.js?v=20261102n"></script>
 </body>
 </html>

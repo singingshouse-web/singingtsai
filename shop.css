@@ -247,10 +247,14 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 }
 
 /* ---------- 06 ---------- */
-#u06{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;min-height:100svh;background:var(--bg-2)}
+#u06{display:grid;grid-template-columns:44.7fr 55.3fr;min-height:100vh;min-height:100svh;background:var(--bg-2)}
 #u06 .l{position:relative;overflow:hidden;background:var(--bg-2)}
-#u06 .l .fc .card{box-shadow:0 34px 80px rgba(30,24,40,.42),0 12px 28px rgba(30,24,40,.3),0 0 0 1px rgba(30,24,40,.06)}
-#u06 .l .fc{position:absolute;left:50%;top:50%;translate:-50% -50%;width:clamp(220px,20vw,400px);z-index:2}
+#u06 .sl06{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--od);opacity:0;scale:1.05;transition:opacity 1.3s ease,scale 6.5s ease-out;user-select:none;-webkit-user-drag:none}
+#u06 .sl06.on{opacity:1;scale:1}
+#u06 .sd06{position:absolute;left:24px;bottom:24px;display:flex;gap:4px;z-index:2}
+#u06 .sd06 button{width:28px;height:28px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+#u06 .sd06 button::before{content:"";width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.62);box-shadow:0 0 0 1px rgba(30,24,40,.12);transition:background .3s,scale .3s}
+#u06 .sd06 button.on::before{background:#fff;scale:1.25}
 #u06 .r{display:grid;align-content:center;gap:22px;padding:calc(var(--nav-h) + 24px) max(24px,env(safe-area-inset-right,0px)) 48px clamp(24px,6vw,110px)}
 #u06 h2{font-size:clamp(32px,4.2vw,70px);line-height:1.3;text-wrap:balance}
 #u06 .r p{font-size:clamp(15px,1.5vw,24px);line-height:1.7;max-width:34em}
@@ -260,8 +264,8 @@ body.shop nav{transition:transform .38s cubic-bezier(.22,1,.36,1)}body.shop nav.
 #u06 .btns{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
 @media (max-width:760px){
   #u06{grid-template-columns:1fr}
-  #u06 .l{height:46svh}
-  #u06 .l .fc{left:50%;translate:-50% -50%;width:32vw}
+  #u06 .l{height:50svh}
+  #u06 .sl06{object-position:var(--op);transform-origin:var(--op);scale:calc(var(--ms) + .05)}#u06 .sl06.on{scale:var(--ms)}#u06 .sd06{left:16px;bottom:12px}
   #u06 .r{padding:28px 20px 56px;gap:16px}
   #u06 .btns{flex-direction:column;align-items:center}#u06 .btns .btn{width:64%}
 }
