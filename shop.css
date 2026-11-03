@@ -37,7 +37,7 @@ body:not(.kb) main :focus-visible{outline:none}
 .card.white{box-shadow:0 14px 40px rgba(51,51,51,.2)}
 
 /* 牌背（04 用匯出圖；05 依抽到的牌即時排版） */
-.flipper .card.bk{background:#F6F4F4;container-type:size}.flipper .card.bk>img{width:100%;height:100%;object-fit:cover;display:block}
+.flipper .card.bk{background:transparent;box-shadow:none;overflow:visible;container-type:size}.flipper .card.bk>img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 14px 22px rgba(51,51,51,.2))}
 .bkc{position:absolute;inset:0;background:#fff;color:#1E3552;font-family:'Noto Sans TC',var(--font-cn),sans-serif;font-weight:300;border-radius:inherit;box-shadow:inset 0 0 0 3.1cqw #F6F4F4}
 .bkc .bh{position:absolute;left:0;top:5%;width:100%}
 .bkc .bl{position:absolute;top:10.85%;left:0;right:0;text-align:center;translate:0 -50%;font-size:4.5cqw;font-weight:400}
