@@ -200,7 +200,7 @@ function showCard(c){
   var ci=catIdx(c.id);
   $('#dr05').classList.remove('flipped');$('#fl05').textContent='「看看它的另一面」';
   $('#dr05 .fr').innerHTML='<img src="'+IMG+'draw/'+c.id+'.webp" alt="'+c.name+'" decoding="async" draggable="false">';
-  $('#dr05 .bk').innerHTML=backCard(c);
+  (function(){var bk=$('#dr05 .bk');bk.innerHTML='<img src="'+IMG+'back/'+c.id+'.webp" alt="'+c.name+' 牌背" decoding="async" draggable="false">';bk.querySelector('img').onerror=function(){bk.innerHTML=backCard(c)}})();
   $('.blur-layer').style.setProperty('--bl','url("'+thumb(c.id)+'")');
   $('#pt05').textContent=c.name;$('#pi05').textContent=c.intro;$('#pc05').textContent=c.cat||'內在雙向';
 }
