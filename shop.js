@@ -80,11 +80,25 @@ function fit03(bb){
     e.insertAdjacentHTML('afterbegin','<svg aria-hidden="true" width="'+W+'" height="'+(86.8*s).toFixed(1)+'" viewBox="0 0 '+w.toFixed(2)+' 86.8"><path fill="#fff" d="'+d+'"/></svg>');
   });
 }
+/* 03：金額與「百萬成績」改為進場後以時間播放（不依賴捲動）；只有下方「嘖嘖」那行做捲動視差 */
+var u03=$('#u03'),am03=$('#am03'),ch03=$('#ch03'),cnt03=0,in03=false;
+function fmt03(v){am03.textContent=Math.round(v).toLocaleString('en-US')}
+function play03(){
+  cancelAnimationFrame(cnt03);u03.classList.add('in');
+  if(RM){fmt03(1032197);return}
+  var t0=performance.now(),D=2600;
+  (function f(t){var k=clamp((t-t0)/D);fmt03(1032197*easeIO(k));if(k<1)cnt03=requestAnimationFrame(f)})(t0);
+}
+function reset03(){cancelAnimationFrame(cnt03);u03.classList.remove('in');fmt03(0)}
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){var r=es[0].intersectionRatio;
+    if(r>=.45&&!in03){in03=true;play03()}else if(r<.02&&in03){in03=false;reset03()}
+  },{threshold:[0,.02,.45]}).observe(u03);
+}else{in03=true;play03()}
 function up03(p,pe){
-  var v=Math.round(1032197*easeIO(clamp((pe-.08)/.5)));if(RM)v=pe>.1?1032197:0;
-  $('#am03').textContent=v.toLocaleString('en-US');
-  $('#ol03').querySelectorAll('span').forEach(function(s,i){var o=RM?(pe>.55?1:0):easeOut(clamp((pe-.5-i*.065)/.13));s.style.opacity=String(o);s.style.transform=RM?'none':'translateY('+((1-o)*.5).toFixed(3)+'em) scale('+(.9+.1*o).toFixed(3)+')'});
-  $('#ch03').style.opacity=String(clamp((pe-.7)/.14));
+  var d=RM?0:clamp(u03.getBoundingClientRect().top/innerHeight,-1,1);
+  ch03.style.opacity=String(RM?1:clamp((pe-.55)/.35));
+  ch03.style.transform=d?'translateY('+(d*.16*innerHeight).toFixed(1)+'px)':'';
 }
 
 /* ---------- 04 ---------- */
